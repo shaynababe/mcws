@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import TableComponent from 'openmct.tables.components.Table';
-import DataProductTable from './DataProductTable.js';
+//import DataProductTable from './DataProductTable.js';
 
 export default class DataProductViewProvider {
     constructor(openmct) {

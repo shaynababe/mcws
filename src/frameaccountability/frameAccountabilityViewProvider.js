@@ -1,4 +1,4 @@
-import frameAccountability from './components/frameAccountability';
+//import frameAccountability from './components/frameAccountability';
 import BadFramesTelemetryTable from './BadFramesTelemetryTable';
 import Vue from 'vue';
 

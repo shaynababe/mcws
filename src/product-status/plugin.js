@@ -4,7 +4,7 @@ import DATDownloadCell from './DATDownloadCell.js';
 import EMDDownloadCell from './EMDDownloadCell.js';
 import EMDPreviewCell from './EMDPreviewCell.js';
 import TXTDownloadCell from './TXTDownloadCell.js';
-import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+//import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
 import DataProductAutoclear from './data-product-autoclear.vue';
 import TelemetryTableConfiguration from 'openmct.tables.TelemetryTableConfiguration';
 import DataProductViewActions from './DataProductViewActions.js';

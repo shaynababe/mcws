@@ -1,6 +1,6 @@
 import EVRViewProvider from './EVRViewProvider';
 import EVRViewLevelsConfigurationViewProvider from './EVRViewLevelsConfigurationViewProvider';
-import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
+//import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
 
 export default function EVRViewPlugin(options) {
     return function install(openmct) {

@@ -1,4 +1,4 @@
-import CommandEventsTable from './CommandEventsTable.js';
+//import CommandEventsTable from './CommandEventsTable.js';
 import TableComponent from 'openmct.tables.components.Table';
 import Vue from 'vue';
 

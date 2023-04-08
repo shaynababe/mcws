@@ -1,7 +1,7 @@
 import mcws from 'services/mcws/mcws';
 import DatasetCache from 'services/dataset/DatasetCache';
 import SessionURLHandler from './SessionURLHandler';
-import SessionLocalStorageHander from './SessionLocalStorageHandler';
+//import SessionLocalStorageHander from './SessionLocalStorageHandler';
 
 const ERROR_PREFIX = 'Error when notifying listener: ';
 

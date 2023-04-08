@@ -1,5 +1,5 @@
 import MessagesViewProvider from './MessagesViewProvider.js';
-import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+//import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
 
 export default function MessagesViewPlugin(options) {
     return function install(openmct) {

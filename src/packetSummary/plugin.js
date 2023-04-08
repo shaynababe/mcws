@@ -1,5 +1,5 @@
 import PacketSummaryViewProvider from './PacketSummaryViewProvider';
-import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+//import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
 
 export default function PacketSummaryPlugin() {
     return function install(openmct) {

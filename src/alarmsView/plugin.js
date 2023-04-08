@@ -1,7 +1,7 @@
 import AlarmsViewProvider from './AlarmsViewProvider';
 import AlarmsViewActions from './AlarmsViewActions';
 import AlarmsViewTimeoutComponent from './alarms-view-timeout.vue';
-import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
+//import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
 import TelemetryTableConfiguration from 'openmct.tables.TelemetryTableConfiguration';
 import Vue from 'vue';
 

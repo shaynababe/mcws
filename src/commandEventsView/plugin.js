@@ -1,5 +1,5 @@
 import CommandEventsViewProvider from './CommandEventsViewProvider.js';
-import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+//import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
 
 export default function CommandEventsViewPlugin() {
     return function install(openmct) {        

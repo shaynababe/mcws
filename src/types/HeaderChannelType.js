@@ -1,4 +1,4 @@
-import VISTAType from './VISTAType'
+//import VISTAType from './VISTAType'
 import HeaderChannelSourceType from './HeaderChannelSourceType'
 
 export default new VISTAType({

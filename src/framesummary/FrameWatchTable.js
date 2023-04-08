@@ -1,10 +1,10 @@
 import TelemetryTable from 'openmct.tables.TelemetryTable';
 import FrameWatchRowCollection from './FrameWatchRowCollection';
-import FrameWatchRow from './FrameWatchRow';
+//import FrameWatchRow from './FrameWatchRow';
 import EncodingWatchRow from './encodingwatch/EncodingWatchRow';
-import FrameWatchColumn from './FrameWatchColumn';
+//import FrameWatchColumn from './FrameWatchColumn';
 import { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE, config } from './config';
-import Types from '../types/types.js';
+//import Types from '../types/types.js';
 
 
 export default class FrameWatchTable extends TelemetryTable {

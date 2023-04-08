@@ -1,7 +1,7 @@
 import { CHANNEL_TABLE_KEY, CHANNEL_TABLE_NAME, CHANNEL_TABLE_ICON, CHANNEL_KEY } from '../constants';
 import ChannelTableViewProvider from './ChannelTableViewProvider';
-import ChannelTableFormatViewProvider from './ChannelTableFormatViewProvider';
-import VistaTableConfigurationProvider from '../../tables/VistaTableConfigurationProvider';
+//import ChannelTableFormatViewProvider from './ChannelTableFormatViewProvider';
+//import VistaTableConfigurationProvider from '../../tables/VistaTableConfigurationProvider';
 
 export default function install() {
     return function ChannelTablePlugin(openmct) {

@@ -1,4 +1,4 @@
-import ChannelTable from './ChannelTable';
+//import ChannelTable from './ChannelTable';
 import TableComponent from 'openmct.tables.components.Table';
 import Vue from 'vue';
 

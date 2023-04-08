@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import TelemetryTable from 'openmct.tables.TelemetryTable';
-import AlarmsViewRowCollection from './AlarmsViewRowCollection';
+//import AlarmsViewRowCollection from './AlarmsViewRowCollection';
 import AlarmsViewHistoricalContextTableRow from './AlarmsViewHistoricalContextTableRow';
 import Types from 'types/types';
 
