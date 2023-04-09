@@ -14,6 +14,7 @@ export default function CommandEventsViewPlugin() {
                     filters: {}
                 };
             }
+
         });
 
         openmct.objectViews.addProvider(new CommandEventsViewProvider(openmct));

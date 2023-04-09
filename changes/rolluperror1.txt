@@ -1,0 +1,639 @@
+
+[!] RollupError: Unexpected token (Note that you need plugins to import files that are not JavaScript)
+src/packetSummary/components/PacketSummaryViewComponent.vue.component.scss (2:0)
+1: 
+2: .c-table {
+   ^
+3:     display: flex;
+4:     flex-direction: column;
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.tryParse (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14497:25)
+    at Module.setSource (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14107:39)
+    at ModuleLoader.addModuleSource (/usr/lib/node_modules/rollup/dist/shared/rollup.js:24072:20)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ npm i rollup-plugin-scss
+npm ERR! Cannot read properties of null (reading 'matches')
+
+npm ERR! A complete log of this run can be found in: /home/z/.npm/_logs/2023-04-08T22_33_06_818Z-debug-0.log
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+[!] Error: Cannot find package '@rollup/plugin-scss' imported from /home/z/code/z/openmct-mcws/rollup.config.js
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@rollup/plugin-scss' imported from /home/z/code/z/openmct-mcws/rollup.config.js
+    at new NodeError (node:internal/errors:399:5)
+    at packageResolve (node:internal/modules/esm/resolve:889:9)
+    at moduleResolve (node:internal/modules/esm/resolve:938:20)
+    at defaultResolve (node:internal/modules/esm/resolve:1153:11)
+    at nextResolve (node:internal/modules/esm/loader:163:28)
+    at ESMLoader.resolve (node:internal/modules/esm/loader:838:30)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:424:18)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:77:40)
+    at link (node:internal/modules/esm/module_job:76:36)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+[!] Error: Cannot find package '@rollup/plugin-scss' imported from /home/z/code/z/openmct-mcws/rollup.config.js
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@rollup/plugin-scss' imported from /home/z/code/z/openmct-mcws/rollup.config.js
+    at new NodeError (node:internal/errors:399:5)
+    at packageResolve (node:internal/modules/esm/resolve:889:9)
+    at moduleResolve (node:internal/modules/esm/resolve:938:20)
+    at defaultResolve (node:internal/modules/esm/resolve:1153:11)
+    at nextResolve (node:internal/modules/esm/loader:163:28)
+    at ESMLoader.resolve (node:internal/modules/esm/loader:838:30)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:424:18)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:77:40)
+    at link (node:internal/modules/esm/module_job:76:36)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ 
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+[!] Error: Cannot find package 'rollup-plugin-scss' imported from /home/z/code/z/openmct-mcws/rollup.config.js
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'rollup-plugin-scss' imported from /home/z/code/z/openmct-mcws/rollup.config.js
+    at new NodeError (node:internal/errors:399:5)
+    at packageResolve (node:internal/modules/esm/resolve:889:9)
+    at moduleResolve (node:internal/modules/esm/resolve:938:20)
+    at defaultResolve (node:internal/modules/esm/resolve:1153:11)
+    at nextResolve (node:internal/modules/esm/loader:163:28)
+    at ESMLoader.resolve (node:internal/modules/esm/loader:838:30)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:424:18)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:77:40)
+    at link (node:internal/modules/esm/module_job:76:36)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ pnpm i rollup-plugin-scss
+Packages: +1
++
+Progress: resolved 589, reused 587, downloaded 1, added 1, done
+
+dependencies:
++ rollup-plugin-scss 4.0.0
+
+The integrity of 8376 files was checked. This might have caused installation to take longer.
+Done in 3.4s
+/AlarmsViewProvider.js", "src/channelTable/channelTablePlugin/ChannelTableViewProvider.js", "src/packetSummary/
+[!] RollupError: "default" is not exported by "src/types/VISTAType.js", imported by "src/types/HeaderChannelSourceType.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/types/HeaderChannelSourceType.js (1:7)
+1: import VISTAType from './VISTAType'
+          ^
+2: 
+3: export default new VISTAType({
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+    at ExportDefaultDeclaration.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+    at Program.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6243:28)
+    at Module.bindReferences (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13816:18)
+    at Graph.sortModules (/usr/lib/node_modules/rollup/dist/shared/rollup.js:25202:20)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/types/VISTAType.js", imported by "src/types/HeaderChannelType.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/types/HeaderChannelType.js (1:7)
+1: import VISTAType from './VISTAType'
+          ^
+2: import HeaderChannelSourceType from './HeaderChannelSourceType'
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+    at ExportDefaultDeclaration.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+    at Program.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6243:28)
+    at Module.bindReferences (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13816:18)
+    at Graph.sortModules (/usr/lib/node_modules/rollup/dist/shared/rollup.js:25202:20)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/services/session/SessionLocalStorageHandler.js", imported by "src/services/session/SessionService.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/services/session/SessionService.js (4:7)
+2: import DatasetCache from 'services/dataset/DatasetCache';
+3: import SessionURLHandler from './SessionURLHandler';
+4: import SessionLocalStorageHander from './SessionLocalStorageHandler';
+          ^
+5: 
+6: const ERROR_PREFIX = 'Error when notifying listener: ';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ReturnValueScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+/DatasetCache.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/services/dataset/DatasetCache.js (1:7)
+1: import Dataset from './Dataset'
+          ^
+2: import mcwsClient from 'services/mcws/MCWSClient';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at TrackingScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/product-status/DataProductTable.js", imported by "src/product-status/DataProductViewProvider.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/product-status/DataProductViewProvider.js (3:7)
+1: import Vue from 'vue';
+2: import TableComponent from 'openmct.tables.components.Table';
+3: import DataProductTable from './DataProductTable.js';
+          ^
+4: 
+5: export default class DataProductViewProvider {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/product-status/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/product-status/plugin.js (7:7)
+5: import EMDPreviewCell from './EMDPreviewCell.js';
+6: import TXTDownloadCell from './TXTDownloadCell.js';
+7: import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+          ^
+8: import DataProductAutoclear from './data-product-autoclear.vue';
+9: import TelemetryTableConfiguration from 'openmct.tables.TelemetryTableConfiguration';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/packetSummary/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/packetSummary/plugin.js (2:7)
+1: import PacketSummaryViewProvider from './PacketSummaryViewProvider';
+2: import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+          ^
+3: 
+4: export default function PacketSummaryPlugin() {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/packetQuery/MCWSURLBuilder.js", imported by "src/packetQuery/components/PacketQueryView.vue".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/packetQuery/components/PacketQueryView.vue (10:7)
+ 8: </template>
+ 9: <script>
+10: import MCWSURLBuilder from '../MCWSURLBuilder';
+           ^
+11: 
+12: const FILTER_SUFFIX = "Filter";
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+    at VariableDeclarator.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+    at VariableDeclaration.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6243:28)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/messagesView/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/messagesView/plugin.js (2:7)
+1: import MessagesViewProvider from './MessagesViewProvider.js';
+2: import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+          ^
+3: 
+4: export default function MessagesViewPlugin(options) {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/types/ChannelType.js", imported by "src/messageStreamProcessor/MessageStreamProcessor.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/messageStreamProcessor/MessageStreamProcessor.js (1:7)
+1: import ChannelType from '../types/ChannelType';
+          ^
+2: import DatasetCache from 'services/dataset/DatasetCache';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ReturnValueScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/framesummary/FrameWatchColumn.js", imported by "src/framesummary/FrameWatchTable.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/framesummary/FrameWatchTable.js (5:7)
+3: import FrameWatchRow from './FrameWatchRow';
+4: import EncodingWatchRow from './encodingwatch/EncodingWatchRow';
+5: import FrameWatchColumn from './FrameWatchColumn';
+          ^
+6: import { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE, config } from './config';
+7: import Types from '../types/types.js';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ReturnValueScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/types/types.js", imported by "src/framesummary/FrameWatchTable.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/framesummary/FrameWatchTable.js (7:7)
+5: //import FrameWatchColumn from './FrameWatchColumn';
+6: import { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE, config } from './config';
+7: import Types from '../types/types.js';
+          ^
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ReturnValueScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/framesummary/FrameWatchColumn.js", imported by "src/framesummary/FrameWatchTableConfiguration.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/framesummary/FrameWatchTableConfiguration.js (3:7)
+1: import TelemetryTableConfiguration from 'openmct.tables.TelemetryTableConfiguration';
+2: import { config } from './config';
+3: import FrameWatchColumn from './FrameWatchColumn';
+          ^
+4: 
+5: export default class FrameWatchTableConfiguration extends TelemetryTableConfiguration {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ReturnValueScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/framesummary/FrameWatchColumn.js", imported by "src/framesummary/FrameWatchTableConfiguration.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/framesummary/FrameWatchTableConfiguration.js (3:7)
+1: import TelemetryTableConfiguration from 'openmct.tables.TelemetryTableConfiguration';
+2: import { config } from './config';
+3: import FrameWatchColumn from './FrameWatchColumn';
+          ^
+4: 
+5: export default class FrameWatchTableConfiguration extends TelemetryTableConfiguration {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ReturnValueScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/frameaccountability/components/frameAccountability.js", imported by "src/frameaccountability/frameAccountabilityViewProvider.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/frameaccountability/frameAccountabilityViewProvider.js (1:7)
+1: import frameAccountability from './components/frameAccountability';
+          ^
+2: import BadFramesTelemetryTable from './BadFramesTelemetryTable';
+3: import Vue from 'vue';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/evrView/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/evrView/plugin.js (3:7)
+1: import EVRViewProvider from './EVRViewProvider';
+2: import EVRViewLevelsConfigurationViewProvider from './EVRViewLevelsConfigurationViewProvider';
+3: import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
+          ^
+4: 
+5: export default function EVRViewPlugin(options) {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/commandEventsView/CommandEventsTable.js", imported by "src/commandEventsView/CommandEventsViewProvider.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/commandEventsView/CommandEventsViewProvider.js (1:7)
+1: import CommandEventsTable from './CommandEventsTable.js';
+          ^
+2: import TableComponent from 'openmct.tables.components.Table';
+3: import Vue from 'vue';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/commandEventsView/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/commandEventsView/plugin.js (2:7)
+1: import CommandEventsViewProvider from './CommandEventsViewProvider.js';
+2: import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+          ^
+3: 
+4: export default function CommandEventsViewPlugin() {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/channelTable/channelTablePlugin/ChannelTable.js", imported by "src/channelTable/channelTablePlugin/ChannelTableViewProvider.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/channelTable/channelTablePlugin/ChannelTableViewProvider.js (1:7)
+1: import ChannelTable from './ChannelTable';
+          ^
+2: import TableComponent from 'openmct.tables.components.Table';
+3: import Vue from 'vue';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/channelTable/channelTablePlugin/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/channelTable/channelTablePlugin/plugin.js (4:7)
+2: import ChannelTableViewProvider from './ChannelTableViewProvider';
+3: import ChannelTableFormatViewProvider from './ChannelTableFormatViewProvider';
+4: import VistaTableConfigurationProvider from '../../tables/VistaTableConfigurationProvider';
+          ^
+5: 
+6: export default function install() {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/channelTable/channelTablePlugin/ChannelTableFormatViewProvider.js", imported by "src/channelTable/channelTablePlugin/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/channelTable/channelTablePlugin/plugin.js (3:7)
+1: import { CHANNEL_TABLE_KEY, CHANNEL_TABLE_NAME, CHANNEL_TABLE_ICON, CHANNEL_KEY } from '../constants';
+2: import ChannelTableViewProvider from './ChannelTableViewProvider';
+3: import ChannelTableFormatViewProvider from './ChannelTableFormatViewProvider';
+          ^
+4: //import VistaTableConfigurationProvider from '../../tables/VistaTableConfigurationProvider';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/channelTable/channelTablePlugin/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/channelTable/channelTablePlugin/plugin.js (4:7)
+2: import ChannelTableViewProvider from './ChannelTableViewProvider';
+3: //import ChannelTableFormatViewProvider from './ChannelTableFormatViewProvider';
+4: import VistaTableConfigurationProvider from '../../tables/VistaTableConfigurationProvider';
+          ^
+5: 
+6: export default function install() {
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/channelTable/channelTablePlugin/ChannelTableFormatViewProvider.js", imported by "src/channelTable/channelTablePlugin/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/channelTable/channelTablePlugin/plugin.js (3:7)
+1: import { CHANNEL_TABLE_KEY, CHANNEL_TABLE_NAME, CHANNEL_TABLE_ICON, CHANNEL_KEY } from '../constants';
+2: import ChannelTableViewProvider from './ChannelTableViewProvider';
+3: import ChannelTableFormatViewProvider from './ChannelTableFormatViewProvider';
+          ^
+4: //import VistaTableConfigurationProvider from '../../tables/VistaTableConfigurationProvider';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/alarmsView/AlarmsViewRowCollection.js", imported by "src/alarmsView/AlarmsTable.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/alarmsView/AlarmsTable.js (3:7)
+1: import _ from 'lodash';
+2: import TelemetryTable from 'openmct.tables.TelemetryTable';
+3: import AlarmsViewRowCollection from './AlarmsViewRowCollection';
+          ^
+4: import AlarmsViewHistoricalContextTableRow from './AlarmsViewHistoricalContextTableRow';
+5: import Types from 'types/types';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ClassBodyScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+[!] RollupError: "default" is not exported by "src/tables/VistaTableConfigurationProvider.js", imported by "src/alarmsView/plugin.js".
+https://rollupjs.org/troubleshooting/#error-name-is-not-exported-by-module
+src/alarmsView/plugin.js (4:7)
+2: import AlarmsViewActions from './AlarmsViewActions';
+3: import AlarmsViewTimeoutComponent from './alarms-view-timeout.vue';
+4: import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
+          ^
+5: import TelemetryTableConfiguration from 'openmct.tables.TelemetryTableConfiguration';
+6: import Vue from 'vue';
+    at error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:274:30)
+    at Module.error (/usr/lib/node_modules/rollup/dist/shared/rollup.js:13820:16)
+    at Module.traceVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:14205:29)
+    at ModuleScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:12708:39)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at FunctionScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at ChildScope.findVariable (/usr/lib/node_modules/rollup/dist/shared/rollup.js:7451:38)
+    at Identifier.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:8601:40)
+    at NewExpression.bind (/usr/lib/node_modules/rollup/dist/shared/rollup.js:6247:23)
+
+
+(base) z@spin7:~/code/z/openmct-mcws$ rollup -c rollup.config.js
+
+created distvue2 in 3s
+(base) z@spin7:~/code/z/openmct-mcws$ 

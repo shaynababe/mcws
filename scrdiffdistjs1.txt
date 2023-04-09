@@ -1,0 +1,4502 @@
+Only in src/actionModifiers/ImportExportWithDatasets: ImportWithDatasetsFormComponent.vue
+diff -r src/actionModifiers/ImportExportWithDatasets/importWithDatasetsModifier.js distjs1/actionModifiers/ImportExportWithDatasets/importWithDatasetsModifier.js
+1,2c1
+< import ImportWithDatasetsFormComponent from './ImportWithDatasetsFormComponent.vue';
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../../vue.runtime.esm-15b08281.js';
+4a4,114
+> var ImportWithDatasetsFormComponent = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"form-control"},[(_vm.hasImport)?_c('span',{staticClass:"field control",class:_vm.model.cssClass},[(!_vm.hasReferencedDatasets)?_c('div',[_vm._v("\n            "+_vm._s(_vm.noDatasetMappingRequiredText)+"\n        ")]):(_vm.hasOneToOneMapping)?_c('div',[_vm._v("\n            "+_vm._s(_vm.noDatasetMappingRequiredText)+"\n        ")]):(_vm.hasReferencedDatasets && !_vm.hasDatasets)?_c('div',[_vm._v("\n            "+_vm._s(_vm.noDatasetsText)+"\n        ")]):[_c('div',[_vm._v("\n                "+_vm._s(_vm.mappingInstructionsText)+"\n            ")]),_vm._v(" "),_c('div',{staticClass:"c-form--sub-grid"},_vm._l((_vm.referencedDatasets),function(referencedDataset){return _c('div',{key:_vm.makeKeyString(referencedDataset),staticClass:"c-form__row"},[_c('span',{staticClass:"req-indicator req"}),_vm._v(" "),_c('label',[_vm._v(_vm._s(_vm.getDatasetName(referencedDataset)))]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.mapping[_vm.makeKeyString(referencedDataset)]),expression:"mapping[makeKeyString(referencedDataset)]"}],staticClass:"field control select-field",on:{"change":[function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.mapping, _vm.makeKeyString(referencedDataset), $event.target.multiple ? $$selectedVal : $$selectedVal[0]);},_vm.onChange]}},_vm._l((_vm.datasetOptions),function(option){return _c('option',{key:option.value,domProps:{"value":option.value,"selected":option.value === _vm.mapping[_vm.makeKeyString(referencedDataset)]}},[_vm._v("\n                            "+_vm._s(option.name)+"\n                        ")])}),0)])}),0)]],2):_vm._e()])},
+> staticRenderFns: [],
+>     inject: ['openmct'],
+>     props: {
+>         model: {
+>             type: Object,
+>             required: true
+>         },
+>         datasets: {
+>             type: Array,
+>             default: undefined
+>         },
+>         referencedDatasets: {
+>             type: Array,
+>             default: undefined
+>         },
+>         hasImport: {
+>             type: Boolean,
+>             required: true
+>         }
+>     },
+>     computed: {
+>         noDatasetMappingRequiredText() {
+>             return 'All set. The import does not need dataset mapping.';
+>         },
+>         noDatasetsText() {
+>             return 'The import contains references to datasets that need to be mapped to an existing dataset. Create a dataset before importing.';
+>         },
+>         mappingInstructionsText() {
+>             return 'For each referenced dataset on the left, select an existing dataset on the right.';
+>         },
+>         hasReferencedDatasets() {
+>             return this.referencedDatasets?.length > 0;
+>         },
+>         hasDatasets() {
+>             return this.datasets?.length > 0;
+>         },
+>         datasetOptions() {
+>             return this.datasets.map(dataset => {
+>                 const keyString = this.makeKeyString(dataset);
+>                 const name = this.getDatasetName(dataset);
+> 
+>                 return {
+>                     name: name,
+>                     value: keyString
+>                 };
+>             });
+>         },
+>         hasOneToOneMapping() {
+>             return this.datasets?.length === 1
+>                 && this.referencedDatasets?.length === 1;
+>         },
+>     },
+>     data() {
+>         return {
+>             mapping: {}
+>         };
+>     },
+>     watch: {
+>         hasImport() {
+>             this.onHasImport();
+>         }
+>     },
+>     mounted() {
+>         this.data = {
+>             model: {
+>                 key: this.model.key,
+>                 property: this.model.property
+>             },
+>             value: this.mapping
+>         };
+>     },
+>     methods: {
+>         onHasImport() {
+>             this.buildMapping();
+>             this.onChange();
+>         },
+>         buildMapping() {
+>             this.referencedDatasets?.forEach(referencedDataset => {
+>                 const referencedDatasetKeyString = this.makeKeyString(referencedDataset);
+>                 const datasetKeyString = this.makeKeyString(this.datasets[0]);
+> 
+>                 this.$set(this.mapping, referencedDatasetKeyString, datasetKeyString);
+>             });
+>         },
+>         makeKeyString(domainObject) {
+>             return this.openmct.objects.makeKeyString(domainObject.identifier);
+>         },
+>         getDatasetName(dataset) {
+>             const keyString = this.makeKeyString(dataset);
+>             const name = dataset.name || keyString;
+> 
+>             return name;
+>         },
+>         onChange(event) {
+>             this.validate();
+> 
+>             this.$emit('onChange', this.data);
+>         },
+>         validate() {
+>             this.model.validate(this.data, () => {
+>                 if (this.hasReferencedDatasets) {
+>                     return this.hasDatasets;
+>                 }
+> 
+>                 return true;
+>             });
+>         }
+>     }
+> };
+146c256
+<                             this.hasImport = true
+---
+>                             this.hasImport = true;
+199c309
+< export default importWithDatasetsModifier;
+---
+> export { importWithDatasetsModifier as default };
+diff -r src/actionModifiers/plugin.js distjs1/actionModifiers/plugin.js
+1,2c1,4
+< import preventImportIntoDatasetModifier from './preventImportIntoDatasetModifier';
+< import importWithDatasetsModifier from './ImportExportWithDatasets/importWithDatasetsModifier';
+---
+> import importFromJSONModifier from './preventImportIntoDatasetModifier.js';
+> import importWithDatasetsModifier from './ImportExportWithDatasets/importWithDatasetsModifier.js';
+> import '../vue.runtime.esm-15b08281.js';
+> import 'services/dataset/DatasetCache';
+7c9
+<             preventImportIntoDatasetModifier(openmct);
+---
+>             importFromJSONModifier(openmct);
+13c15
+< export default ImportExportWithDatasetsPlugin;
+---
+> export { ImportExportWithDatasetsPlugin as default };
+diff -r src/actionModifiers/preventImportIntoDatasetModifier.js distjs1/actionModifiers/preventImportIntoDatasetModifier.js
+1d0
+< 
+21c20
+<         }
+---
+>         };
+25c24
+< export default importFromJSONModifier;
+---
+> export { importFromJSONModifier as default };
+diff -r src/alarmsView/AlarmsTable.js distjs1/alarmsView/AlarmsTable.js
+1c1
+< import _ from 'lodash';
+---
+> import { l as lodashExports } from '../lodash-3c3e13ab.js';
+3,4c3
+< //import AlarmsViewRowCollection from './AlarmsViewRowCollection';
+< import AlarmsViewHistoricalContextTableRow from './AlarmsViewHistoricalContextTableRow';
+---
+> import AlarmsViewHistoricalContextTableRow from './AlarmsViewHistoricalContextTableRow.js';
+5a5,7
+> import '../_commonjsHelpers-76cdd49e.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/dataset/DatasetCache';
+7,8c9
+< 
+< export default class AlarmsTable extends TelemetryTable {
+---
+> class AlarmsTable extends TelemetryTable {
+57c58
+<         let autoClearTimeout = _.get(this.domainObject, 'configuration.autoClearTimeout');
+---
+>         let autoClearTimeout = lodashExports.get(this.domainObject, 'configuration.autoClearTimeout');
+75a77,78
+> 
+> export { AlarmsTable as default };
+diff -r src/alarmsView/AlarmsViewActions.js distjs1/alarmsView/AlarmsViewActions.js
+30c30
+< export default viewActions;
+---
+> export { viewActions as default };
+diff -r src/alarmsView/AlarmsViewHistoricalContextTableRow.js distjs1/alarmsView/AlarmsViewHistoricalContextTableRow.js
+4c4
+< export default class AlarmsViewHistoricalContextTableRow extends TelemetryTableRow {
+---
+> class AlarmsViewHistoricalContextTableRow extends TelemetryTableRow {
+17c17
+<         }
+---
+>         };
+29a30,31
+> 
+> export { AlarmsViewHistoricalContextTableRow as default };
+diff -r src/alarmsView/AlarmsViewProvider.js distjs1/alarmsView/AlarmsViewProvider.js
+1c1
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+3a4,10
+> import '../lodash-3c3e13ab.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+> import 'openmct.tables.TelemetryTable';
+> import './AlarmsViewHistoricalContextTableRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/dataset/DatasetCache';
+> import 'types/types';
+5c12
+< export default class AlarmsViewProvider {
+---
+> class AlarmsViewProvider {
+92a100,101
+> 
+> export { AlarmsViewProvider as default };
+diff -r src/alarmsView/AlarmsViewRowCollection.js distjs1/alarmsView/AlarmsViewRowCollection.js
+45c45
+<                 })
+---
+>                 });
+Only in src/alarmsView: alarms-view-timeout.vue
+diff -r src/alarmsView/plugin.js distjs1/alarmsView/plugin.js
+1,4c1,2
+< import AlarmsViewProvider from './AlarmsViewProvider';
+< import AlarmsViewActions from './AlarmsViewActions';
+< import AlarmsViewTimeoutComponent from './alarms-view-timeout.vue';
+< //import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider';
+---
+> import AlarmsViewProvider from './AlarmsViewProvider.js';
+> import viewActions from './AlarmsViewActions.js';
+6c4,13
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'openmct.tables.components.Table';
+> import './AlarmsTable.js';
+> import '../lodash-3c3e13ab.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+> import 'openmct.tables.TelemetryTable';
+> import './AlarmsViewHistoricalContextTableRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/dataset/DatasetCache';
+> import 'types/types';
+8c15,48
+< export default function AlarmsViewPlugin() {
+---
+> var AlarmsViewTimeoutComponent = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.isEditing)?_c('div',{staticClass:"c-properties"},[_c('div',{staticClass:"c-properties__header"},[_vm._v("Out-of-Alarm Channels")]),_vm._v(" "),_c('ul',{staticClass:"c-properties__section"},[_c('li',{staticClass:"c-properties__row"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"c-properties__value"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.autoClearTimeout),expression:"autoClearTimeout"}],attrs:{"type":"number"},domProps:{"value":(_vm.autoClearTimeout)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.autoClearTimeout=$event.target.value;},_vm.setAutoClearTimeout]}})])])])]):_vm._e()},
+> staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-properties__label",attrs:{"title":"Clear channels if no longer in alarm state"}},[_c('label',[_c('span',{staticStyle:{"white-space":"nowrap"}},[_vm._v("Auto-clear")]),_vm._v(" (minutes)")])])}],
+>     inject: ['openmct'],
+>     data() {
+>         return {
+>             headers: {},
+>             isEditing: this.openmct.editor.isEditing(),
+>             autoClearTimeout: undefined
+>         }
+>     },
+>     methods: {
+>         toggleEdit(isEditing) {
+>             this.isEditing = isEditing;
+>         },
+>         setAutoClearTimeout() {
+>             this.openmct.objects.mutate(this.domainObject, 'configuration.autoClearTimeout', this.autoClearTimeout);
+>         }
+>     },
+>     mounted() {
+>         this.domainObject = this.openmct.selection.get()[0][0].context.item;
+>         if (this.domainObject.configuration && this.domainObject.configuration.autoClearTimeout) {
+>             this.autoClearTimeout = this.domainObject.configuration.autoClearTimeout;
+>         }
+>         this.unlisteners = [];
+>         this.openmct.editor.on('isEditing', this.toggleEdit);
+>     },
+>     destroyed() {
+>         this.openmct.editor.off('isEditing', this.toggleEdit);
+>         this.unlisteners.forEach((unlisten) => unlisten());
+>     }
+> };
+> 
+> function AlarmsViewPlugin() {
+12c52
+<         AlarmsViewActions.forEach(action => {
+---
+>         viewActions.forEach(action => {
+76a117,118
+> 
+> export { AlarmsViewPlugin as default };
+Only in distjs1: assets
+diff -r src/channelLimits/ChannelLimitsProvider.js distjs1/channelLimits/ChannelLimitsProvider.js
+12c12
+< export default class ChannelLimitsProvider {
+---
+> class ChannelLimitsProvider {
+65a66,67
+> 
+> export { ChannelLimitsProvider as default };
+diff -r src/channelLimits/plugin.js distjs1/channelLimits/plugin.js
+1c1
+< import ChannelLimitsProvider from './ChannelLimitsProvider';
+---
+> import ChannelLimitsProvider from './ChannelLimitsProvider.js';
+3c3
+< export default function ChannelLimitsPlugin() {
+---
+> function ChannelLimitsPlugin() {
+7a8,9
+> 
+> export { ChannelLimitsPlugin as default };
+diff -r src/channelLimits/pluginSpec.js distjs1/channelLimits/pluginSpec.js
+1c1
+< import ChannelLimitsProvider from './ChannelLimitsProvider';
+---
+> import ChannelLimitsProvider from './ChannelLimitsProvider.js';
+Only in src/channelTable/channelTablePlugin: cell-format-configuration.html
+diff -r src/channelTable/channelTablePlugin/ChannelTableViewProvider.js distjs1/channelTable/channelTablePlugin/ChannelTableViewProvider.js
+1d0
+< //import ChannelTable from './ChannelTable';
+3c2,4
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../../vue.runtime.esm-15b08281.js';
+> 
+> //import ChannelTable from './ChannelTable';
+5c6
+< export default class ChannelTableViewProvider { 
+---
+> class ChannelTableViewProvider { 
+84c85
+<         }
+---
+>         };
+92c93,95
+< };
+---
+> }
+> 
+> export { ChannelTableViewProvider as default };
+diff -r src/channelTable/channelTablePlugin/EmptyChannelTableRow.js distjs1/channelTable/channelTablePlugin/EmptyChannelTableRow.js
+40c40
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/channelTable/channelTablePlugin/ObjectNameColumn.js distjs1/channelTable/channelTablePlugin/ObjectNameColumn.js
+31,32c31
+<     };
+< 
+---
+>     }
+diff -r src/channelTable/channelTablePlugin/plugin.js distjs1/channelTable/channelTablePlugin/plugin.js
+1,2c1,5
+< import { CHANNEL_TABLE_KEY, CHANNEL_TABLE_NAME, CHANNEL_TABLE_ICON, CHANNEL_KEY } from '../constants';
+< import ChannelTableViewProvider from './ChannelTableViewProvider';
+---
+> import { CHANNEL_TABLE_KEY, CHANNEL_TABLE_NAME, CHANNEL_TABLE_ICON, CHANNEL_KEY } from '../constants.js';
+> import ChannelTableViewProvider from './ChannelTableViewProvider.js';
+> import 'openmct.tables.components.Table';
+> import '../../vue.runtime.esm-15b08281.js';
+> 
+6c9
+< export default function install() {
+---
+> function install() {
+37c40,42
+< };
+---
+> }
+> 
+> export { install as default };
+Only in src/channelTable/channelTableSetPlugin: ChannelRow.vue
+diff -r src/channelTable/channelTableSetPlugin/ChannelTableSetCompositionPolicy.js distjs1/channelTable/channelTableSetPlugin/ChannelTableSetCompositionPolicy.js
+1c1
+< import { CHANNEL_TABLE_KEY, CHANNEL_TABLE_SET_KEY } from '../constants';
+---
+> import { CHANNEL_TABLE_SET_KEY, CHANNEL_TABLE_KEY } from '../constants.js';
+3c3
+< export default function channelTableSetCompositionPolicy(openmct) {
+---
+> function channelTableSetCompositionPolicy(openmct) {
+11a12,13
+> 
+> export { channelTableSetCompositionPolicy as default };
+diff -r src/channelTable/channelTableSetPlugin/ChannelTableSetView.js distjs1/channelTable/channelTableSetPlugin/ChannelTableSetView.js
+1c1
+< import ChannelTableSet from './ChannelTableSet.vue';
+---
+> import { V as Vue } from '../../vue.runtime.esm-15b08281.js';
+3c3,37
+< import Vue from 'vue';
+---
+> const CONTEXT_MENU_ACTIONS = [
+>         'viewDatumAction',
+>         'viewHistoricalData',
+>         'remove'
+>     ];
+>     const BLANK_VALUE = '---';
+>     var ChannelRow = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('tr',{staticClass:"js-lad-table__body__row",on:{"contextmenu":function($event){$event.preventDefault();return _vm.showContextMenu.apply(null, arguments)}}},[_c('td',{staticClass:"js-first-data"},[_vm._v(_vm._s(_vm.id))]),_vm._v(" "),_c('td',{staticClass:"js-second-data"},[_vm._v(_vm._s(_vm.name))]),_vm._v(" "),_c('td',{staticClass:"js-third-data",class:_vm.valueClass},[_vm._v(_vm._s(_vm.value))]),_vm._v(" "),_c('td',{staticClass:"js-fourth-data"},[_vm._v(_vm._s(_vm.formattedTimestamp))])])},
+> staticRenderFns: [],
+>         inject: ['openmct', 'currentView'],
+>         props: {
+>             domainObject: {
+>                 type: Object,
+>                 required: true
+>             },
+>             pathToTable: {
+>                 type: Array,
+>                 required: true
+>             }
+>         },
+>         data() {
+>             return {
+>                 datum: undefined,
+>                 timestamp: undefined,
+>                 timestampKey: undefined
+>             };
+>         },
+>         computed: {
+>             name() {
+>                 let parts = this.domainObject.name.split(' - ');
+> 
+>                 return parts.length > 1 ? parts[1] : BLANK_VALUE;
+>             },
+>             id() {
+>                 let parts = this.domainObject.name.split(' - ');
+5c39,257
+< export default class ChannelTableSetView {
+---
+>                 return parts[0];
+>             },
+>             value() {
+>                 if (!this.datum) {
+>                     return BLANK_VALUE;
+>                 }
+>                 return this.formats[this.valueKey].format(this.datum);
+>             },
+>             valueClass() {
+>                 if (!this.datum) {
+>                     return '';
+>                 }
+>                 const limit = this.limitEvaluator.evaluate(this.datum, this.valueMetadata);
+>                 return limit ? limit.cssClass : '';
+>             },
+>             formattedTimestamp() {
+>                 if (!this.timestamp) {
+>                     return BLANK_VALUE;
+>                 }
+>                 return this.timeSystemFormat.format(this.timestamp);
+>             },
+>             timeSystemFormat() {
+>                 if (!this.formats[this.timestampKey]) {
+>                     console.warn(`No formatter for ${this.timestampKey} time system for ${this.domainObject.name}.`);
+>                 }
+>                 return this.formats[this.timestampKey];
+>             },
+>             objectPath() {
+>                 return [this.domainObject, ...this.pathToTable];
+>             }
+>         },
+>         mounted() {
+>             this.metadata = this.openmct.telemetry.getMetadata(this.domainObject);
+>             this.formats = this.openmct.telemetry.getFormatMap(this.metadata);
+>             this.keyString = this.openmct.objects.makeKeyString(this.domainObject.identifier);
+>             // this.timeContext = this.openmct.time.getContextForView(this.objectPath);
+>             this.limitEvaluator = this.openmct
+>                 .telemetry
+>                 .limitEvaluator(this.domainObject);
+>             this.openmct.time.on('timeSystem', this.updateTimeSystem);
+>             this.timestampKey = this.openmct.time.timeSystem().key;
+>             this.valueMetadata = undefined;
+>             if (this.metadata) {
+>                 this.valueMetadata = this
+>                     .metadata
+>                     .valuesForHints(['range'])[0] || this.firstNonDomainAttribute(this.metadata);
+>             }
+>             this.valueKey = this.valueMetadata ? this.valueMetadata.key : undefined;
+>             this.telemetryCollection = this.openmct.telemetry.requestCollection(this.domainObject, {
+>                 size: 1,
+>                 strategy: 'latest',
+>                 // timeContext: this.timeContext
+>             });
+>             this.telemetryCollection.on('add', this.setLatestValues);
+>             this.telemetryCollection.on('clear', this.resetValues);
+>             this.telemetryCollection.load();
+>         },
+>         destroyed() {
+>             this.openmct.time.off('timeSystem', this.updateTimeSystem);
+>             this.telemetryCollection.off('add', this.setLatestValues);
+>             this.telemetryCollection.off('clear', this.resetValues);
+>             this.telemetryCollection.destroy();
+>         },
+>         methods: {
+>             updateView() {
+>                 if (!this.updatingView) {
+>                     this.updatingView = true;
+>                     requestAnimationFrame(() => {
+>                         this.timestamp = this.getParsedTimestamp(this.latestDatum);
+>                         this.datum = this.latestDatum;
+>                         this.updatingView = false;
+>                     });
+>                 }
+>             },
+>             setLatestValues(data) {
+>                 this.latestDatum = data[data.length - 1];
+>                 this.updateView();
+>             },
+>             updateTimeSystem(timeSystem) {
+>                 this.timestampKey = timeSystem.key;
+>             },
+>             updateViewContext() {
+>                 this.$emit('rowContextClick', {
+>                     viewHistoricalData: true,
+>                     viewDatumAction: true,
+>                     getDatum: () => {
+>                         return this.datum;
+>                     }
+>                 });
+>             },
+>             showContextMenu(event) {
+>                 this.updateViewContext();
+>                 const actions = CONTEXT_MENU_ACTIONS.map(key => this.openmct.actions.getAction(key));
+>                 const menuItems = this.openmct.menus.actionsToMenuItems(actions, this.objectPath, this.currentView);
+>                 if (menuItems.length) {
+>                     this.openmct.menus.showMenu(event.x, event.y, menuItems);
+>                 }
+>             },
+>             resetValues() {
+>                 this.timestamp = undefined;
+>                 this.datum = undefined;
+>             },
+>             getParsedTimestamp(timestamp) {
+>                 if (this.timeSystemFormat) {
+>                     return this.timeSystemFormat.parse(timestamp);
+>                 }
+>             },
+>             firstNonDomainAttribute(metadata) {
+>                 return metadata
+>                     .values()
+>                     .find(metadatum => metadatum.hints.domain === undefined && metadatum.key !== 'name');
+>             }
+>         }
+>     };
+> 
+> var ChannelTableSet = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"c-table c-lad-table"},[_c('thead',[_c('tr',[_c('th',[_vm._v("ID")]),_vm._v(" "),_c('th',[_vm._v("Title")]),_vm._v(" "),_c('th',[_vm._v("Value")]),_vm._v(" "),_c('th',[_vm._v(_vm._s(_vm.timesystem))])])]),_vm._v(" "),_c('tbody',[_vm._l((_vm.ladTableObjects),function(ladTable){return [_c('tr',{key:ladTable.key,staticClass:"c-table__group-header js-lad-table-set__table-headers"},[_c('td',{attrs:{"colspan":"10"}},[_vm._v("\n                    "+_vm._s(ladTable.domainObject.name)+"\n                ")])]),_vm._v(" "),_vm._l((_vm.ladTelemetryObjects[ladTable.key]),function(ladRow){return _c('channel-row',{key:ladRow.key,attrs:{"domain-object":ladRow.domainObject,"path-to-table":ladTable.objectPath},on:{"rowContextClick":_vm.updateViewContext}})})]})],2)])},
+> staticRenderFns: [],
+>     components: {
+>         ChannelRow
+>     },
+>     inject: ['openmct', 'objectPath', 'currentView'],
+>     props: {
+>         domainObject: {
+>             type: Object,
+>             required: true
+>         }
+>     },
+>     data() {
+>         return {
+>             ladTableObjects: [],
+>             ladTelemetryObjects: {},
+>             compositions: [],
+>             viewContext: {},
+>             timesystem: '---'
+>         };
+>     },
+>     mounted() {
+>         this.composition = this.openmct.composition.get(this.domainObject);
+>         this.composition.on('add', this.addLadTable);
+>         this.composition.on('remove', this.removeLadTable);
+>         this.composition.on('reorder', this.reorderLadTables);
+>         this.openmct.time.on('timeSystem', this.setTimesystem);
+>         this.setTimesystem(this.openmct.time.timeSystem());
+>         this.composition.load();
+>     },
+>     destroyed() {
+>         this.composition.off('add', this.addLadTable);
+>         this.composition.off('remove', this.removeLadTable);
+>         this.composition.off('reorder', this.reorderLadTables);
+>         this.compositions.forEach(c => {
+>             c.composition.off('add', c.addCallback);
+>             c.composition.off('remove', c.removeCallback);
+>         });
+>         this.openmct.time.off('timeSystem', this.setTimesystem);
+>     },
+>     methods: {
+>         addLadTable(domainObject) {
+>             let ladTable = {};
+>             ladTable.domainObject = domainObject;
+>             ladTable.key = this.openmct.objects.makeKeyString(domainObject.identifier);
+>             ladTable.objectPath = [domainObject, ...this.objectPath];
+>             this.$set(this.ladTelemetryObjects, ladTable.key, []);
+>             this.ladTableObjects.push(ladTable);
+>             let composition = this.openmct.composition.get(ladTable.domainObject);
+>             let addCallback = this.addTelemetryObject(ladTable);
+>             let removeCallback = this.removeTelemetryObject(ladTable);
+>             composition.on('add', addCallback);
+>             composition.on('remove', removeCallback);
+>             composition.load();
+>             this.compositions.push({
+>                 composition,
+>                 addCallback,
+>                 removeCallback
+>             });
+>         },
+>         removeLadTable(identifier) {
+>             let index = this.ladTableObjects.findIndex(ladTable => this.openmct.objects.makeKeyString(identifier) === ladTable.key);
+>             let ladTable = this.ladTableObjects[index];
+>             this.$delete(this.ladTelemetryObjects, ladTable.key);
+>             this.ladTableObjects.splice(index, 1);
+>         },
+>         reorderLadTables(reorderPlan) {
+>             let oldComposition = this.ladTableObjects.slice();
+>             reorderPlan.forEach(reorderEvent => {
+>                 this.$set(this.ladTableObjects, reorderEvent.newIndex, oldComposition[reorderEvent.oldIndex]);
+>             });
+>         },
+>         setTimesystem(timesystem) {
+>             this.timesystem = timesystem.name;
+>         },
+>         addTelemetryObject(ladTable) {
+>             return (domainObject) => {
+>                 let telemetryObject = {};
+>                 telemetryObject.key = this.openmct.objects.makeKeyString(domainObject.identifier);
+>                 telemetryObject.domainObject = domainObject;
+>                 let telemetryObjects = this.ladTelemetryObjects[ladTable.key];
+>                 telemetryObjects.push(telemetryObject);
+>                 this.$set(this.ladTelemetryObjects, ladTable.key, telemetryObjects);
+>             };
+>         },
+>         removeTelemetryObject(ladTable) {
+>             return (identifier) => {
+>                 let telemetryObjects = this.ladTelemetryObjects[ladTable.key];
+>                 let index = telemetryObjects.findIndex(telemetryObject => this.openmct.objects.makeKeyString(identifier) === telemetryObject.key);
+>                 telemetryObjects.splice(index, 1);
+>                 this.$set(this.ladTelemetryObjects, ladTable.key, telemetryObjects);
+>             };
+>         },
+>         updateViewContext(rowContext) {
+>             this.viewContext.row = rowContext;
+>         },
+>         getViewContext() {
+>             return this.viewContext;
+>         }
+>     }
+> };
+> 
+> class ChannelTableSetView {
+45a298,299
+> 
+> export { ChannelTableSetView as default };
+diff -r src/channelTable/channelTableSetPlugin/ChannelTableSetViewProvider.js distjs1/channelTable/channelTableSetPlugin/ChannelTableSetViewProvider.js
+1c1
+< import { CHANNEL_TABLE_SET_ICON, CHANNEL_TABLE_SET_NAME, CHANNEL_TABLE_SET_VIEW_KEY, CHANNEL_TABLE_SET_KEY } from '../constants';
+---
+> import { CHANNEL_TABLE_SET_VIEW_KEY, CHANNEL_TABLE_SET_NAME, CHANNEL_TABLE_SET_ICON, CHANNEL_TABLE_SET_KEY } from '../constants.js';
+2a3
+> import '../../vue.runtime.esm-15b08281.js';
+4c5
+< export default class ChannelTableSetViewProvider {
+---
+> class ChannelTableSetViewProvider {
+27a29,30
+> 
+> export { ChannelTableSetViewProvider as default };
+Only in src/channelTable/channelTableSetPlugin: ChannelTableSet.vue
+diff -r src/channelTable/channelTableSetPlugin/plugin.js distjs1/channelTable/channelTableSetPlugin/plugin.js
+1,3c1,5
+< import { CHANNEL_TABLE_SET_ICON, CHANNEL_TABLE_SET_KEY, CHANNEL_TABLE_SET_NAME } from '../constants';
+< import ChannelTableSetViewProvider from './ChannelTableSetViewProvider';
+< import channelTableSetCompositionPolicy from './ChannelTableSetCompositionPolicy';
+---
+> import { CHANNEL_TABLE_SET_KEY, CHANNEL_TABLE_SET_NAME, CHANNEL_TABLE_SET_ICON } from '../constants.js';
+> import ChannelTableSetViewProvider from './ChannelTableSetViewProvider.js';
+> import channelTableSetCompositionPolicy from './ChannelTableSetCompositionPolicy.js';
+> import './ChannelTableSetView.js';
+> import '../../vue.runtime.esm-15b08281.js';
+5c7
+< export default function ChannelTableSetPlugin() {
+---
+> function ChannelTableSetPlugin() {
+20c22
+<         openmct.composition.addPolicy(channelTableSetCompositionPolicy(openmct));
+---
+>         openmct.composition.addPolicy(channelTableSetCompositionPolicy());
+22a25,26
+> 
+> export { ChannelTableSetPlugin as default };
+diff -r src/channelTable/constants.js distjs1/channelTable/constants.js
+1,8c1,10
+< export const CHANNEL_KEY = 'vista.channel';
+< export const CHANNEL_TABLE_SET_VIEW_KEY = 'vista.chanTableView';
+< export const CHANNEL_TABLE_NAME = 'Channel Table';
+< export const CHANNEL_TABLE_SET_NAME = 'Channel Table Set'
+< export const CHANNEL_TABLE_KEY = 'vista.chanTableGroup';
+< export const CHANNEL_TABLE_SET_KEY = 'vista.chanTable';
+< export const CHANNEL_TABLE_ICON = 'icon-tabular-lad';
+< export const CHANNEL_TABLE_SET_ICON = 'icon-tabular-lad-set';
+---
+> const CHANNEL_KEY = 'vista.channel';
+> const CHANNEL_TABLE_SET_VIEW_KEY = 'vista.chanTableView';
+> const CHANNEL_TABLE_NAME = 'Channel Table';
+> const CHANNEL_TABLE_SET_NAME = 'Channel Table Set';
+> const CHANNEL_TABLE_KEY = 'vista.chanTableGroup';
+> const CHANNEL_TABLE_SET_KEY = 'vista.chanTable';
+> const CHANNEL_TABLE_ICON = 'icon-tabular-lad';
+> const CHANNEL_TABLE_SET_ICON = 'icon-tabular-lad-set';
+> 
+> export { CHANNEL_KEY, CHANNEL_TABLE_ICON, CHANNEL_TABLE_KEY, CHANNEL_TABLE_NAME, CHANNEL_TABLE_SET_ICON, CHANNEL_TABLE_SET_KEY, CHANNEL_TABLE_SET_NAME, CHANNEL_TABLE_SET_VIEW_KEY };
+Only in src/clearDataIndicator: indicator
+diff -r src/clearDataIndicator/plugin.js distjs1/clearDataIndicator/plugin.js
+1,2c1,3
+< import Vue from 'vue';
+< import ClearDataIndicator from './indicator/clearDataIndicator.vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import { M as Moment } from '../moment-83aaf3a7.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+4c5,52
+< export default function plugin(globalStalenessMs) {
+---
+> var ClearDataIndicator = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-indicator"},[_c('div',{class:[
+>             'c-indicator',
+>             'c-indicator--clickable',
+>             's-status-caution',
+>             _vm.globalStalenessMessage ? 'icon-database' : 'icon-clear-data'
+>         ]},[_c('span',{staticClass:"label c-indicator__label"},[_vm._v("\n            "+_vm._s(_vm.globalStalenessMessage)+"\n            "),_c('button',{on:{"click":_vm.clearData}},[_vm._v("\n                Clear Data\n            ")])])])])},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'globalStalenessMs'
+>     ],
+>     data() {
+>         return {
+>             globalStalenessMessage: ''
+>         }
+>     },
+>     methods: {
+>         formatTimestamp(ms) {
+>             let duration = Moment.duration(ms, 'milliseconds');
+>             let hours = this.padTime(Math.floor(duration.asHours()));
+>             let minutes = this.padTime(Math.floor(duration.minutes()));
+>             let seconds = this.padTime(Math.floor(duration.seconds()));
+>             let formattedTimestamp = `${hours}:${minutes}:${seconds}`;
+> 
+>             return formattedTimestamp;
+>         },
+>         padTime(time) {
+>             if (time < 10) {
+>                 return `0${time}`
+>             } else {
+>                 return `${time}`
+>             }
+>         },
+>         clearData() {
+>             this.openmct.objectViews.emit('clearData');
+>             this.openmct.notifications.info('Data Cleared On All Displays');
+>         }
+>     },
+>     mounted() {
+>         if (this.globalStalenessMs) {
+>             let formattedTimestamp = this.formatTimestamp(this.globalStalenessMs);
+>             this.globalStalenessMessage = `Data stale after ${formattedTimestamp}`;
+>         }
+>     }
+> };
+> 
+> function plugin(globalStalenessMs) {
+12c60
+<             let component  = new Vue ({
+---
+>             new Vue ({
+25a74,75
+> 
+> export { plugin as default };
+diff -r src/commandEventsView/CommandEventsTable.js distjs1/commandEventsView/CommandEventsTable.js
+21c21
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/commandEventsView/CommandEventsViewProvider.js distjs1/commandEventsView/CommandEventsViewProvider.js
+1d0
+< //import CommandEventsTable from './CommandEventsTable.js';
+3c2,4
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> 
+> //import CommandEventsTable from './CommandEventsTable.js';
+5c6
+< export default class CommandEventsViewProvider {
+---
+> class CommandEventsViewProvider {
+89a91,92
+> 
+> export { CommandEventsViewProvider as default };
+diff -r src/commandEventsView/plugin.js distjs1/commandEventsView/plugin.js
+1a2,4
+> import 'openmct.tables.components.Table';
+> import '../vue.runtime.esm-15b08281.js';
+> 
+4c7
+< export default function CommandEventsViewPlugin() {
+---
+> function CommandEventsViewPlugin() {
+17d19
+< 
+28c30
+<         }
+---
+>         };
+45a48,49
+> 
+> export { CommandEventsViewPlugin as default };
+Only in distjs1: _commonjsHelpers-76cdd49e.js
+diff -r src/containerView/BlankViewProvider.js distjs1/containerView/BlankViewProvider.js
+1c1
+< export default class BlankGridView {
+---
+> class BlankGridView {
+29a30,31
+> 
+> export { BlankGridView as default };
+diff -r src/containerView/FolderGridViewProvider.js distjs1/containerView/FolderGridViewProvider.js
+2c2
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+4c4
+< export default class FolderGridView {
+---
+> class FolderGridView {
+45c45,47
+< }
+\ No newline at end of file
+---
+> }
+> 
+> export { FolderGridView as default };
+diff -r src/containerView/FolderListViewProvider.js distjs1/containerView/FolderListViewProvider.js
+2c2
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+4c4
+< export default class FolderListView {
+---
+> class FolderListView {
+45c45,47
+< }
+\ No newline at end of file
+---
+> }
+> 
+> export { FolderListView as default };
+diff -r src/containerView/plugin.js distjs1/containerView/plugin.js
+1,3c1,6
+< import FolderGridViewProvider from './FolderGridViewProvider';
+< import FolderListViewProvider from './FolderListViewProvider';
+< import BlankViewProvider from './BlankViewProvider';
+---
+> import FolderGridView from './FolderGridViewProvider.js';
+> import FolderListView from './FolderListViewProvider.js';
+> import BlankGridView from './BlankViewProvider.js';
+> import 'openmct.views.FolderGridViewComponent';
+> import '../vue.runtime.esm-15b08281.js';
+> import 'openmct.views.FolderListViewComponent';
+15c18
+< ]
+---
+> ];
+20c23
+< export default function ContainerViewPlugin() {
+---
+> function ContainerViewPlugin() {
+22,24c25,27
+<         openmct.objectViews.addProvider(new FolderGridViewProvider(openmct, FOLDER_CONTAINER_TYPES));
+<         openmct.objectViews.addProvider(new FolderListViewProvider(openmct, FOLDER_CONTAINER_TYPES));
+<         openmct.objectViews.addProvider(new BlankViewProvider(openmct, BLANK_CONTAINER_TYPES))
+---
+>         openmct.objectViews.addProvider(new FolderGridView(openmct, FOLDER_CONTAINER_TYPES));
+>         openmct.objectViews.addProvider(new FolderListView(openmct, FOLDER_CONTAINER_TYPES));
+>         openmct.objectViews.addProvider(new BlankGridView(openmct, BLANK_CONTAINER_TYPES));
+26a30,31
+> 
+> export { ContainerViewPlugin as default };
+diff -r src/customFormatter/plugin.js distjs1/customFormatter/plugin.js
+1d0
+< 
+14c13
+< export default plugin;
+---
+> export { plugin as default };
+Only in src/dictionaryView: components
+diff -r src/dictionaryView/dictionaryViewProvider.js distjs1/dictionaryView/dictionaryViewProvider.js
+1c1
+< import DictionaryView from './components/dictionaryView.vue';
+---
+> import TableComponent from 'openmct.tables.components.Table';
+3c3,78
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/mcws/mcws';
+> 
+> var DictionaryView = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"l-preview-window",class:{loading: _vm.isLoading}},[(_vm.rowsLength)?_c('div',{staticClass:"l-preview-window__object-view l-preview-window__object-view-no-padding"},[_c('telemetry-table',{attrs:{"marking":_vm.markingProp,"enableLegacyToolbar":true}},[_c('div',{staticClass:"c-table-and-summary__summary"},[_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("\n                        DataTable URL:\n                        "),_c('em',[_vm._v(" "+_vm._s(_vm.url)+" ")])]),_vm._v(" "),_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("\n                        Returned:\n                        "),_c('em',[_vm._v(_vm._s(_vm.rowsLength)+" rows")])])])])],1):_vm._e(),_vm._v(" "),(_vm.error)?_c('div',{staticClass:"message block error"},[_c('h2',[_vm._v("Error Received From Server:")]),_vm._v(" "),_c('pre',[_c('code',[_vm._v(_vm._s(_vm.error.status)+" : "+_vm._s(_vm.error.statusText))])])]):_vm._e()])},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'domainObject',
+>         'table',
+>         'objectPath',
+>         'currentView',
+>     ],
+>     components: {
+>         TelemetryTable: TableComponent
+>     },
+>     data() {
+>         return {
+>             headers: [],
+>             rows: [],
+>             rowsLength: undefined,
+>             isLoading: false,
+>             url: this.domainObject.dataTablePath,
+>             markingProp: {
+>                 enable: true,
+>                 useAlternateControlBar: false,
+>                 rowName: "",
+>                 rowNamePlural: ""
+>             },
+>             error: undefined
+>         }
+>     },
+>     methods: {
+>         processData(data) {
+>             this.populateTable(data);
+>         },
+>         processError(errorObject) {
+>             this.error = {
+>                 statusText: errorObject.statusText,
+>                 status: errorObject.status
+>             };
+>             this.isLoading = false;
+>         },
+>         populateTable(data) {
+>             this.headers = this.processHeaders(data[0]);
+>             this.rows = this.processRows(data);
+> 
+>             this.table.metadata = this.headers;
+>             this.table.data = this.rows;
+>             this.isLoading = false;
+>         },
+>         processHeaders(row) {
+>             return Object.keys(row).map((key => {
+>                 return {
+>                     name: key,
+>                     key: key,
+>                     source: key
+>                 }
+>             }));
+>         },
+>         processRows(data) {
+>            return data;
+>         }
+>     },
+>     mounted() {
+>         this.isLoading = true;
+> 
+>         this.table.loadDictionary().then(() => {
+>             this.rowsLength = this.table.tableRows.getRowsLength();
+>             this.error = this.table.error;
+>             this.isLoading = false;
+>         });
+>     }
+> };
+5c80
+< export default class DictionaryViewProvider {
+---
+> class DictionaryViewProvider {
+81a157,158
+> 
+> export { DictionaryViewProvider as default };
+diff -r src/dictionaryView/dictionaryViewTable.js distjs1/dictionaryView/dictionaryViewTable.js
+5c5
+< export default class DictionaryViewTable extends TelemetryTable { 
+---
+> class DictionaryViewTable extends TelemetryTable { 
+84c84
+<         this.metadata = this.processHeaders(data[0])
+---
+>         this.metadata = this.processHeaders(data[0]);
+128a129,130
+> 
+> export { DictionaryViewTable as default };
+diff -r src/dictionaryView/plugin.js distjs1/dictionaryView/plugin.js
+1c1,7
+< import DictionaryViewProvider from './dictionaryViewProvider';
+---
+> import DictionaryViewProvider from './dictionaryViewProvider.js';
+> import 'openmct.tables.components.Table';
+> import './dictionaryViewTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/mcws/mcws';
+> import '../vue.runtime.esm-15b08281.js';
+3c9
+< export default function plugin() {
+---
+> function plugin() {
+7a14,15
+> 
+> export { plugin as default };
+diff -r src/evrView/EVRLevelIndicatorTableRow.js distjs1/evrView/EVRLevelIndicatorTableRow.js
+3c3
+< export default class EVRLevelIndicatorTableRow extends TelemetryTableRow {
+---
+> class EVRLevelIndicatorTableRow extends TelemetryTableRow {
+22a23,24
+> 
+> export { EVRLevelIndicatorTableRow as default };
+diff -r src/evrView/EVRTable.js distjs1/evrView/EVRTable.js
+1,2c1,3
+< import TelemetryTable from 'openmct.tables.TelemetryTable'
+< import EVRLevelIndicatorTableRow from './EVRLevelIndicatorTableRow'
+---
+> import TelemetryTable from 'openmct.tables.TelemetryTable';
+> import EVRLevelIndicatorTableRow from './EVRLevelIndicatorTableRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+4c5
+< export default class EVRTable extends TelemetryTable {
+---
+> class EVRTable extends TelemetryTable {
+70a72,73
+> 
+> export { EVRTable as default };
+diff -r src/evrView/EVRViewLevelsConfigurationViewProvider.js distjs1/evrView/EVRViewLevelsConfigurationViewProvider.js
+1,2c1
+< import EVRViewLevelsConfigurationView from './EVRViewLevelsConfigurationView.vue'
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+4c3,88
+< export default function EVRViewLevelsConfigurationViewProvider(options) {
+---
+> var EVRViewLevelsConfigurationView = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-inspect-properties"},[(_vm.isEditing)?[_c('div',{staticClass:"c-inspect-properties__header"},[_vm._v("\n            EVR Levels\n        ")]),_vm._v(" "),_c('ul',{staticClass:"c-inspect-properties__section"},_vm._l((_vm.levels),function(isEnabled,key){return _c('li',{key:key,staticClass:"c-inspect-properties__row"},[_c('div',{staticClass:"c-inspect-properties__label",attrs:{"title":key}},[_c('label',{style:(_vm.levelsStyles[key]),attrs:{"for":key}},[_vm._v("\n                        "+_vm._s(key)+"\n                    ")])]),_vm._v(" "),_c('div',{staticClass:"c-inspect-properties__value"},[_c('input',{attrs:{"id":key,"type":"checkbox"},domProps:{"checked":isEnabled},on:{"change":function($event){return _vm.toggleLevelEnabled(key)}}})])])}),0)]:_vm._e()],2)},
+> staticRenderFns: [],
+>     inject: ['openmct'],
+>     props: {
+>         options: {
+>             type: Object,
+>             required: true
+>         },
+>         domainObject: {
+>             type: Object,
+>             required: true
+>         }
+>     },
+>     computed: {
+>         levels() {
+>             const existingLevels = this.domainObject.configuration && this.domainObject.configuration.levels;
+>             // Assign in this order to maintain level order as specified in config
+>             // evrForegroundColorByLevel and evrBackgroundColorByLevel should have identical keys
+>             const levels = Object.assign(
+>                 {},
+>                 this.options.evrForegroundColorByLevel,
+>                 this.options.evrBackgroundColorByLevel,
+>                 existingLevels
+>             );
+> 
+>             Object.keys(levels).forEach(key => {
+>                 levels[key] = Boolean(levels[key]);
+>             });
+> 
+>             if (this.options.evrDefaultForegroundColor || this.options.evrDefaultBackgroundColor) {
+>                 levels.DEFAULT = true;
+>             }
+> 
+>             return levels;
+>         },
+>         levelsStyles() {
+>             const styles = {};
+> 
+>             Object.keys(this.levels).forEach(key => {
+>                 const foregroundColor = key === 'DEFAULT'
+>                     ? this.options.evrDefaultForegroundColor
+>                     : this.options.evrForegroundColorByLevel[key];
+>                 const backgroundColor = key === 'DEFAULT'
+>                     ? this.options.evrDefaultBackgroundColor
+>                     : this.options.evrBackgroundColorByLevel[key];
+>                 
+>                 styles[key] = {};
+> 
+>                 if (foregroundColor) {
+>                     styles[key].color = foregroundColor;
+>                 }
+> 
+>                 if (backgroundColor) {
+>                     styles[key].background = backgroundColor;
+>                 }
+>             });
+>             
+>             return styles;
+>         }
+>     },
+>     data() {
+>         return {
+>             isEditing: this.openmct.editor.isEditing()
+>         };
+>     },
+>     methods: {
+>         toggleEdit(isEditing) {
+>             this.isEditing = isEditing;
+>         },
+>         toggleLevelEnabled(key) {
+>             const levels = this.levels;
+>             levels[key] = !levels[key];
+>             
+>             this.openmct.objects.mutate(this.domainObject, 'configuration.levels', levels);
+>         }
+>     },
+>     mounted() {
+>         this.openmct.editor.on('isEditing', this.toggleEdit);
+>     },
+>     destroyed() {
+>         this.openmct.editor.off('isEditing', this.toggleEdit);
+>     }
+> };
+> 
+> function EVRViewLevelsConfigurationViewProvider(options) {
+55a140,141
+> 
+> export { EVRViewLevelsConfigurationViewProvider as default };
+Only in src/evrView: EVRViewLevelsConfigurationView.vue
+diff -r src/evrView/EVRViewProvider.js distjs1/evrView/EVRViewProvider.js
+1c1
+< import EVRTable from './EVRTable';
+---
+> import EVRTable from './EVRTable.js';
+3c3,6
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'openmct.tables.TelemetryTable';
+> import './EVRLevelIndicatorTableRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+17c20
+< export default class EVRViewProvider {
+---
+> class EVRViewProvider {
+105a109,110
+> 
+> export { EVRViewProvider as default };
+diff -r src/evrView/plugin.js distjs1/evrView/plugin.js
+1,2c1,9
+< import EVRViewProvider from './EVRViewProvider';
+< import EVRViewLevelsConfigurationViewProvider from './EVRViewLevelsConfigurationViewProvider';
+---
+> import EVRViewProvider from './EVRViewProvider.js';
+> import EVRViewLevelsConfigurationViewProvider from './EVRViewLevelsConfigurationViewProvider.js';
+> import './EVRTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import './EVRLevelIndicatorTableRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'openmct.tables.components.Table';
+> import '../vue.runtime.esm-15b08281.js';
+> 
+5c12
+< export default function EVRViewPlugin(options) {
+---
+> function EVRViewPlugin(options) {
+44a52,53
+> 
+> export { EVRViewPlugin as default };
+diff -r src/formats/LMSTFormatSpec.js distjs1/formats/LMSTFormatSpec.js
+8d7
+<     'use strict';
+diff -r src/formats/MSLSOLFormatSpec.js distjs1/formats/MSLSOLFormatSpec.js
+8d7
+<     'use strict';
+diff -r src/formats/SCLKFloat64FormatSpec.js distjs1/formats/SCLKFloat64FormatSpec.js
+8d7
+<     'use strict';
+diff -r src/formats/UTCDayOfYearFormat.js distjs1/formats/UTCDayOfYearFormat.js
+1,6c1,3
+< 
+< import moment from 'moment';
+< import {
+<     DOY_PATTERN,
+<     inlineParseDOYString
+< } from './utils/DOY';
+---
+> import { M as Moment } from '../moment-83aaf3a7.js';
+> import { DOY_PATTERN, inlineParseDOYString } from './utils/DOY.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+53c50
+<     var m = moment.utc(value);
+---
+>     var m = Moment.utc(value);
+64,65c61,62
+<     return moment.utc(value).endOf('day').valueOf();
+< }
+---
+>     return Moment.utc(value).endOf('day').valueOf();
+> };
+76c73
+<     return moment.utc(text, this.ACCEPTABLE_FORMATS, true).valueOf();
+---
+>     return Moment.utc(text, this.ACCEPTABLE_FORMATS, true).valueOf();
+80c77
+<     return text !== undefined && moment.utc(text, this.ACCEPTABLE_FORMATS, true).isValid();
+---
+>     return text !== undefined && Moment.utc(text, this.ACCEPTABLE_FORMATS, true).isValid();
+83c80
+< export default UTCDayOfYearFormat;
+---
+> export { UTCDayOfYearFormat as default };
+diff -r src/formats/UTCDayOfYearFormatSpec.js distjs1/formats/UTCDayOfYearFormatSpec.js
+8d7
+<     'use strict';
+diff -r src/formats/UTCFormat.js distjs1/formats/UTCFormat.js
+1,5c1,3
+< import moment from 'moment';
+< import {
+<     DOY_PATTERN,
+<     inlineParseDOYString
+< } from './utils/DOY';
+---
+> import { M as Moment } from '../moment-83aaf3a7.js';
+> import { DOY_PATTERN, inlineParseDOYString } from './utils/DOY.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+50c48
+<     var m = moment.utc(value);
+---
+>     var m = Moment.utc(value);
+69c67
+<     return moment.utc(text, this.ACCEPTABLE_FORMATS, true).valueOf();
+---
+>     return Moment.utc(text, this.ACCEPTABLE_FORMATS, true).valueOf();
+73c71
+<     return text !== undefined && moment.utc(text, this.ACCEPTABLE_FORMATS, true).isValid();
+---
+>     return text !== undefined && Moment.utc(text, this.ACCEPTABLE_FORMATS, true).isValid();
+76c74
+< export default UTCFormat;
+---
+> export { UTCFormat as default };
+diff -r src/formats/UTCFormatSpec.js distjs1/formats/UTCFormatSpec.js
+8d7
+<     'use strict';
+diff -r src/formats/utils/DOY.js distjs1/formats/utils/DOY.js
+1c1
+< export const DOY_PATTERN = /^\d{4}-\d{3}T\d{2}:\d{2}:\d{2}.\d{1,6}/;
+---
+> const DOY_PATTERN = /^\d{4}-\d{3}T\d{2}:\d{2}:\d{2}.\d{1,6}/;
+11c11
+< export function inlineParseDOYString(doyString) {
+---
+> function inlineParseDOYString(doyString) {
+41c41,43
+< }
+\ No newline at end of file
+---
+> }
+> 
+> export { DOY_PATTERN, inlineParseDOYString };
+diff -r src/frameaccountability/BadFramesTelemetryTable.js distjs1/frameaccountability/BadFramesTelemetryTable.js
+4c4
+< export default class BadFramesTelemetryTable extends TelemetryTable { 
+---
+> class BadFramesTelemetryTable extends TelemetryTable { 
+67a68,69
+> 
+> export { BadFramesTelemetryTable as default };
+Only in src/frameaccountability/components: frameAccountabilityBadFrames.vue
+Only in src/frameaccountability/components: res
+diff -r src/frameaccountability/frameAccountabilityCompositionPolicy.js distjs1/frameaccountability/frameAccountabilityCompositionPolicy.js
+1c1
+< export default function FrameAccountabilityCompositionPolicy(openmct) {
+---
+> function FrameAccountabilityCompositionPolicy(openmct) {
+13a14,15
+> 
+> export { FrameAccountabilityCompositionPolicy as default };
+diff -r src/frameaccountability/frameAccountabilityViewProvider.js distjs1/frameaccountability/frameAccountabilityViewProvider.js
+0a1,5
+> import BadFramesTelemetryTable from './BadFramesTelemetryTable.js';
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.TelemetryTableRow';
+> 
+2,3d6
+< import BadFramesTelemetryTable from './BadFramesTelemetryTable';
+< import Vue from 'vue';
+12c15
+< export default class FrameAccountabilityViewProvider {
+---
+> class FrameAccountabilityViewProvider {
+55a59,60
+> 
+> export { FrameAccountabilityViewProvider as default };
+diff -r src/frameaccountability/plugin.js distjs1/frameaccountability/plugin.js
+1,2c1,6
+< import FrameAccountabilityViewProvider from './frameAccountabilityViewProvider';
+< import FrameAccountabilityCompositionPolicy from './frameAccountabilityCompositionPolicy';
+---
+> import FrameAccountabilityViewProvider from './frameAccountabilityViewProvider.js';
+> import FrameAccountabilityCompositionPolicy from './frameAccountabilityCompositionPolicy.js';
+> import './BadFramesTelemetryTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.TelemetryTableRow';
+> import '../vue.runtime.esm-15b08281.js';
+4c8
+< export default function install(expectedVcidList) {
+---
+> function install(expectedVcidList) {
+35c39
+<         openmct.composition.addPolicy(FrameAccountabilityCompositionPolicy(openmct));
+---
+>         openmct.composition.addPolicy(FrameAccountabilityCompositionPolicy());
+37c41,43
+< };
+---
+> }
+> 
+> export { install as default };
+diff -r src/frameaccountability/sortedEventsCollection.js distjs1/frameaccountability/sortedEventsCollection.js
+3c3
+< export default class SortedEventsCollection extends TableRowCollection {
+---
+> class SortedEventsCollection extends TableRowCollection {
+15a16,17
+> 
+> export { SortedEventsCollection as default };
+diff -r src/frameEventFilterView/FrameEventFilterTable.js distjs1/frameEventFilterView/FrameEventFilterTable.js
+1c1
+< import TelemetryTable from 'openmct.tables.TelemetryTable'
+---
+> import TelemetryTable from 'openmct.tables.TelemetryTable';
+3c3
+< export default class FrameEventFilterTable extends TelemetryTable {
+---
+> class FrameEventFilterTable extends TelemetryTable {
+11a12,13
+> 
+> export { FrameEventFilterTable as default };
+diff -r src/frameEventFilterView/FrameEventFilterViewProvider.js distjs1/frameEventFilterView/FrameEventFilterViewProvider.js
+3c3,4
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'openmct.tables.TelemetryTable';
+5c6
+< export default class FrameEventFilterViewProvider {
+---
+> class FrameEventFilterViewProvider {
+85a87,88
+> 
+> export { FrameEventFilterViewProvider as default };
+diff -r src/frameEventFilterView/plugin.js distjs1/frameEventFilterView/plugin.js
+1a2,5
+> import './FrameEventFilterTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.components.Table';
+> import '../vue.runtime.esm-15b08281.js';
+3c7
+< export default function FrameEventFilterViewPlugin() {
+---
+> function FrameEventFilterViewPlugin() {
+7a12,13
+> 
+> export { FrameEventFilterViewPlugin as default };
+Only in src/framesummary: components
+diff -r src/framesummary/config.js distjs1/framesummary/config.js
+1c1
+< import padStart from 'lodash/padStart';
+---
+> import { c as commonjsGlobal } from '../_commonjsHelpers-76cdd49e.js';
+3,5c3,886
+< export const ENCODING_WATCH_TYPE = 'vista.encodingWatch';
+< export const FRAME_WATCH_TYPE = 'vista.frameWatch';
+< export const config = {
+---
+> /** Used as references for various `Number` constants. */
+> 
+> var MAX_SAFE_INTEGER = 9007199254740991;
+> 
+> /* Built-in method references for those with the same name as other `lodash` methods. */
+> var nativeFloor = Math.floor;
+> 
+> /**
+>  * The base implementation of `_.repeat` which doesn't coerce arguments.
+>  *
+>  * @private
+>  * @param {string} string The string to repeat.
+>  * @param {number} n The number of times to repeat the string.
+>  * @returns {string} Returns the repeated string.
+>  */
+> function baseRepeat$1(string, n) {
+>   var result = '';
+>   if (!string || n < 1 || n > MAX_SAFE_INTEGER) {
+>     return result;
+>   }
+>   // Leverage the exponentiation by squaring algorithm for a faster repeat.
+>   // See https://en.wikipedia.org/wiki/Exponentiation_by_squaring for more details.
+>   do {
+>     if (n % 2) {
+>       result += string;
+>     }
+>     n = nativeFloor(n / 2);
+>     if (n) {
+>       string += string;
+>     }
+>   } while (n);
+> 
+>   return result;
+> }
+> 
+> var _baseRepeat = baseRepeat$1;
+> 
+> /** Detect free variable `global` from Node.js. */
+> 
+> var freeGlobal$1 = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+> 
+> var _freeGlobal = freeGlobal$1;
+> 
+> var freeGlobal = _freeGlobal;
+> 
+> /** Detect free variable `self`. */
+> var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+> 
+> /** Used as a reference to the global object. */
+> var root$1 = freeGlobal || freeSelf || Function('return this')();
+> 
+> var _root = root$1;
+> 
+> var root = _root;
+> 
+> /** Built-in value references. */
+> var Symbol$3 = root.Symbol;
+> 
+> var _Symbol = Symbol$3;
+> 
+> /**
+>  * A specialized version of `_.map` for arrays without support for iteratee
+>  * shorthands.
+>  *
+>  * @private
+>  * @param {Array} [array] The array to iterate over.
+>  * @param {Function} iteratee The function invoked per iteration.
+>  * @returns {Array} Returns the new mapped array.
+>  */
+> 
+> function arrayMap$1(array, iteratee) {
+>   var index = -1,
+>       length = array == null ? 0 : array.length,
+>       result = Array(length);
+> 
+>   while (++index < length) {
+>     result[index] = iteratee(array[index], index, array);
+>   }
+>   return result;
+> }
+> 
+> var _arrayMap = arrayMap$1;
+> 
+> /**
+>  * Checks if `value` is classified as an `Array` object.
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 0.1.0
+>  * @category Lang
+>  * @param {*} value The value to check.
+>  * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+>  * @example
+>  *
+>  * _.isArray([1, 2, 3]);
+>  * // => true
+>  *
+>  * _.isArray(document.body.children);
+>  * // => false
+>  *
+>  * _.isArray('abc');
+>  * // => false
+>  *
+>  * _.isArray(_.noop);
+>  * // => false
+>  */
+> 
+> var isArray$1 = Array.isArray;
+> 
+> var isArray_1 = isArray$1;
+> 
+> var Symbol$2 = _Symbol;
+> 
+> /** Used for built-in method references. */
+> var objectProto$1 = Object.prototype;
+> 
+> /** Used to check objects for own properties. */
+> var hasOwnProperty = objectProto$1.hasOwnProperty;
+> 
+> /**
+>  * Used to resolve the
+>  * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+>  * of values.
+>  */
+> var nativeObjectToString$1 = objectProto$1.toString;
+> 
+> /** Built-in value references. */
+> var symToStringTag$1 = Symbol$2 ? Symbol$2.toStringTag : undefined;
+> 
+> /**
+>  * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+>  *
+>  * @private
+>  * @param {*} value The value to query.
+>  * @returns {string} Returns the raw `toStringTag`.
+>  */
+> function getRawTag$1(value) {
+>   var isOwn = hasOwnProperty.call(value, symToStringTag$1),
+>       tag = value[symToStringTag$1];
+> 
+>   try {
+>     value[symToStringTag$1] = undefined;
+>     var unmasked = true;
+>   } catch (e) {}
+> 
+>   var result = nativeObjectToString$1.call(value);
+>   if (unmasked) {
+>     if (isOwn) {
+>       value[symToStringTag$1] = tag;
+>     } else {
+>       delete value[symToStringTag$1];
+>     }
+>   }
+>   return result;
+> }
+> 
+> var _getRawTag = getRawTag$1;
+> 
+> /** Used for built-in method references. */
+> 
+> var objectProto = Object.prototype;
+> 
+> /**
+>  * Used to resolve the
+>  * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+>  * of values.
+>  */
+> var nativeObjectToString = objectProto.toString;
+> 
+> /**
+>  * Converts `value` to a string using `Object.prototype.toString`.
+>  *
+>  * @private
+>  * @param {*} value The value to convert.
+>  * @returns {string} Returns the converted string.
+>  */
+> function objectToString$1(value) {
+>   return nativeObjectToString.call(value);
+> }
+> 
+> var _objectToString = objectToString$1;
+> 
+> var Symbol$1 = _Symbol,
+>     getRawTag = _getRawTag,
+>     objectToString = _objectToString;
+> 
+> /** `Object#toString` result references. */
+> var nullTag = '[object Null]',
+>     undefinedTag = '[object Undefined]';
+> 
+> /** Built-in value references. */
+> var symToStringTag = Symbol$1 ? Symbol$1.toStringTag : undefined;
+> 
+> /**
+>  * The base implementation of `getTag` without fallbacks for buggy environments.
+>  *
+>  * @private
+>  * @param {*} value The value to query.
+>  * @returns {string} Returns the `toStringTag`.
+>  */
+> function baseGetTag$1(value) {
+>   if (value == null) {
+>     return value === undefined ? undefinedTag : nullTag;
+>   }
+>   return (symToStringTag && symToStringTag in Object(value))
+>     ? getRawTag(value)
+>     : objectToString(value);
+> }
+> 
+> var _baseGetTag = baseGetTag$1;
+> 
+> /**
+>  * Checks if `value` is object-like. A value is object-like if it's not `null`
+>  * and has a `typeof` result of "object".
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.0.0
+>  * @category Lang
+>  * @param {*} value The value to check.
+>  * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+>  * @example
+>  *
+>  * _.isObjectLike({});
+>  * // => true
+>  *
+>  * _.isObjectLike([1, 2, 3]);
+>  * // => true
+>  *
+>  * _.isObjectLike(_.noop);
+>  * // => false
+>  *
+>  * _.isObjectLike(null);
+>  * // => false
+>  */
+> 
+> function isObjectLike$1(value) {
+>   return value != null && typeof value == 'object';
+> }
+> 
+> var isObjectLike_1 = isObjectLike$1;
+> 
+> var baseGetTag = _baseGetTag,
+>     isObjectLike = isObjectLike_1;
+> 
+> /** `Object#toString` result references. */
+> var symbolTag = '[object Symbol]';
+> 
+> /**
+>  * Checks if `value` is classified as a `Symbol` primitive or object.
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.0.0
+>  * @category Lang
+>  * @param {*} value The value to check.
+>  * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+>  * @example
+>  *
+>  * _.isSymbol(Symbol.iterator);
+>  * // => true
+>  *
+>  * _.isSymbol('abc');
+>  * // => false
+>  */
+> function isSymbol$2(value) {
+>   return typeof value == 'symbol' ||
+>     (isObjectLike(value) && baseGetTag(value) == symbolTag);
+> }
+> 
+> var isSymbol_1 = isSymbol$2;
+> 
+> var Symbol = _Symbol,
+>     arrayMap = _arrayMap,
+>     isArray = isArray_1,
+>     isSymbol$1 = isSymbol_1;
+> 
+> /** Used as references for various `Number` constants. */
+> var INFINITY$1 = 1 / 0;
+> 
+> /** Used to convert symbols to primitives and strings. */
+> var symbolProto = Symbol ? Symbol.prototype : undefined,
+>     symbolToString = symbolProto ? symbolProto.toString : undefined;
+> 
+> /**
+>  * The base implementation of `_.toString` which doesn't convert nullish
+>  * values to empty strings.
+>  *
+>  * @private
+>  * @param {*} value The value to process.
+>  * @returns {string} Returns the string.
+>  */
+> function baseToString$2(value) {
+>   // Exit early for strings to avoid a performance hit in some environments.
+>   if (typeof value == 'string') {
+>     return value;
+>   }
+>   if (isArray(value)) {
+>     // Recursively convert values (susceptible to call stack limits).
+>     return arrayMap(value, baseToString$2) + '';
+>   }
+>   if (isSymbol$1(value)) {
+>     return symbolToString ? symbolToString.call(value) : '';
+>   }
+>   var result = (value + '');
+>   return (result == '0' && (1 / value) == -INFINITY$1) ? '-0' : result;
+> }
+> 
+> var _baseToString = baseToString$2;
+> 
+> /**
+>  * The base implementation of `_.slice` without an iteratee call guard.
+>  *
+>  * @private
+>  * @param {Array} array The array to slice.
+>  * @param {number} [start=0] The start position.
+>  * @param {number} [end=array.length] The end position.
+>  * @returns {Array} Returns the slice of `array`.
+>  */
+> 
+> function baseSlice$1(array, start, end) {
+>   var index = -1,
+>       length = array.length;
+> 
+>   if (start < 0) {
+>     start = -start > length ? 0 : (length + start);
+>   }
+>   end = end > length ? length : end;
+>   if (end < 0) {
+>     end += length;
+>   }
+>   length = start > end ? 0 : ((end - start) >>> 0);
+>   start >>>= 0;
+> 
+>   var result = Array(length);
+>   while (++index < length) {
+>     result[index] = array[index + start];
+>   }
+>   return result;
+> }
+> 
+> var _baseSlice = baseSlice$1;
+> 
+> var baseSlice = _baseSlice;
+> 
+> /**
+>  * Casts `array` to a slice if it's needed.
+>  *
+>  * @private
+>  * @param {Array} array The array to inspect.
+>  * @param {number} start The start position.
+>  * @param {number} [end=array.length] The end position.
+>  * @returns {Array} Returns the cast slice.
+>  */
+> function castSlice$1(array, start, end) {
+>   var length = array.length;
+>   end = end === undefined ? length : end;
+>   return (!start && end >= length) ? array : baseSlice(array, start, end);
+> }
+> 
+> var _castSlice = castSlice$1;
+> 
+> /** Used to compose unicode character classes. */
+> 
+> var rsAstralRange$2 = '\\ud800-\\udfff',
+>     rsComboMarksRange$2 = '\\u0300-\\u036f',
+>     reComboHalfMarksRange$2 = '\\ufe20-\\ufe2f',
+>     rsComboSymbolsRange$2 = '\\u20d0-\\u20ff',
+>     rsComboRange$2 = rsComboMarksRange$2 + reComboHalfMarksRange$2 + rsComboSymbolsRange$2,
+>     rsVarRange$2 = '\\ufe0e\\ufe0f';
+> 
+> /** Used to compose unicode capture groups. */
+> var rsZWJ$2 = '\\u200d';
+> 
+> /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
+> var reHasUnicode = RegExp('[' + rsZWJ$2 + rsAstralRange$2  + rsComboRange$2 + rsVarRange$2 + ']');
+> 
+> /**
+>  * Checks if `string` contains Unicode symbols.
+>  *
+>  * @private
+>  * @param {string} string The string to inspect.
+>  * @returns {boolean} Returns `true` if a symbol is found, else `false`.
+>  */
+> function hasUnicode$3(string) {
+>   return reHasUnicode.test(string);
+> }
+> 
+> var _hasUnicode = hasUnicode$3;
+> 
+> /**
+>  * The base implementation of `_.property` without support for deep paths.
+>  *
+>  * @private
+>  * @param {string} key The key of the property to get.
+>  * @returns {Function} Returns the new accessor function.
+>  */
+> 
+> function baseProperty$1(key) {
+>   return function(object) {
+>     return object == null ? undefined : object[key];
+>   };
+> }
+> 
+> var _baseProperty = baseProperty$1;
+> 
+> var baseProperty = _baseProperty;
+> 
+> /**
+>  * Gets the size of an ASCII `string`.
+>  *
+>  * @private
+>  * @param {string} string The string inspect.
+>  * @returns {number} Returns the string size.
+>  */
+> var asciiSize$1 = baseProperty('length');
+> 
+> var _asciiSize = asciiSize$1;
+> 
+> /** Used to compose unicode character classes. */
+> 
+> var rsAstralRange$1 = '\\ud800-\\udfff',
+>     rsComboMarksRange$1 = '\\u0300-\\u036f',
+>     reComboHalfMarksRange$1 = '\\ufe20-\\ufe2f',
+>     rsComboSymbolsRange$1 = '\\u20d0-\\u20ff',
+>     rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1,
+>     rsVarRange$1 = '\\ufe0e\\ufe0f';
+> 
+> /** Used to compose unicode capture groups. */
+> var rsAstral$1 = '[' + rsAstralRange$1 + ']',
+>     rsCombo$1 = '[' + rsComboRange$1 + ']',
+>     rsFitz$1 = '\\ud83c[\\udffb-\\udfff]',
+>     rsModifier$1 = '(?:' + rsCombo$1 + '|' + rsFitz$1 + ')',
+>     rsNonAstral$1 = '[^' + rsAstralRange$1 + ']',
+>     rsRegional$1 = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+>     rsSurrPair$1 = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+>     rsZWJ$1 = '\\u200d';
+> 
+> /** Used to compose unicode regexes. */
+> var reOptMod$1 = rsModifier$1 + '?',
+>     rsOptVar$1 = '[' + rsVarRange$1 + ']?',
+>     rsOptJoin$1 = '(?:' + rsZWJ$1 + '(?:' + [rsNonAstral$1, rsRegional$1, rsSurrPair$1].join('|') + ')' + rsOptVar$1 + reOptMod$1 + ')*',
+>     rsSeq$1 = rsOptVar$1 + reOptMod$1 + rsOptJoin$1,
+>     rsSymbol$1 = '(?:' + [rsNonAstral$1 + rsCombo$1 + '?', rsCombo$1, rsRegional$1, rsSurrPair$1, rsAstral$1].join('|') + ')';
+> 
+> /** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
+> var reUnicode$1 = RegExp(rsFitz$1 + '(?=' + rsFitz$1 + ')|' + rsSymbol$1 + rsSeq$1, 'g');
+> 
+> /**
+>  * Gets the size of a Unicode `string`.
+>  *
+>  * @private
+>  * @param {string} string The string inspect.
+>  * @returns {number} Returns the string size.
+>  */
+> function unicodeSize$1(string) {
+>   var result = reUnicode$1.lastIndex = 0;
+>   while (reUnicode$1.test(string)) {
+>     ++result;
+>   }
+>   return result;
+> }
+> 
+> var _unicodeSize = unicodeSize$1;
+> 
+> var asciiSize = _asciiSize,
+>     hasUnicode$2 = _hasUnicode,
+>     unicodeSize = _unicodeSize;
+> 
+> /**
+>  * Gets the number of symbols in `string`.
+>  *
+>  * @private
+>  * @param {string} string The string to inspect.
+>  * @returns {number} Returns the string size.
+>  */
+> function stringSize$2(string) {
+>   return hasUnicode$2(string)
+>     ? unicodeSize(string)
+>     : asciiSize(string);
+> }
+> 
+> var _stringSize = stringSize$2;
+> 
+> /**
+>  * Converts an ASCII `string` to an array.
+>  *
+>  * @private
+>  * @param {string} string The string to convert.
+>  * @returns {Array} Returns the converted array.
+>  */
+> 
+> function asciiToArray$1(string) {
+>   return string.split('');
+> }
+> 
+> var _asciiToArray = asciiToArray$1;
+> 
+> /** Used to compose unicode character classes. */
+> 
+> var rsAstralRange = '\\ud800-\\udfff',
+>     rsComboMarksRange = '\\u0300-\\u036f',
+>     reComboHalfMarksRange = '\\ufe20-\\ufe2f',
+>     rsComboSymbolsRange = '\\u20d0-\\u20ff',
+>     rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
+>     rsVarRange = '\\ufe0e\\ufe0f';
+> 
+> /** Used to compose unicode capture groups. */
+> var rsAstral = '[' + rsAstralRange + ']',
+>     rsCombo = '[' + rsComboRange + ']',
+>     rsFitz = '\\ud83c[\\udffb-\\udfff]',
+>     rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
+>     rsNonAstral = '[^' + rsAstralRange + ']',
+>     rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+>     rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+>     rsZWJ = '\\u200d';
+> 
+> /** Used to compose unicode regexes. */
+> var reOptMod = rsModifier + '?',
+>     rsOptVar = '[' + rsVarRange + ']?',
+>     rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
+>     rsSeq = rsOptVar + reOptMod + rsOptJoin,
+>     rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
+> 
+> /** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
+> var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
+> 
+> /**
+>  * Converts a Unicode `string` to an array.
+>  *
+>  * @private
+>  * @param {string} string The string to convert.
+>  * @returns {Array} Returns the converted array.
+>  */
+> function unicodeToArray$1(string) {
+>   return string.match(reUnicode) || [];
+> }
+> 
+> var _unicodeToArray = unicodeToArray$1;
+> 
+> var asciiToArray = _asciiToArray,
+>     hasUnicode$1 = _hasUnicode,
+>     unicodeToArray = _unicodeToArray;
+> 
+> /**
+>  * Converts `string` to an array.
+>  *
+>  * @private
+>  * @param {string} string The string to convert.
+>  * @returns {Array} Returns the converted array.
+>  */
+> function stringToArray$1(string) {
+>   return hasUnicode$1(string)
+>     ? unicodeToArray(string)
+>     : asciiToArray(string);
+> }
+> 
+> var _stringToArray = stringToArray$1;
+> 
+> var baseRepeat = _baseRepeat,
+>     baseToString$1 = _baseToString,
+>     castSlice = _castSlice,
+>     hasUnicode = _hasUnicode,
+>     stringSize$1 = _stringSize,
+>     stringToArray = _stringToArray;
+> 
+> /* Built-in method references for those with the same name as other `lodash` methods. */
+> var nativeCeil = Math.ceil;
+> 
+> /**
+>  * Creates the padding for `string` based on `length`. The `chars` string
+>  * is truncated if the number of characters exceeds `length`.
+>  *
+>  * @private
+>  * @param {number} length The padding length.
+>  * @param {string} [chars=' '] The string used as padding.
+>  * @returns {string} Returns the padding for `string`.
+>  */
+> function createPadding$1(length, chars) {
+>   chars = chars === undefined ? ' ' : baseToString$1(chars);
+> 
+>   var charsLength = chars.length;
+>   if (charsLength < 2) {
+>     return charsLength ? baseRepeat(chars, length) : chars;
+>   }
+>   var result = baseRepeat(chars, nativeCeil(length / stringSize$1(chars)));
+>   return hasUnicode(chars)
+>     ? castSlice(stringToArray(result), 0, length).join('')
+>     : result.slice(0, length);
+> }
+> 
+> var _createPadding = createPadding$1;
+> 
+> /** Used to match a single whitespace character. */
+> 
+> var reWhitespace = /\s/;
+> 
+> /**
+>  * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+>  * character of `string`.
+>  *
+>  * @private
+>  * @param {string} string The string to inspect.
+>  * @returns {number} Returns the index of the last non-whitespace character.
+>  */
+> function trimmedEndIndex$1(string) {
+>   var index = string.length;
+> 
+>   while (index-- && reWhitespace.test(string.charAt(index))) {}
+>   return index;
+> }
+> 
+> var _trimmedEndIndex = trimmedEndIndex$1;
+> 
+> var trimmedEndIndex = _trimmedEndIndex;
+> 
+> /** Used to match leading whitespace. */
+> var reTrimStart = /^\s+/;
+> 
+> /**
+>  * The base implementation of `_.trim`.
+>  *
+>  * @private
+>  * @param {string} string The string to trim.
+>  * @returns {string} Returns the trimmed string.
+>  */
+> function baseTrim$1(string) {
+>   return string
+>     ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+>     : string;
+> }
+> 
+> var _baseTrim = baseTrim$1;
+> 
+> /**
+>  * Checks if `value` is the
+>  * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+>  * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 0.1.0
+>  * @category Lang
+>  * @param {*} value The value to check.
+>  * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+>  * @example
+>  *
+>  * _.isObject({});
+>  * // => true
+>  *
+>  * _.isObject([1, 2, 3]);
+>  * // => true
+>  *
+>  * _.isObject(_.noop);
+>  * // => true
+>  *
+>  * _.isObject(null);
+>  * // => false
+>  */
+> 
+> function isObject$1(value) {
+>   var type = typeof value;
+>   return value != null && (type == 'object' || type == 'function');
+> }
+> 
+> var isObject_1 = isObject$1;
+> 
+> var baseTrim = _baseTrim,
+>     isObject = isObject_1,
+>     isSymbol = isSymbol_1;
+> 
+> /** Used as references for various `Number` constants. */
+> var NAN = 0 / 0;
+> 
+> /** Used to detect bad signed hexadecimal string values. */
+> var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+> 
+> /** Used to detect binary string values. */
+> var reIsBinary = /^0b[01]+$/i;
+> 
+> /** Used to detect octal string values. */
+> var reIsOctal = /^0o[0-7]+$/i;
+> 
+> /** Built-in method references without a dependency on `root`. */
+> var freeParseInt = parseInt;
+> 
+> /**
+>  * Converts `value` to a number.
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.0.0
+>  * @category Lang
+>  * @param {*} value The value to process.
+>  * @returns {number} Returns the number.
+>  * @example
+>  *
+>  * _.toNumber(3.2);
+>  * // => 3.2
+>  *
+>  * _.toNumber(Number.MIN_VALUE);
+>  * // => 5e-324
+>  *
+>  * _.toNumber(Infinity);
+>  * // => Infinity
+>  *
+>  * _.toNumber('3.2');
+>  * // => 3.2
+>  */
+> function toNumber$1(value) {
+>   if (typeof value == 'number') {
+>     return value;
+>   }
+>   if (isSymbol(value)) {
+>     return NAN;
+>   }
+>   if (isObject(value)) {
+>     var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+>     value = isObject(other) ? (other + '') : other;
+>   }
+>   if (typeof value != 'string') {
+>     return value === 0 ? value : +value;
+>   }
+>   value = baseTrim(value);
+>   var isBinary = reIsBinary.test(value);
+>   return (isBinary || reIsOctal.test(value))
+>     ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+>     : (reIsBadHex.test(value) ? NAN : +value);
+> }
+> 
+> var toNumber_1 = toNumber$1;
+> 
+> var toNumber = toNumber_1;
+> 
+> /** Used as references for various `Number` constants. */
+> var INFINITY = 1 / 0,
+>     MAX_INTEGER = 1.7976931348623157e+308;
+> 
+> /**
+>  * Converts `value` to a finite number.
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.12.0
+>  * @category Lang
+>  * @param {*} value The value to convert.
+>  * @returns {number} Returns the converted number.
+>  * @example
+>  *
+>  * _.toFinite(3.2);
+>  * // => 3.2
+>  *
+>  * _.toFinite(Number.MIN_VALUE);
+>  * // => 5e-324
+>  *
+>  * _.toFinite(Infinity);
+>  * // => 1.7976931348623157e+308
+>  *
+>  * _.toFinite('3.2');
+>  * // => 3.2
+>  */
+> function toFinite$1(value) {
+>   if (!value) {
+>     return value === 0 ? value : 0;
+>   }
+>   value = toNumber(value);
+>   if (value === INFINITY || value === -INFINITY) {
+>     var sign = (value < 0 ? -1 : 1);
+>     return sign * MAX_INTEGER;
+>   }
+>   return value === value ? value : 0;
+> }
+> 
+> var toFinite_1 = toFinite$1;
+> 
+> var toFinite = toFinite_1;
+> 
+> /**
+>  * Converts `value` to an integer.
+>  *
+>  * **Note:** This method is loosely based on
+>  * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.0.0
+>  * @category Lang
+>  * @param {*} value The value to convert.
+>  * @returns {number} Returns the converted integer.
+>  * @example
+>  *
+>  * _.toInteger(3.2);
+>  * // => 3
+>  *
+>  * _.toInteger(Number.MIN_VALUE);
+>  * // => 0
+>  *
+>  * _.toInteger(Infinity);
+>  * // => 1.7976931348623157e+308
+>  *
+>  * _.toInteger('3.2');
+>  * // => 3
+>  */
+> function toInteger$1(value) {
+>   var result = toFinite(value),
+>       remainder = result % 1;
+> 
+>   return result === result ? (remainder ? result - remainder : result) : 0;
+> }
+> 
+> var toInteger_1 = toInteger$1;
+> 
+> var baseToString = _baseToString;
+> 
+> /**
+>  * Converts `value` to a string. An empty string is returned for `null`
+>  * and `undefined` values. The sign of `-0` is preserved.
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.0.0
+>  * @category Lang
+>  * @param {*} value The value to convert.
+>  * @returns {string} Returns the converted string.
+>  * @example
+>  *
+>  * _.toString(null);
+>  * // => ''
+>  *
+>  * _.toString(-0);
+>  * // => '-0'
+>  *
+>  * _.toString([1, 2, 3]);
+>  * // => '1,2,3'
+>  */
+> function toString$1(value) {
+>   return value == null ? '' : baseToString(value);
+> }
+> 
+> var toString_1 = toString$1;
+> 
+> var createPadding = _createPadding,
+>     stringSize = _stringSize,
+>     toInteger = toInteger_1,
+>     toString = toString_1;
+> 
+> /**
+>  * Pads `string` on the left side if it's shorter than `length`. Padding
+>  * characters are truncated if they exceed `length`.
+>  *
+>  * @static
+>  * @memberOf _
+>  * @since 4.0.0
+>  * @category String
+>  * @param {string} [string=''] The string to pad.
+>  * @param {number} [length=0] The padding length.
+>  * @param {string} [chars=' '] The string used as padding.
+>  * @returns {string} Returns the padded string.
+>  * @example
+>  *
+>  * _.padStart('abc', 6);
+>  * // => '   abc'
+>  *
+>  * _.padStart('abc', 6, '_-');
+>  * // => '_-_abc'
+>  *
+>  * _.padStart('abc', 3);
+>  * // => 'abc'
+>  */
+> function padStart(string, length, chars) {
+>   string = toString(string);
+>   length = toInteger(length);
+> 
+>   var strLength = length ? stringSize(string) : 0;
+>   return (length && strLength < length)
+>     ? (createPadding(length - strLength, chars) + string)
+>     : string;
+> }
+> 
+> var padStart_1 = padStart;
+> 
+> const ENCODING_WATCH_TYPE = 'vista.encodingWatch';
+> const FRAME_WATCH_TYPE = 'vista.frameWatch';
+> const config = {
+17c898
+<             return `${padStart(frameSummary.vcid, 3, 0)}/${frameSummary.encoding_type}`;
+---
+>             return `${padStart_1(frameSummary.vcid, 3, 0)}/${frameSummary.encoding_type}`;
+50c931,933
+< }
+---
+> };
+> 
+> export { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE, config };
+diff -r src/framesummary/encodingwatch/EncodingWatchRow.js distjs1/framesummary/encodingwatch/EncodingWatchRow.js
+1c1
+< import FrameWatchRow from '../FrameWatchRow';
+---
+> import FrameWatchRow from '../FrameWatchRow.js';
+2a3
+> import 'openmct.tables.TelemetryTableRow';
+4c5
+< export default class EncodingWatchRow extends FrameWatchRow {
+---
+> class EncodingWatchRow extends FrameWatchRow {
+17c18
+<         }
+---
+>         };
+29a31,32
+> 
+> export { EncodingWatchRow as default };
+diff -r src/framesummary/FrameWatchColumn.js distjs1/framesummary/FrameWatchColumn.js
+35,36c35
+<     };
+< 
+---
+>     }
+diff -r src/framesummary/FrameWatchConfigurationViewProvider.js distjs1/framesummary/FrameWatchConfigurationViewProvider.js
+1,2c1,2
+< import Vue from 'vue';
+< import FrameWatchTableConfiguration from './FrameWatchTableConfiguration';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import FrameWatchTableConfiguration from './FrameWatchTableConfiguration.js';
+3a4,6
+> import 'openmct.tables.TelemetryTableConfiguration';
+> import './config.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+5c8
+< export default class FrameWatchConfigurationViewProvider {
+---
+> class FrameWatchConfigurationViewProvider {
+49a53,54
+> 
+> export { FrameWatchConfigurationViewProvider as default };
+diff -r src/framesummary/FrameWatchRowCollection.js distjs1/framesummary/FrameWatchRowCollection.js
+3c3
+< export default class FrameWatchRowCollection extends TableRowCollection {
+---
+> class FrameWatchRowCollection extends TableRowCollection {
+24a25,26
+> 
+> export { FrameWatchRowCollection as default };
+diff -r src/framesummary/FrameWatchRow.js distjs1/framesummary/FrameWatchRow.js
+3c3
+< export default class FrameWatchRow extends TelemetryTableRow {
+---
+> class FrameWatchRow extends TelemetryTableRow {
+19a20,21
+> 
+> export { FrameWatchRow as default };
+diff -r src/framesummary/FrameWatchTableConfiguration.js distjs1/framesummary/FrameWatchTableConfiguration.js
+2c2,4
+< import { config } from './config';
+---
+> import { config } from './config.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+> 
+5c7
+< export default class FrameWatchTableConfiguration extends TelemetryTableConfiguration {
+---
+> class FrameWatchTableConfiguration extends TelemetryTableConfiguration {
+20a23,24
+> 
+> export { FrameWatchTableConfiguration as default };
+diff -r src/framesummary/FrameWatchTable.js distjs1/framesummary/FrameWatchTable.js
+2,6c2,10
+< import FrameWatchRowCollection from './FrameWatchRowCollection';
+< //import FrameWatchRow from './FrameWatchRow';
+< import EncodingWatchRow from './encodingwatch/EncodingWatchRow';
+< //import FrameWatchColumn from './FrameWatchColumn';
+< import { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE, config } from './config';
+---
+> import FrameWatchRowCollection from './FrameWatchRowCollection.js';
+> import EncodingWatchRow from './encodingwatch/EncodingWatchRow.js';
+> import { config, ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE } from './config.js';
+> import 'openmct.tables.collections.TableRowCollection';
+> import './FrameWatchRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/dataset/DatasetCache';
+> import '../_commonjsHelpers-76cdd49e.js';
+> 
+10c14
+< export default class FrameWatchTable extends TelemetryTable {
+---
+> class FrameWatchTable extends TelemetryTable {
+110a115,116
+> 
+> export { FrameWatchTable as default };
+diff -r src/framesummary/FrameWatchViewProvider.js distjs1/framesummary/FrameWatchViewProvider.js
+1,4c1,70
+< import Vue from 'vue';
+< import FrameWatchTable from './FrameWatchTable';
+< import FrameWatchViewComponent from './components/FrameWatchViewComponent.vue';
+< import { FRAME_WATCH_TYPE } from './config';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import FrameWatchTable from './FrameWatchTable.js';
+> import TableComponent from 'openmct.tables.components.Table';
+> import { FRAME_WATCH_TYPE } from './config.js';
+> import 'openmct.tables.TelemetryTable';
+> import './FrameWatchRowCollection.js';
+> import 'openmct.tables.collections.TableRowCollection';
+> import './encodingwatch/EncodingWatchRow.js';
+> import './FrameWatchRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/dataset/DatasetCache';
+> import '../_commonjsHelpers-76cdd49e.js';
+> 
+> var FrameWatchViewComponent = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-table"},[_c('div',{staticClass:"c-table-summary"},[_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("FSW Valid Frames: "+_vm._s(_vm.validFrames))]),_vm._v(" "),_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("FSW Invalid Frames: "+_vm._s(_vm.invalidFrames))]),_vm._v(" "),_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("FSW Idle Frames: "+_vm._s(_vm.idleFrames))])]),_vm._v(" "),_c('div',{staticClass:"v-frame-watch-table"},[_c('table-component',{ref:"tableComponent",attrs:{"allowSorting":true,"isEditing":_vm.isEditing,"marking":_vm.markingProp,"view":_vm.view}})],1)])},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'table',
+>         'objectPath'
+>     ],
+>     components: {
+>         TableComponent
+>     },
+>     props: {
+>         isEditing: {
+>             type: Boolean,
+>             required: true
+>         },
+>         view: {
+>             type: Object,
+>             required: true
+>         }
+>     },
+>     mounted() {
+>         this.table.on('update-header', this.updateHeader);
+>     },
+>     destroyed() {
+>         this.table.off('update-header', this.updateHeader);
+>     },
+>     data() {
+>         let markingProp = {
+>             enable: true,
+>             useAlternateControlBar: false,
+>             rowName: '',
+>             rowNamePlural: ''
+>         };
+> 
+>         return {
+>             markingProp,
+>             validFrames: '--',
+>             invalidFrames: '--',
+>             idleFrames: '--'
+>         }
+>     },
+>     methods: {
+>         getViewContext() {
+>             let tableComponent = this.$refs.tableComponent;
+> 
+>             if (tableComponent) {
+>                 return tableComponent.getViewContext();
+>             }
+>         },
+>         updateHeader() {
+>             this.validFrames = this.table.validFrames;
+>             this.invalidFrames = this.table.invalidFrames;
+>             this.idleFrames = this.table.idleFrames;
+>         }
+>     }
+> };
+6c72
+< export default class FrameWatchViewProvider {
+---
+> class FrameWatchViewProvider {
+81a148,149
+> 
+> export { FrameWatchViewProvider as default };
+diff -r src/framesummary/plugin.js distjs1/framesummary/plugin.js
+1,3c1,17
+< import FrameWatchViewProvider from './FrameWatchViewProvider';
+< import FrameWatchConfigurationViewProvider from './FrameWatchConfigurationViewProvider';
+< import { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE } from './config';
+---
+> import FrameWatchViewProvider from './FrameWatchViewProvider.js';
+> import FrameWatchConfigurationViewProvider from './FrameWatchConfigurationViewProvider.js';
+> import { ENCODING_WATCH_TYPE, FRAME_WATCH_TYPE } from './config.js';
+> import '../vue.runtime.esm-15b08281.js';
+> import './FrameWatchTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import './FrameWatchRowCollection.js';
+> import 'openmct.tables.collections.TableRowCollection';
+> import './encodingwatch/EncodingWatchRow.js';
+> import './FrameWatchRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'services/dataset/DatasetCache';
+> import 'openmct.tables.components.Table';
+> import './FrameWatchTableConfiguration.js';
+> import 'openmct.tables.TelemetryTableConfiguration';
+> import 'openmct.tables.components.TableConfiguration';
+> import '../_commonjsHelpers-76cdd49e.js';
+5c19
+< export default function FrameWatchViewPlugin() {
+---
+> function FrameWatchViewPlugin() {
+75a90,91
+> 
+> export { FrameWatchViewPlugin as default };
+diff -r src/globalStaleness/globalStaleness.js distjs1/globalStaleness/globalStaleness.js
+24c24
+< export default GlobalStaleness;
+---
+> export { GlobalStaleness as default };
+diff -r src/globalStaleness/plugin.js distjs1/globalStaleness/plugin.js
+1c1
+< import GlobalStaleness from './globalStaleness';
+---
+> import GlobalStaleness from './globalStaleness.js';
+4c4
+< export default function plugin (globalStalenessMs) {
+---
+> function plugin (globalStalenessMs) {
+28a29,30
+> 
+> export { plugin as default };
+diff -r src/historical/HistoricalProvider.js distjs1/historical/HistoricalProvider.js
+39c39
+<             params.select = '(dn,eu,channel_id,ert,scet,sclk,lst,record_type,dn_alarm_state,eu_alarm_state,module,realtime,dss_id)'
+---
+>             params.select = '(dn,eu,channel_id,ert,scet,sclk,lst,record_type,dn_alarm_state,eu_alarm_state,module,realtime,dss_id)';
+100c100
+<             params.select = '(dn,eu,channel_id,ert,scet,sclk,lst,record_type,eu_or_dn,dn_alarm_state,eu_alarm_state)'
+---
+>             params.select = '(dn,eu,channel_id,ert,scet,sclk,lst,record_type,eu_or_dn,dn_alarm_state,eu_alarm_state)';
+300c300
+<             params.select = '(dn,eu,channel_id,ert,scet,sclk,lst,record_type,dn_alarm_state,eu_alarm_state,module,realtime,dss_id)'
+---
+>             params.select = '(dn,eu,channel_id,ert,scet,sclk,lst,record_type,dn_alarm_state,eu_alarm_state,module,realtime,dss_id)';
+431c431
+<             }
+---
+>             };
+556c556
+<             }, {})
+---
+>             }, {});
+597c597
+<     }
+---
+>     };
+605c605
+<     }
+---
+>     };
+diff -r src/historical/HistoricalProviderSpec.js distjs1/historical/HistoricalProviderSpec.js
+8d7
+<     'use strict';
+73c72
+<                 }
+---
+>                 };
+90,91c89
+<                     historicalProvider.request(mockDomainObject, options).then(resolveCallback, rejectCallback);;
+<                     expect(mockOpenMct.notifications.alert).not.toHaveBeenCalled();
+---
+>                     historicalProvider.request(mockDomainObject, options).then(resolveCallback, rejectCallback);                    expect(mockOpenMct.notifications.alert).not.toHaveBeenCalled();
+97,98c95
+<                     historicalProvider.request(mockDomainObject, options).then(resolveCallback, rejectCallback);;
+<                     expect(mockOpenMct.notifications.alert).not.toHaveBeenCalled();
+---
+>                     historicalProvider.request(mockDomainObject, options).then(resolveCallback, rejectCallback);                    expect(mockOpenMct.notifications.alert).not.toHaveBeenCalled();
+100c97
+<             })
+---
+>             });
+113c110
+<                 }
+---
+>                 };
+diff -r src/historical/plugin.js distjs1/historical/plugin.js
+21c21
+<             })
+---
+>             });
+Only in src/identity: close.html
+Only in src/identity: login.html
+diff -r src/identity/LoginService.js distjs1/identity/LoginService.js
+83c83
+<             }.bind(this))
+---
+>             }.bind(this));
+Only in src: images
+Only in distjs1: index.html
+diff -r src/legacy/ampcs-view-importer/ViewImport.js distjs1/legacy/ampcs-view-importer/ViewImport.js
+5,6d4
+<     var testingId = 'msl-shared:a7475c11-eb08-413d-acc2-98c82d2371a5';
+< 
+21,22c19
+<     };
+< 
+---
+>     }
+30c27
+<         var parser = new DOMParser();
+---
+>         new DOMParser();
+diff -r src/legacy/export/bundle.js distjs1/legacy/export/bundle.js
+8d7
+<     "use strict";
+diff -r src/legacy/export/src/ExportDataAction.js distjs1/legacy/export/src/ExportDataAction.js
+7d6
+<     "use strict";
+diff -r src/legacy/export/src/ExportDataTask.js distjs1/legacy/export/src/ExportDataTask.js
+4d3
+<     'use strict';
+diff -r src/legacy/export/test/ExportDataActionSpec.js distjs1/legacy/export/test/ExportDataActionSpec.js
+6d5
+<     'use strict';
+224c223
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/legacy/export/test/ExportDataTaskSpec.js distjs1/legacy/export/test/ExportDataTaskSpec.js
+6d5
+<     'use strict';
+124,125c123,124
+<                             mockExportService.exportCSV.calls.mostRecent().args[1],
+<                         headers = options.headers;
+---
+>                             mockExportService.exportCSV.calls.mostRecent().args[1];
+>                         options.headers;
+Only in src/legacy: general
+Only in src/legacy/products: res
+diff -r src/legacy/products/src/EMDViewProvider.js distjs1/legacy/products/src/EMDViewProvider.js
+39c39
+<                 reason = response.data.description
+---
+>                 reason = response.data.description;
+diff -r src/legacy/products/src/PacketQueryController.js distjs1/legacy/products/src/PacketQueryController.js
+2d1
+<     'use strict';
+diff -r src/legacy/products/src/VistaProductView.js distjs1/legacy/products/src/VistaProductView.js
+16c16
+< });
+\ No newline at end of file
+---
+> });
+Only in src/legacy: README.md
+Only in src/legacy/table: res
+diff -r src/legacy/table/src/controllers/MCTTableController.js distjs1/legacy/table/src/controllers/MCTTableController.js
+1d0
+< 
+diff -r src/lib/eventHelpers.js distjs1/lib/eventHelpers.js
+8d7
+<     'use strict';
+diff -r src/lib/extend.js distjs1/lib/extend.js
+6d5
+<     'use strict';
+diff -r src/link/plugin.js distjs1/link/plugin.js
+35c35
+<                             container.innerHTML = '<a href="' + domainObject.url + '">' + domainObject.name + '</a>'
+---
+>                             container.innerHTML = '<a href="' + domainObject.url + '">' + domainObject.name + '</a>';
+Only in distjs1: lodash-3c3e13ab.js
+diff -r src/mcwsIndicator/MCWSIndicatorSpec.js distjs1/mcwsIndicator/MCWSIndicatorSpec.js
+1,3c1,3
+< import MCWSIndicator from './MCWSIndicator.vue';
+< import mcws from 'services/mcws/mcws'
+< import Vue from 'vue';
+---
+> import { M as MCWSIndicator } from '../MCWSIndicator-06832ac8.js';
+> import mcws from 'services/mcws/mcws';
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+Only in src/mcwsIndicator: MCWSIndicator.vue
+diff -r src/mcwsIndicator/plugin.js distjs1/mcwsIndicator/plugin.js
+1,2c1,3
+< import MCWSIndicator from './MCWSIndicator.vue';
+< import Vue from 'vue';
+---
+> import { M as MCWSIndicator } from '../MCWSIndicator-06832ac8.js';
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'services/mcws/mcws';
+4c5
+< export default function MCWSIndicatorPlugin() {
+---
+> function MCWSIndicatorPlugin() {
+22a24,25
+> 
+> export { MCWSIndicatorPlugin as default };
+Only in distjs1: MCWSIndicator-06832ac8.js
+diff -r src/messageStreamProcessor/MessageStreamProcessor.js distjs1/messageStreamProcessor/MessageStreamProcessor.js
+1d0
+< //import ChannelType from '../types/ChannelType';
+3a3,4
+> //import ChannelType from '../types/ChannelType';
+> 
+25c26
+<         }
+---
+>         };
+176c177
+< export default MessageStreamProcessor;
+---
+> export { MessageStreamProcessor as default };
+diff -r src/messagesView/MessagesTable.js distjs1/messagesView/MessagesTable.js
+1,2c1,3
+< import TelemetryTable from 'openmct.tables.TelemetryTable'
+< export default class MessagesTable extends TelemetryTable {
+---
+> import TelemetryTable from 'openmct.tables.TelemetryTable';
+> 
+> class MessagesTable extends TelemetryTable {
+16a18,19
+> 
+> export { MessagesTable as default };
+diff -r src/messagesView/MessagesViewProvider.js distjs1/messagesView/MessagesViewProvider.js
+3c3,4
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import 'openmct.tables.TelemetryTable';
+5c6
+< export default class MessagesViewProvider {
+---
+> class MessagesViewProvider {
+87a89,90
+> 
+> export { MessagesViewProvider as default };
+diff -r src/messagesView/plugin.js distjs1/messagesView/plugin.js
+1a2,6
+> import './MessagesTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.components.Table';
+> import '../vue.runtime.esm-15b08281.js';
+> 
+4c9
+< export default function MessagesViewPlugin(options) {
+---
+> function MessagesViewPlugin(options) {
+34a40,41
+> 
+> export { MessagesViewPlugin as default };
+Only in src/metadataAction: components
+diff -r src/metadataAction/metadataAction.js distjs1/metadataAction/metadataAction.js
+1,2c1
+< import MetadataListView from './components/metadataList.vue';
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+4c3,9
+< export default class MetadataAction {
+---
+> var MetadataListView = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-attributes-view"},[_c('div',{staticClass:"c-overlay__top-bar"},[_c('div',{staticClass:"c-overlay__dialog-title"},[_vm._v(_vm._s(("Attributes for " + _vm.name)))])]),_vm._v(" "),_c('div',{staticClass:"c-overlay__contents-main l-preview-window__object-view"},[_c('ul',{staticClass:"c-attributes-view__content"},_vm._l((Object.keys(_vm.attributes)),function(attribute){return _c('li',{key:attribute},[_c('span',{staticClass:"c-attributes-view__grid-item__label"},[_vm._v(_vm._s(attribute))]),_vm._v(" "),_c('span',{staticClass:"c-attributes-view__grid-item__value"},[_vm._v(_vm._s(_vm.attributes[attribute]))])])}),0)])])},
+> staticRenderFns: [],
+>     inject: ['name', 'attributes']
+> };
+> 
+> class MetadataAction {
+26,27c31,32
+<             }),
+<             overlay = this._openmct.overlays.overlay({
+---
+>             });
+>             this._openmct.overlays.overlay({
+41a47,48
+> 
+> export { MetadataAction as default };
+diff -r src/metadataAction/plugin.js distjs1/metadataAction/plugin.js
+1c1,2
+< import MetadataAction from './metadataAction';
+---
+> import MetadataAction from './metadataAction.js';
+> import '../vue.runtime.esm-15b08281.js';
+3c4
+< export default function plugin () {
+---
+> function plugin () {
+7c8,10
+< }
+\ No newline at end of file
+---
+> }
+> 
+> export { plugin as default };
+Only in src: Migrations.md
+Only in distjs1: moment-83aaf3a7.js
+diff -r src/multipleHistoricalSessions/HistoricalSessionMetadata.js distjs1/multipleHistoricalSessions/HistoricalSessionMetadata.js
+1c1
+< export default {
+---
+> var HistoricalSessionMetadata = {
+49a50,51
+> 
+> export { HistoricalSessionMetadata as default };
+Only in src/multipleHistoricalSessions: indicator
+diff -r src/multipleHistoricalSessions/plugin.js distjs1/multipleHistoricalSessions/plugin.js
+1,4c1,7
+< import Vue from 'vue';
+< import HistoricalSessionIndicator from './indicator/historicalSessionIndicator.vue';
+< import SessionTable from './sessionTable/SessionTable';
+< import HistoricalSessionMetadata from './HistoricalSessionMetadata';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import TableComponent from 'openmct.tables.components.Table';
+> import SessionService from 'services/session/SessionService';
+> import SessionTable from './sessionTable/SessionTable.js';
+> import HistoricalSessionMetadata from './HistoricalSessionMetadata.js';
+> import 'openmct.tables.TelemetryTable';
+> import 'openmct.tables.TelemetryTableRow';
+6c9,223
+< export default function HistoricalSessionsPlugin() {
+---
+> var HistoricalSessionSelector = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-hss"},[(_vm.isLoading)?[_vm._m(0),_vm._v(" "),_vm._m(1)]:_vm._e(),_vm._v(" "),(!_vm.isLoading)?[_vm._m(2),_vm._v(" "),_c('div',{staticClass:"c-overlay__contents-main c-hss__view-wrapper"},[_c('div',{staticClass:"c-hss__section c-hss__hosts section-host"},[_c('div',{staticClass:"c-hss__section__header c-tab"},[_vm._v("Hosts")]),_vm._v(" "),_c('ul',{staticClass:"c-hss__section__content"},_vm._l((_vm.hosts),function(host){return _c('li',{key:host,staticClass:"c-tree__item-h",on:{"click":function($event){return _vm.selectHostAndFilterSessions(host)}}},[_c('div',{staticClass:"c-tree__item",class:{'is-navigated-object': host === _vm.selectedHost }},[_c('a',{staticClass:"c-tree__item__label c-object-label"},[_c('div',{staticClass:"c-tree__item__name c-object-label__name"},[_vm._v(_vm._s(host))])])])])}),0)]),_vm._v(" "),_c('div',{staticClass:"c-hss__section c-hss__sessions section-selector"},[_c('div',{staticClass:"c-hss__section__header c-tab"},[_vm._v("Sessions")]),_vm._v(" "),_c('div',{staticClass:"c-hss__section__content"},[_c('TelemetryTable',{attrs:{"marking":_vm.markingProp,"enable-legacy-toolbar":true},on:{"marked-rows-updated":_vm.updateSelectedSessions}})],1)])]),_vm._v(" "),_c('div',{staticClass:"c-overlay__button-bar"},[_c('a',{staticClass:"c-button c-button--major",class:{disabled: !_vm.selectedSessions.length},on:{"click":_vm.applyHistoricalSessions}},[_vm._v("\n                Filter By Selected Sessions\n            ")]),_vm._v(" "),_c('a',{staticClass:"c-button",class:{disabled: !_vm.activeSessions},on:{"click":_vm.clearHistoricalSessions}},[_vm._v("\n                Clear Filtering\n            ")]),_vm._v(" "),_c('a',{staticClass:"c-button",on:{"click":_vm.closeOverlay}},[_vm._v("\n                Cancel\n            ")])])]:_vm._e()],2)},
+> staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-overlay__top-bar"},[_c('div',{staticClass:"c-overlay__dialog-title"},[_vm._v("Loading historical sessions...")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-overlay__contents-main c-hss__view-wrapper"},[_c('div',{staticClass:"wait-spinner"})])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-overlay__top-bar"},[_c('div',{staticClass:"c-overlay__dialog-title"},[_vm._v("Select Historical Sessions")]),_vm._v(" "),_c('div',{staticClass:"c-overlay__dialog-hint"},[_vm._v("Select one or more sessions to use for historical queries. Note that sessions may only be selected within one host at a time.")])])}],
+>     inject: ['openmct', 'table'],
+>     props: ['activeSessions'],
+>     components: {
+>         TelemetryTable: TableComponent
+>     },
+>     data() {
+>         return {
+>            hosts: [],
+>            selectedHost: '',
+>            sessionsFilteredByHost: [],
+>            selectedSessions: [],
+>            markingProp: {
+>                 enable: true,
+>                 useAlternateControlBar: true,
+>                 rowName: "Session",
+>                 rowNamePlural: "Sessions"
+>             },
+>             isLoading: true
+>         }
+>     },
+>     beforeDestroy() {
+>         this.table.destroy();
+>     },
+>     methods: {
+>         getUniq(key, array) {
+>             let entries = array.map(session => session[key]);
+> 
+>             return [...new Set(entries)];
+>         },
+>         updateDataInTable(sessions) {
+>             this.table.clearAndUpdateData(sessions);
+>         },
+>         selectHostAndFilterSessions(host){
+>             this.selectedHost = host;
+>             this.sessionServiceFilteredByHost = this.availableSessions.filter(session => session.host === host);
+>             this.$nextTick(() => {
+>                 this.updateDataInTable(this.sessionServiceFilteredByHost);
+>             });
+>         },
+>         setMarkedSessions() {
+>             if(this.activeSessions.numbers && this.activeSessions.host) {
+>                 this.availableSessions.forEach(session => {
+>                     if (this.activeSessions.numbers.some((sessionNumber => sessionNumber == session.number))
+>                         && this.activeSessions.host === session.host) {
+> 
+>                         session.marked = true;
+>                     }
+>                 });
+>             }
+>         },
+>         setAvailableSessions(sessions) {
+>             this.$emit('update-available-sessions', sessions);
+>             let primaryHost;
+> 
+>             this.isLoading = false;
+>             this.availableSessions = sessions;
+>             this.setMarkedSessions();
+>             this.hosts = this.getUniq('host', this.availableSessions);
+>             
+>             if (this.activeSessions.host) {
+>                 primaryHost = this.activeSessions.host;
+>             } else {
+>                 primaryHost = this.hosts[0];
+>             }
+> 
+>             this.selectHostAndFilterSessions(primaryHost);
+>         },
+>         getAvailableSessions() {
+>             this.sessionService.getHistoricalSessions({}).then(this.setAvailableSessions);
+>         },
+>         updateSelectedSessions(sessions) {
+>             this.selectedSessions = sessions;
+>         },
+>         clearHistoricalSessions() {
+>             this.sessionService.setHistoricalSession();
+>             this.closeOverlay();
+>         },
+>         applyHistoricalSessions() {
+>             let selectedSessions  = this.selectedSessions.map(row => row.datum),
+>                 host = this.selectedHost,
+>                 startTime,
+>                 endTime;
+> 
+>                 selectedSessions.forEach((session, index) => {
+>                     if (index === 0) {
+>                         startTime = session.start_time;
+>                         endTime = session.end_time;
+>                     }
+> 
+>                     if(session.start_time < startTime) {
+>                         startTime = session.start_time;
+>                     }
+>                     
+>                     if (session.end_time > endTime) {
+>                         endTime = session.end_time;
+>                     }
+>                 });
+> 
+>             let sessionObject = {
+>                 host,
+>                 start_time: startTime,
+>                 end_time: endTime,
+>                 numbers: selectedSessions.map(s => s.number)
+>             };
+> 
+>             this.sessionService.setHistoricalSession(sessionObject);
+>             this.closeOverlay();
+>         },
+>         closeOverlay() {
+>             if (this.overlay) {
+>                 this.overlay.dismiss();
+>                 delete this.overlay;
+>             }
+>         },
+>         openOverlay() {
+>             this.overlay = this.openmct.overlays.overlay({
+>                 element: this.$el,
+>                 size: 'large',
+>                 dismissable: true,
+>                 onDestroy: () => {
+>                    this.$emit('close-session-selector'); 
+>                 }
+>             });
+>         }
+>     },
+>     mounted() {
+>         this.sessionService = SessionService();
+> 
+>         this.getAvailableSessions();
+>         this.openOverlay();
+>     }
+> };
+> 
+> var HistoricalSessionIndicator = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-indicator"},[_c('div',{staticClass:"c-indicator icon-session",class:{
+>             's-status-on': _vm.activeSessions.numbers,
+>             's-status-available': _vm.availableSessions.length
+>         }},[(_vm.historicalSessionDisabled)?_c('span',{staticClass:"c-indicator__label"},[_c('span',{staticClass:"angular-w"},[_vm._v("\n                Historical Session Filtering Disabled in Config\n            ")])]):_c('span',{staticClass:"c-indicator__label",staticStyle:{"display":"flex","flex-direction":"column"}},[(_vm.availableSessions.length)?[(_vm.activeSessions.numbers)?_c('span',{staticClass:"angular-w"},[_vm._v("\n                    "+_vm._s(_vm.filteredByMessageString)+"\n                    "),_c('button',{on:{"click":_vm.openSessionSelector}},[_vm._v("\n                        Change\n                    ")]),_vm._v(" "),_c('button',{on:{"click":_vm.clearAllSessions}},[_vm._v("\n                        Clear\n                    ")])]):_c('span',{staticClass:"angular-w"},[_vm._v("\n                    Filter by historical sessions\n                    "),_c('button',{on:{"click":_vm.openSessionSelector}},[_vm._v("\n                        Select\n                    ")])])]:_c('span',{staticClass:"angular-w"},[_vm._v("\n                No Historical Sessions Available\n                "),_c('button',{class:{disabled: _vm.isRequestingSessions},on:{"click":_vm.checkForHistoricalSessions}},[_vm._v("\n                    "+_vm._s(_vm.isRequestingSessions ? 'Requesting...' : 'Request')+"\n                ")])])],2)]),_vm._v(" "),(_vm.showSessionSelector)?_c('historical-session-selector',{attrs:{"activeSessions":_vm.activeSessions},on:{"update-available-sessions":_vm.setAvailableSessions,"close-session-selector":_vm.closeSessionSelector}}):_vm._e()],1)},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'table'
+>     ],
+>     components: {
+>         HistoricalSessionSelector
+>     },
+>     computed: {
+>         filteredByMessageString() {
+>             let sessionOrSessions;
+> 
+>             if (this.activeSessions.numbers.length === 1) {
+>                 sessionOrSessions = 'session';
+>             } else {
+>                 sessionOrSessions = 'sessions';
+>             }
+>             return `Historical queries filtered by ${this.activeSessions.numbers.length} ${sessionOrSessions}`;
+>         }
+>     },
+>     data() {
+>         return {
+>             activeSessions: {},
+>             numFilteredSessions: 8,
+>             availableSessions: [],
+>             showSessionSelector: false,
+>             isRequestingSessions: false,
+>             historicalSessionDisabled: false
+>         }
+>     },
+>     methods: {
+>         onActiveSessionChange(sessions) {
+>             if (sessions) {
+>                 this.activeSessions = sessions;
+>             } else {
+>                 this.activeSessions = {};
+>             }
+>         },  
+>         setAvailableSessions(sessions) {
+>             this.isRequestingSessions = false;
+>             this.availableSessions = sessions;
+>         },
+>         openSessionSelector() {
+>             this.showSessionSelector = true;
+>         },
+>         closeSessionSelector() {
+>             this.showSessionSelector = false;
+>         },
+>         clearAllSessions() {
+>             this.sessionService.setHistoricalSession();
+>         },
+>         checkForHistoricalSessions() {
+>             this.isRequestingSessions = true;
+>             this.sessionService.getHistoricalSessions({}).then(this.setAvailableSessions);
+>         }
+>     },
+>     mounted() {
+>         this.sessionService = SessionService();
+>         this.historicalSessionDisabled = this.sessionService.historicalSessionFilterConfig.disable;
+> 
+>         window.setTimeout(this.checkForHistoricalSessions, 2000);
+> 
+>         this.unsubscribeSessionListener = this.sessionService.listenForHistoricalChange(this.onActiveSessionChange);
+> 
+>         let activeSessions = this.sessionService.getHistoricalSession();
+>         this.onActiveSessionChange(activeSessions);
+>     },
+>     destroyed() {
+>         this.table.extendsDestroy();    
+>         this.unsubscribeSessionListener();
+>     }
+> };
+> 
+> function HistoricalSessionsPlugin() {
+32c249
+<             let component = new Vue ({
+---
+>             new Vue ({
+47a265,266
+> 
+> export { HistoricalSessionsPlugin as default };
+Only in src/multipleHistoricalSessions: sessionSelector
+diff -r src/multipleHistoricalSessions/sessionTable/SessionTable.js distjs1/multipleHistoricalSessions/sessionTable/SessionTable.js
+4c4
+< export default class SessionTable extends TelemetryTable { 
+---
+> class SessionTable extends TelemetryTable { 
+111a112,113
+> 
+> export { SessionTable as default };
+Only in src: notes.md
+Only in src/packetQuery: components
+diff -r src/packetQuery/PacketQueryViewProvider.js distjs1/packetQuery/PacketQueryViewProvider.js
+1,2c1
+< import Vue from 'vue';
+< import PacketQueryView from './components/PacketQueryView.vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+4c3,244
+< export default class PacketQueryViewProvider {
+---
+> //import MCWSURLBuilder from '../MCWSURLBuilder';
+> 
+> const FILTER_SUFFIX = "Filter";
+> const FILTER_OPTIONS = ['spsc', 'apid', 'vcid'];
+> const SORT_OPTIONS =
+>     ['session_id', 'rct', 'scet', 'ert', 'sclk', 'apid', 'spsc', 'vcid', 'ls'];
+> 
+> const MINIMUM_QUERY_MESSAGE =
+>     'One of "Query by Session" or "Bound to Time Conductor"' +
+>     ' must be selected in order to query for packet content.';
+> const SESSION_ID_MESSAGE =
+>     'Must specify Session ID to query by session.';
+> 
+> const rows = {
+>     useSession: {
+>         name: "Query by Session",
+>         control: "checkbox",
+>         key: "useSession"
+>     },
+>     sessionId: {
+>         name: "Session ID",
+>         control: "textfield",
+>         key: "sessionId"
+>     },
+>     useTimeConductor: {
+>         name: "Bound to Time Conductor",
+>         control: "checkbox",
+>         key: "useTimeConductor"
+>     },
+>     sortBy: {
+>         name: "Sort by",
+>         control: "select",
+>         options: SORT_OPTIONS.map(function (option) {
+>             return {
+>                 name: option,
+>                 value: option
+>             };
+>         }),
+>         key: "sortBy"
+>     }
+> };
+> 
+> const filterRows = [];
+> 
+> const formStructure = {
+>     sections: [
+>         {
+>             name: "Session Selection",
+>             rows: [ rows.useSession, rows.sessionId ],
+>         },
+>         {
+>             name: "Time Range",
+>             rows: [ rows.useTimeConductor ]
+>         },
+>         {
+>             name: "Additional Filters",
+>             rows: filterRows
+>         },
+>         {
+>             name: "Sorting",
+>             rows: [ rows.sortBy ]
+>         }
+>     ],
+>     buttons: {
+>         submit: {
+>             label: "Run Query",
+>         },
+>         cancel: {
+>             hide: true
+>         }
+>     }
+> };
+> 
+> var PacketQueryView = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{ref:"form"}),_vm._v(" "),_c('div',{ref:"message"},[_vm._v("\n        "+_vm._s(_vm.message)+"\n    ")])])},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'objectPath'
+>     ],
+>     props: {
+>         domainObject: {
+>             type: Object,
+>             require: true
+>         }
+>     },
+>     computed: {
+>         filterRows() {
+>             return FILTER_OPTIONS.map(key => {
+>                 const propertyName = key + FILTER_SUFFIX;
+> 
+>                 return {
+>                     name: key.toUpperCase(),
+>                     key: propertyName,
+>                 };
+>             });
+>         },
+>         message() {
+>             if (this.noFilterSelected) {
+>                 return MINIMUM_QUERY_MESSAGE;
+>             }
+>             
+>             if (this.noSessionId) {
+>                 return SESSION_ID_MESSAGE;
+>             }
+> 
+>             return '';
+>         },
+>         isValid() {
+>             return !Boolean(this.message);
+>         },
+>         noFilterSelected() {
+>             return !this.queryModel.useSession && !this.queryModel.useTimeConductor;
+>         },
+>         noSessionId() {
+>             return this.queryModel.useSession && !this.queryModel.sessionId;
+>         }
+>     },
+>     watch: {
+>         'queryModel.useSession': {
+>             handler(change, old) {
+>                 this.validateForm();
+>             }
+>         },
+>         'queryModel.sessionId': {
+>             handler(change, old) {
+>                 this.validateForm();
+>             }
+>         },
+>         'queryModel.useTimeConductor': {
+>             handler(change, old) {
+>                 this.validateForm();
+>             }
+>         }
+>     },
+>     data() {
+> 
+>         return {
+>             queryModel: {
+>                 useSession: undefined,
+>                 sessionId: undefined,
+>                 useTimeConductor: undefined
+>             },
+>             
+>         };
+>     },
+>     mounted() {
+>         this.formElement = this.$refs.form;
+>         this.setFilterOptions();
+>         this.showForm();
+>     },
+>     methods: {
+>         initializeQueryModel() {
+>             this.$set(this.queryModel, 'useSession' , false);
+>             this.$set(this.queryModel, 'sessionId', '');
+>             this.$set(this.queryModel, 'useTimeConductor', false);
+>         },
+>         onChange(change) {
+>             this.$set(
+>                 this.queryModel,
+>                 change.model.key,
+>                 change.value
+>             );
+>         },
+>         setFilterOptions() {
+>             FILTER_OPTIONS.forEach(key => {
+>                 const propertyName = key + FILTER_SUFFIX;
+>                 this.$set(this.queryModel, propertyName, '');
+> 
+>                 filterRows.push({
+>                     name: key.toUpperCase(),
+>                     key: propertyName,
+>                     control: "textfield"
+>                 });
+>             });
+>         },
+>         showForm() {
+>             const options = {
+>                 element: this.formElement,
+>                 onChange: this.onChange
+>             };
+> 
+>             this.initializeQueryModel();
+> 
+>             this.openmct.forms.showForm(formStructure, options)
+>                 .then(this.resolveFormPromise.bind(this));
+> 
+>             this.runQueryButton = this.formElement.querySelector('.c-button.c-button--major');
+>         },
+>         resolveFormPromise(changes) {
+>             this.submitQuery(changes);
+>             this.showForm();
+>         },
+>         validateForm() {
+>             if (this.isValid) {
+>                 this.runQueryButton.disabled = undefined;
+>             } else {
+>                 this.runQueryButton.disabled = true;
+>             }
+>         },
+>         submitQuery(queryModel) {
+>             const link = document.createElement("a");
+>             const url = this.domainObject.telemetry.dataProductContentUrl;
+>             const builder = new MCWSURLBuilder(url);
+> 
+>             if (queryModel.useSession) {
+>                 builder.filter('session_id', queryModel.sessionId);
+>             }
+> 
+>             if (queryModel.useTimeConductor) {
+>                 const bounds = this.openmct.time.bounds();
+>                 const start = bounds.start;
+>                 const end = bounds.end;
+>                 const timeSystem = openmct.time.timeSystem();
+>                 const domain = timeSystem.key;
+> 
+>                 const format = openmct.telemetry.getFormatter(timeSystem.timeFormat);
+> 
+>                 builder.filter(domain, format.format(start), ">");
+>                 builder.filter(domain, format.format(end), "<");
+>             }
+> 
+>             FILTER_OPTIONS.forEach(option => {
+>                 const property = option + FILTER_SUFFIX;
+>                 if (queryModel[property]) {
+>                     builder.filter(option, queryModel[property]);
+>                 }
+>             });
+> 
+>             if (queryModel.sortBy) {
+>                 builder.sort(queryModel.sortBy);
+>             }
+> 
+>             link.href = builder.url();
+>             link.download = '';
+>             link.target = "_blank";
+>             link.click();
+>         }
+>     }
+> };
+> 
+> class PacketQueryViewProvider {
+57a298,299
+> 
+> export { PacketQueryViewProvider as default };
+diff -r src/packetQuery/plugin.js distjs1/packetQuery/plugin.js
+1c1,2
+< import PacketQueryViewProvider from './PacketQueryViewProvider';
+---
+> import PacketQueryViewProvider from './PacketQueryViewProvider.js';
+> import '../vue.runtime.esm-15b08281.js';
+3c4
+< export default function PacketSummaryPlugin() {
+---
+> function PacketSummaryPlugin() {
+7a9,10
+> 
+> export { PacketSummaryPlugin as default };
+Only in src/packetSummary: components
+diff -r src/packetSummary/PacketSummaryRowCollection.js distjs1/packetSummary/PacketSummaryRowCollection.js
+2c2,3
+< import _ from 'lodash';
+---
+> import { l as lodashExports } from '../lodash-3c3e13ab.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+4c5
+< export default class PacketSummaryRowCollection extends TableRowCollection {
+---
+> class PacketSummaryRowCollection extends TableRowCollection {
+33c34
+<         return _.padStart(datum.vcid, 3, 0) + '/' + _.padStart(datum.apid, 4, 0);
+---
+>         return lodashExports.padStart(datum.vcid, 3, 0) + '/' + lodashExports.padStart(datum.apid, 4, 0);
+64a66,67
+> 
+> export { PacketSummaryRowCollection as default };
+diff -r src/packetSummary/PacketSummaryRow.js distjs1/packetSummary/PacketSummaryRow.js
+3c3
+< export default class PacketSummaryRow extends TelemetryTableRow {
+---
+> class PacketSummaryRow extends TelemetryTableRow {
+13a14,15
+> 
+> export { PacketSummaryRow as default };
+diff -r src/packetSummary/PacketSummaryTable.js distjs1/packetSummary/PacketSummaryTable.js
+2,3c2,7
+< import PacketSummaryRowCollection from './PacketSummaryRowCollection';
+< import PacketSummaryRow from './PacketSummaryRow';
+---
+> import PacketSummaryRowCollection from './PacketSummaryRowCollection.js';
+> import PacketSummaryRow from './PacketSummaryRow.js';
+> import 'openmct.tables.collections.TableRowCollection';
+> import '../lodash-3c3e13ab.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+> import 'openmct.tables.TelemetryTableRow';
+5c9
+< export default class PacketSummaryTable extends TelemetryTable {
+---
+> class PacketSummaryTable extends TelemetryTable {
+74a79,80
+> 
+> export { PacketSummaryTable as default };
+diff -r src/packetSummary/PacketSummaryViewProvider.js distjs1/packetSummary/PacketSummaryViewProvider.js
+1c1
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+3c3,68
+< import PacketSummaryViewComponent from './components/PacketSummaryViewComponent.vue';
+---
+> import TableComponent from 'openmct.tables.components.Table';
+> import 'openmct.tables.TelemetryTable';
+> import './PacketSummaryRowCollection.js';
+> import 'openmct.tables.collections.TableRowCollection';
+> import '../lodash-3c3e13ab.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+> import './PacketSummaryRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> 
+> var PacketSummaryViewComponent = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-table"},[_c('div',{staticClass:"c-table-summary"},[_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("FSW Valid Packets: "+_vm._s(_vm.fswValid))]),_vm._v(" "),_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("FSW Invalid Packets: "+_vm._s(_vm.fswInvalid))]),_vm._v(" "),_c('div',{staticClass:"c-table-and-summary__summary-item"},[_vm._v("FSW Fill Packets: "+_vm._s(_vm.fswFill))])]),_vm._v(" "),_c('div',{staticClass:"v-packet-summary-table"},[_c('table-component',{ref:"tableComponent",attrs:{"allowSorting":true,"isEditing":_vm.isEditing,"marking":_vm.markingProp,"view":_vm.view}})],1)])},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'table',
+>         'objectPath'
+>     ],
+>     components: {
+>         TableComponent
+>     },
+>     props: {
+>         isEditing: {
+>             type: Boolean,
+>             required: true
+>         },
+>         view: {
+>             type: Object,
+>             required: true
+>         }
+>     },
+>     mounted() {
+>         this.table.on('update-header', this.updateHeader);
+>     },
+>     destroyed() {
+>         this.table.off('update-header', this.updateHeader);
+>     },
+>     data() {
+>         let markingProp = {
+>             enable: true,
+>             useAlternateControlBar: false,
+>             rowName: '',
+>             rowNamePlural: ''
+>         };
+> 
+>         return {
+>             markingProp,
+>             fswValid: '--',
+>             fswInvalid: '--',
+>             fswFill: '--'
+>         }
+>     },
+>     methods: {
+>         getViewContext() {
+>             let tableComponent = this.$refs.tableComponent;
+> 
+>             if (tableComponent) {
+>                 return tableComponent.getViewContext();
+>             }
+>         },
+>         updateHeader() {
+>             this.fswValid = this.table.fswValid;
+>             this.fswInvalid = this.table.fswInvalid;
+>             this.fswFill = this.table.fswFill;
+>         }
+>     }
+> };
+5c70
+< export default class ProductSummaryViewProvider {
+---
+> class ProductSummaryViewProvider {
+78a144,145
+> 
+> export { ProductSummaryViewProvider as default };
+diff -r src/packetSummary/plugin.js distjs1/packetSummary/plugin.js
+1c1,12
+< import PacketSummaryViewProvider from './PacketSummaryViewProvider';
+---
+> import ProductSummaryViewProvider from './PacketSummaryViewProvider.js';
+> import '../vue.runtime.esm-15b08281.js';
+> import './PacketSummaryTable.js';
+> import 'openmct.tables.TelemetryTable';
+> import './PacketSummaryRowCollection.js';
+> import 'openmct.tables.collections.TableRowCollection';
+> import '../lodash-3c3e13ab.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+> import './PacketSummaryRow.js';
+> import 'openmct.tables.TelemetryTableRow';
+> import 'openmct.tables.components.Table';
+> 
+4c15
+< export default function PacketSummaryPlugin() {
+---
+> function PacketSummaryPlugin() {
+17c28
+<         openmct.objectViews.addProvider(new PacketSummaryViewProvider(openmct));
+---
+>         openmct.objectViews.addProvider(new ProductSummaryViewProvider(openmct));
+24c35
+<         }
+---
+>         };
+39c50,52
+< };
+---
+> }
+> 
+> export { PacketSummaryPlugin as default };
+diff -r src/persistence/MCWSPersistenceProvider.js distjs1/persistence/MCWSPersistenceProvider.js
+1,2c1,8
+< import mcws from '../services/mcws/mcws';
+< import { createModelFromNamespaceDefinition, createIdentifierFromNamespaceDefinition } from './utils';
+---
+> import mcws from '../services/mcws/mcws.js';
+> import { createIdentifierFromNamespaceDefinition, createModelFromNamespaceDefinition } from './utils.js';
+> import '../services/mcws/NamespaceMIO.js';
+> import '../services/mcws/MIO.js';
+> import '../services/mcws/MCWSParameters.js';
+> import '../services/mcws/MCWSClient.js';
+> import '../services/mcws/OpaqueFileMIO.js';
+> import '../services/mcws/DataTableMIO.js';
+42c48
+< export default class MCWSPersistenceProvider {   
+---
+> class MCWSPersistenceProvider {   
+85d90
+<             const SKIP_IDENTIFIER = false;
+153c158
+<         })
+---
+>         });
+256c261
+<             const username = USERNAME_FROM_PATH_REGEX.exec(namespace.subject)[1]
+---
+>             const username = USERNAME_FROM_PATH_REGEX.exec(namespace.subject)[1];
+424a430,431
+> 
+> export { MCWSPersistenceProvider as default };
+diff -r src/persistence/plugin.js distjs1/persistence/plugin.js
+1,2c1,9
+< import { createIdentifierFromNamespaceDefinition, createNamespace } from './utils';
+< import MCWSPersistenceProvider from './MCWSPersistenceProvider';
+---
+> import { createNamespace, createIdentifierFromNamespaceDefinition } from './utils.js';
+> import MCWSPersistenceProvider from './MCWSPersistenceProvider.js';
+> import '../services/mcws/mcws.js';
+> import '../services/mcws/NamespaceMIO.js';
+> import '../services/mcws/MIO.js';
+> import '../services/mcws/MCWSParameters.js';
+> import '../services/mcws/MCWSClient.js';
+> import '../services/mcws/OpaqueFileMIO.js';
+> import '../services/mcws/DataTableMIO.js';
+4c11
+< export default function MCWSPersistenceProviderPlugin(configNamespaces) {
+---
+> function MCWSPersistenceProviderPlugin(configNamespaces) {
+25a33,34
+> 
+> export { MCWSPersistenceProviderPlugin as default };
+diff -r src/persistence/test/MCWSNamespaceModelProviderSpec.js distjs1/persistence/test/MCWSNamespaceModelProviderSpec.js
+7d6
+<     'use strict';
+diff -r src/persistence/test/MCWSNamespaceServiceSpec.js distjs1/persistence/test/MCWSNamespaceServiceSpec.js
+10d9
+<     'use strict';
+diff -r src/persistence/test/MCWSPersistenceProviderSpec.js distjs1/persistence/test/MCWSPersistenceProviderSpec.js
+10d9
+<     "use strict";
+72c71
+<                 })
+---
+>                 });
+162c161
+<                 })
+---
+>                 });
+176c175
+<                 })
+---
+>                 });
+186c185
+<                 })
+---
+>                 });
+Only in src/persistence/test: suite.json
+diff -r src/persistence/utils.js distjs1/persistence/utils.js
+1c1
+< export function createIdentifierFromNamespaceDefinition(namespaceDefinition) {
+---
+> function createIdentifierFromNamespaceDefinition(namespaceDefinition) {
+8c8
+< export function createModelFromNamespaceDefinition(userId, namespaceDefinition, composition = []) {
+---
+> function createModelFromNamespaceDefinition(userId, namespaceDefinition, composition = []) {
+23c23
+< export function createNamespace(namespace) {
+---
+> function createNamespace(namespace) {
+46a47,48
+> 
+> export { createIdentifierFromNamespaceDefinition, createModelFromNamespaceDefinition, createNamespace };
+Only in src/product-status: 4plugin.js
+Only in src/product-status: data-product-autoclear.vue
+diff -r src/product-status/DataProductCell.js distjs1/product-status/DataProductCell.js
+1c1
+< export default {
+---
+> var DataProductCell = {
+28c28,30
+< }
+---
+> };
+> 
+> export { DataProductCell as default };
+diff -r src/product-status/DataProductRowCollection.js distjs1/product-status/DataProductRowCollection.js
+3c3
+< export default class DataProductRowCollection extends TableRowCollection {
+---
+> class DataProductRowCollection extends TableRowCollection {
+13c13
+<         this.on('filter', this.filter)
+---
+>         this.on('filter', this.filter);
+66c66,68
+< }
+\ No newline at end of file
+---
+> }
+> 
+> export { DataProductRowCollection as default };
+diff -r src/product-status/DataProductRow.js distjs1/product-status/DataProductRow.js
+10d9
+<     const COMPLETE_PRODUCT_RECORD_TYPE = 'COMPLETE_PRODUCT';
+23c22
+<     }
+---
+>     };
+diff -r src/product-status/DataProductRowSpec.js distjs1/product-status/DataProductRowSpec.js
+8d7
+<     'use strict';
+88c87
+<             }
+---
+>             };
+188c187
+<             }
+---
+>             };
+203c202
+<             expect(dataProductRow.datum["event_time"]).toEqual("2019-259T17:07:57.800")
+---
+>             expect(dataProductRow.datum["event_time"]).toEqual("2019-259T17:07:57.800");
+diff -r src/product-status/DataProductTable.js distjs1/product-status/DataProductTable.js
+189c189
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/product-status/DataProductViewActions.js distjs1/product-status/DataProductViewActions.js
+41c41
+< export default viewActions;
+\ No newline at end of file
+---
+> export { viewActions as default };
+diff -r src/product-status/DataProductViewProvider.js distjs1/product-status/DataProductViewProvider.js
+1c1
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+2a3
+> 
+5c6
+< export default class DataProductViewProvider {
+---
+> class DataProductViewProvider {
+108a110,111
+> 
+> export { DataProductViewProvider as default };
+diff -r src/product-status/DATColumn.js distjs1/product-status/DATColumn.js
+9c9
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/product-status/DATDownloadCell.js distjs1/product-status/DATDownloadCell.js
+1c1
+< import DataProductCell from './DataProductCell.js'
+---
+> import DataProductCell from './DataProductCell.js';
+3c3
+< export default {
+---
+> var DATDownloadCell = {
+19c19,21
+< }
+---
+> };
+> 
+> export { DATDownloadCell as default };
+diff -r src/product-status/EMDColumn.js distjs1/product-status/EMDColumn.js
+9c9
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/product-status/EMDDownloadCell.js distjs1/product-status/EMDDownloadCell.js
+1c1
+< import DataProductCell from './DataProductCell.js'
+---
+> import DataProductCell from './DataProductCell.js';
+3c3
+< export default {
+---
+> var EMDDownloadCell = {
+19c19,21
+< }
+---
+> };
+> 
+> export { EMDDownloadCell as default };
+diff -r src/product-status/EMDPreviewCell.js distjs1/product-status/EMDPreviewCell.js
+1c1
+< import DataProductCell from './DataProductCell.js'
+---
+> import DataProductCell from './DataProductCell.js';
+3c3
+< export default {
+---
+> var EMDPreviewCell = {
+18c18,20
+< }
+---
+> };
+> 
+> export { EMDPreviewCell as default };
+diff -r src/product-status/EMDPreviewColumn.js distjs1/product-status/EMDPreviewColumn.js
+9c9
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/product-status/plugin.js distjs1/product-status/plugin.js
+1c1
+< import Vue from 'vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+7,8c7
+< //import VistaTableConfigurationProvider from '../tables/VistaTableConfigurationProvider.js';
+< import DataProductAutoclear from './data-product-autoclear.vue';
+---
+> import { l as lodashExports } from '../lodash-3c3e13ab.js';
+10c9,12
+< import DataProductViewActions from './DataProductViewActions.js';
+---
+> import viewActions from './DataProductViewActions.js';
+> import 'openmct.tables.components.Table';
+> import './DataProductCell.js';
+> import '../_commonjsHelpers-76cdd49e.js';
+12c14,45
+< export default function install() {
+---
+> var DataProductAutoclear = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.isEditing)?_c('div',{staticClass:"c-properties"},[_c('div',{staticClass:"c-properties__header"},[_vm._v("Auto-clear Completed Products")]),_vm._v(" "),_c('ul',{staticClass:"c-properties__section"},[_c('li',{staticClass:"c-properties__row"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"c-properties__value"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.autoClearTimeout),expression:"autoClearTimeout"}],ref:"autoClearTimeout",staticClass:"c-input--sm c-input-number--no-spinners",attrs:{"type":"number"},domProps:{"value":(_vm.autoClearTimeout)},on:{"change":_vm.setAutoClearTimeout,"input":function($event){if($event.target.composing){ return; }_vm.autoClearTimeout=$event.target.value;}}})])])])]):_vm._e()},
+> staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-properties__label",attrs:{"title":"Automatically remove completed data products after a number of minutes. If left blank, completed products will not be removed from the view."}},[_c('label',[_vm._v("Clear after minutes")])])}],
+>     inject: ['openmct'],
+>     data() {
+>         return {
+>             headers: {},
+>             isEditing: this.openmct.editor.isEditing(),
+>             autoClearTimeout: undefined
+>         }
+>     },
+>     methods: {
+>         toggleEdit(isEditing) {
+>             this.isEditing = isEditing;
+>         },
+>         setAutoClearTimeout() {
+>             this.openmct.objects.mutate(this.domainObject, 'configuration.autoClearTimeout', this.$refs.autoClearTimeout.value);
+>         }
+>     },
+>     mounted() {
+>         this.domainObject = this.openmct.selection.get()[0][0].context.item;
+>         this.autoClearTimeout = lodashExports.get(this.domainObject, 'configuration.autoClearTimeout');
+>         this.unlisteners = [];
+>         this.openmct.editor.on('isEditing', this.toggleEdit);
+>     },
+>     destroyed() {
+>         this.openmct.editor.off('isEditing', this.toggleEdit);
+>         this.unlisteners.forEach((unlisten) => unlisten());
+>     }
+> };
+> 
+> function install() {
+77c110
+<         DataProductViewActions.forEach(action => {
+---
+>         viewActions.forEach(action => {
+86a120,121
+> 
+> export { install as default };
+diff -r src/product-status/TXTDownloadCell.js distjs1/product-status/TXTDownloadCell.js
+1c1
+< import DataProductCell from './DataProductCell.js'
+---
+> import DataProductCell from './DataProductCell.js';
+3c3
+< export default {
+---
+> var TXTDownloadCell = {
+19c19,21
+< }
+---
+> };
+> 
+> export { TXTDownloadCell as default };
+diff -r src/realtime/MCWSAlarmMessageStreamProvider.js distjs1/realtime/MCWSAlarmMessageStreamProvider.js
+8d7
+<     'use strict';
+83c82
+<     }
+---
+>     };
+diff -r src/realtime/MCWSChannelStreamProvider.js distjs1/realtime/MCWSChannelStreamProvider.js
+8d7
+<     'use strict';
+diff -r src/realtime/MCWSCommandStreamProvider.js distjs1/realtime/MCWSCommandStreamProvider.js
+8d7
+<     'use strict';
+diff -r src/realtime/MCWSDataProductStreamProvider.js distjs1/realtime/MCWSDataProductStreamProvider.js
+8d7
+<     'use strict';
+57c56
+<     }
+---
+>     };
+diff -r src/realtime/MCWSEVRLevelStreamProvider.js distjs1/realtime/MCWSEVRLevelStreamProvider.js
+10d9
+<     'use strict';
+diff -r src/realtime/MCWSEVRStreamProvider.js distjs1/realtime/MCWSEVRStreamProvider.js
+10d9
+<     'use strict';
+59,60c58
+<                 };
+<             }
+---
+>                 }            };
+diff -r src/realtime/MCWSFrameEventStreamProvider.js distjs1/realtime/MCWSFrameEventStreamProvider.js
+8d7
+<     'use strict';
+diff -r src/realtime/MCWSFrameSummaryStreamProvider.js distjs1/realtime/MCWSFrameSummaryStreamProvider.js
+8d7
+<     'use strict';
+diff -r src/realtime/MCWSMessageStreamProvider.js distjs1/realtime/MCWSMessageStreamProvider.js
+8d7
+<     'use strict';
+diff -r src/realtime/MCWSPacketSummaryEventProvider.js distjs1/realtime/MCWSPacketSummaryEventProvider.js
+8d7
+<     'use strict';
+diff -r src/realtime/MCWSStreamProvider.js distjs1/realtime/MCWSStreamProvider.js
+14d13
+<     'use strict';
+123c122
+<         }
+---
+>         };
+236c235
+<             }, {})
+---
+>             }, {});
+257c256
+<     }
+---
+>     };
+280c279
+<     }
+---
+>     };
+diff -r src/realtime/MCWSStreamWorker.js distjs1/realtime/MCWSStreamWorker.js
+10c10
+< export default function run() {
+---
+> function run() {
+12a13,14
+> 
+> export { run as default };
+diff -r src/realtime/MCWSStreamWorkerScript.js distjs1/realtime/MCWSStreamWorkerScript.js
+3d2
+<     "use strict";
+243c242
+<             cacheKey += '__' + filterComponent
+---
+>             cacheKey += '__' + filterComponent;
+246c245
+<     }
+---
+>     };
+diff -r src/realtimeIndicator/plugin.js distjs1/realtimeIndicator/plugin.js
+1,2c1
+< import Vue from 'vue';
+< import RealtimeIndicator from './RealtimeIndicator.vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+4c3,71
+< export default function plugin(vistaTime) {
+---
+> const UTC_DEFAULT_FORMAT = openmctMCWSConfig.time.utcFormat;
+> var RealtimeIndicator = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-indicator"},[_c('div',{staticClass:"c-indicator icon-clock",class:_vm.cssClass},[_c('span',{staticClass:"label c-indicator__label"},[_vm._v(_vm._s(_vm.currentValue.text))])])])},
+> staticRenderFns: [],
+>     inject: [
+>         'openmct',
+>         'vistaTime'
+>     ],
+>     data() {
+>         return {
+>             currentValue: {
+>                 text: 'Last real-time display update: never', 
+>                 cssClass: ''
+>             },
+>         }
+>     },
+>     methods: {
+>         isRefreshRateNominal(newTimestamp, lastTimestamp) {
+>             if (newTimestamp - lastTimestamp <= 100) {
+>                 return true;
+>             }
+>             return false;
+>         },
+>         setTick() {
+>             try {
+>                 let timestamp = new Date();
+>                 if (this.isRefreshRateNominal(timestamp, this.lastTimestamp)) {
+>                     this.currentValue = {
+>                         text: 'Data Rate is higher than 10hz, display may update less than once per second',
+>                         cssClass: 's-status-caution'
+>                     };
+>                 } else {
+>                     let formattedTimestamp =  this.format.format(new Date());
+> 
+>                     this.currentValue = {
+>                         text: 'Last real-time display update: ' + formattedTimestamp,
+>                         cssClass: 's-status-on'
+>                     };
+>                 };
+>                 this.lastTimestamp = timestamp;
+>             } catch (e) {
+>                 // don't break.
+>             }
+>         }
+>     },
+>     computed: {
+>         cssClass() {
+>             let className = this.currentValue['cssClass'];
+>             let classObject = {};
+>             classObject[className] = className.length > 0;
+>             return classObject;
+>         }
+>     },
+>     mounted() {
+>             this.lastTimestamp = new Date();
+>             this.format = this.openmct.telemetry.getFormatter(UTC_DEFAULT_FORMAT);
+> 
+>             if (this.vistaTime.ladClocks.ert) {
+>                 this.vistaTime.ladClocks.ert.on('tick', this.setTick.bind(this));
+>             }
+>     },
+>     beforeDestroy() {
+>         if (this.vistaTime.ladClocks.ert) {
+>             this.vistaTime.ladClocks.ert.off('tick', this.setTick.bind(this));
+>         }
+>     }
+> };
+> 
+> function plugin(vistaTime) {
+13c80
+<             let component  = new Vue ({
+---
+>             new Vue ({
+27a95
+> export { plugin as default };
+Only in src/realtimeIndicator: RealtimeIndicator.vue
+Only in src/realtimeSessions: components
+diff -r src/realtimeSessions/plugin.js distjs1/realtimeSessions/plugin.js
+1,2c1,2
+< import Vue from 'vue';
+< import RealtimeSessionIndicator from './components/RealtimeSessionIndicator.vue';
+---
+> import { V as Vue } from '../vue.runtime.esm-15b08281.js';
+> import SessionService from 'services/session/SessionService';
+4c4,183
+< export default function plugin(vistaTime) {
+---
+> var RealtimeSessionSelector = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"u-contents"},[(_vm.isLoading)?[_vm._m(0),_vm._v(" "),_vm._m(1)]:_vm._e(),_vm._v(" "),[_vm._m(2),_vm._v(" "),_c('div',{staticClass:"c-overlay__dialog-hint"},[(_vm.topics.length)?_c('span',[_vm._v("Select a topic or session")]):_c('span',[_vm._v("No topics are currently available")])]),_vm._v(" "),_c('div',{staticClass:"l-topics-tree-wrapper selector-list"},[_c('ul',{staticClass:"c-tree l-topics-tree"},_vm._l((_vm.topics),function(topic,index){return _c('li',{key:index,staticClass:"c-tree__item-h"},[_c('div',{staticClass:"c-tree__item",class:{ 'is-selected': topic.selected }},[_c('span',{staticClass:"c-disclosure-triangle c-tree__item__view-control",class:{
+>                                 'c-disclosure-triangle--expanded': topic.expanded,
+>                                 'is-enabled': topic.sessions.length
+>                             },on:{"click":function($event){topic.expanded = !topic.expanded;}}}),_vm._v(" "),_c('div',{staticClass:"c-object-label c-tree__item__label",on:{"click":function($event){return _vm.select(topic)}}},[_c('span',{staticClass:"c-tree__item__type-icon c-object-label__type-icon icon-topic"}),_vm._v(" "),_c('div',{staticClass:"c-tree__item__name c-object-label__name"},[_vm._v("\n                                "+_vm._s(topic.data.topic)+"\n                            ")])])]),_vm._v(" "),_c('span',{directives:[{name:"show",rawName:"v-show",value:(topic.expanded),expression:"topic.expanded"}],staticClass:"c-tree__item__subtree"},[_c('ul',{staticClass:"c-tree"},_vm._l((topic.sessions),function(session,index){return _c('li',{key:index,staticClass:"c-tree__item-h"},[_c('span',{staticClass:"c-tree__item",class:{ 'is-selected': session.selected },on:{"click":function($event){return _vm.select(session)}}},[_c('div',{staticClass:"c-object-label c-tree__item__label"},[_c('span',{staticClass:"c-tree__item__type-icon c-object-label__type-icon icon-session"}),_vm._v(" "),_c('div',{staticClass:"c-tree__item__name c-object-label__name"},[_vm._v("\n                                            "+_vm._s(session.data.number)+"\n                                        ")])])])])}),0)])])}),0)]),_vm._v(" "),_c('div',{staticClass:"c-overlay__button-bar"},[_c('button',{staticClass:"c-button c-button--major",class:{ disabled: !_vm.selection },on:{"click":function($event){return _vm.setActiveTopicOrSession()}}},[_vm._v("\n                Connect\n            ")]),_vm._v(" "),_c('button',{staticClass:"c-button",on:{"click":function($event){return _vm.cancel()}}},[_vm._v("\n                Cancel\n            ")])])]],2)},
+> staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-overlay__top-bar"},[_c('div',{staticClass:"c-overlay__dialog-title"},[_vm._v("Loading Real-time Data Sources...")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-overlay__contents-main c-hss__view-wrapper"},[_c('div',{staticClass:"wait-spinner"})])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"c-overlay__top-bar"},[_c('div',{staticClass:"c-overlay__dialog-title"},[_vm._v("Select Real-time Data Source")])])}],
+>     inject: [
+>         'openmct'
+>     ],
+>     data() {
+>         return {
+>             isLoading: true,
+>             selection: undefined,
+>             topics: [],
+>             modelStore: []
+>         }
+>     },
+>     mounted() {
+>         this.sessionService = SessionService();
+>         this.loadSessions();
+> 
+>         this.openOverlay();
+>     },
+>     methods: {
+>         select(model) {
+>             this.modelStore.forEach(otherModel => {
+>                 otherModel.selected = false;
+>             });
+> 
+>             model.selected = true;
+> 
+>             this.selection = model;
+>         },
+>         setActiveTopicOrSession() {
+>             this.sessionService.setActiveTopicOrSession(this.selection.data);
+> 
+>             this.closeOverlay();
+>         },
+>         cancel() {
+>             this.closeOverlay();
+>         },
+>         loadSessions() {
+>             this.isLoading = true;
+>             this.selection = undefined;
+>             this.topics = [];
+>             this.modelStore = [];
+> 
+>             this.sessionService
+>                 .getTopicsWithSessions()
+>                 .then(topics => {
+>                     this.topics = topics.map(this.topicAsModel);
+>                 })
+>                 .finally(() => {
+>                     this.isLoading = false;
+>                 });
+>         },
+>         topicAsModel(topic) {
+>             const sessions = topic.sessions.map(session => this.sessionAsModel(session));
+>             const isSessionSelected = sessions.some(session => session.selected);
+> 
+>             const topicModel = {
+>                 selected: this.sessionService.isActiveTopic(topic) && !isSessionSelected,
+>                 data: topic,
+>                 expanded: isSessionSelected,
+>                 sessions
+>             };
+> 
+>             if (topicModel.selected) {
+>                 this.selection = topicModel;
+>             }
+> 
+>             this.modelStore.push(topicModel);
+> 
+>             return topicModel;
+>         },
+>         sessionAsModel(session) {
+>             const sessionModel = {
+>                 selected: this.sessionService.isActiveSession(session),
+>                 data: session
+>             };
+> 
+>             if (sessionModel.selected) {
+>                 this.selection = sessionModel;
+>             }
+> 
+>             this.modelStore.push(sessionModel);
+> 
+>             return sessionModel;
+>         },
+>         openOverlay() {
+>             this.overlay = this.openmct.overlays.overlay({
+>                 element: this.$el,
+>                 size: 'large',
+>                 dismissable: true,
+>                 onDestroy: () => {
+>                     this.$emit('close-session-selector');
+>                 }
+>             });
+>         },
+>         closeOverlay() {
+>             if (this.overlay) {
+>                 this.overlay.dismiss();
+>                 delete this.overlay;
+>             }
+>         }
+>     }
+> };
+> 
+> var RealtimeSessionIndicator = {
+> render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-indicator"},[_c('div',{staticClass:"c-indicator icon-topic",class:{
+>             's-status-on': _vm.hasActiveSession,
+>             's-status-available': _vm.hasTopics && !_vm.hasActiveSession
+>         }},[(_vm.realtimeSessionDisabled)?_c('span',{staticClass:"c-indicator__label"},[_vm._v("Real-time Disabled in Config")]):_c('span',{staticClass:"c-indicator__label"},[(_vm.hasActiveSession)?_c('span',[_vm._v("\n                Connected to\n                "+_vm._s(_vm.activeSession.topic)+"\n                "+_vm._s(_vm.activeSession.number)+"\n                "),_c('button',{on:{"click":function($event){return _vm.openSessionSelector()}}},[_vm._v("Change")]),_vm._v(" "),_c('button',{on:{"click":function($event){return _vm.disconnect()}}},[_vm._v("Disconnect")])]):_vm._e(),_vm._v(" "),(_vm.hasTopics && !_vm.hasActiveSession)?_c('span',[_vm._v("\n                Real-time Available\n                "),_c('button',{on:{"click":function($event){return _vm.openSessionSelector()}}},[_vm._v("\n                    Select\n                ")])]):_vm._e(),_vm._v(" "),(!_vm.hasTopics && !_vm.hasActiveSession)?_c('span',[_vm._v("\n                Real-time Not Available\n            ")]):_vm._e()])]),_vm._v(" "),(_vm.showSessionSelector)?_c('RealtimeSessionSelector',{on:{"close-session-selector":_vm.closeSessionSelector}}):_vm._e()],1)},
+> staticRenderFns: [],
+>     components: {
+>         RealtimeSessionSelector
+>     },
+>     inject: [
+>         'openmct'
+>     ],
+>     data() {
+>         return {
+>             hasTopics: undefined,
+>             activeSession: undefined,
+>             showSessionSelector: false,
+>             realtimeSessionDisabled: undefined
+>         }
+>     },
+>     mounted() {
+>         this.sessionService = SessionService();
+>         this.realtimeSessionDisabled = this.sessionService.realtimeSessionConfig.disable;
+>         this.activeSession = this.sessionService.getActiveTopicOrSession();
+>         this.stopListening = this.sessionService.listen(this.onActiveSessionChange);
+> 
+>         this.pollForSessions();
+>     },
+>     beforeDestroy() {
+>         this.stopListening?.();
+>     },
+>     computed: {
+>         hasActiveSession() {
+>             return this.activeSession !== undefined;
+>         }
+>     },
+>     methods: {
+>         pollForSessions() {
+>             if (!this.activeSession) {
+>                 this.sessionService
+>                     .getTopicsWithSessions()
+>                     .then(topics => {
+>                         this.hasTopics = topics.length > 0;
+>                     });
+>             }
+> 
+>             if (this.activeTimeout) {
+>                 clearTimeout(this.activeTimeout);
+>             }
+> 
+>             this.activeTimeout =
+>                 setTimeout(() => {
+>                     this.pollForSessions();
+>                 }, 15000);
+>         },
+>         disconnect() {
+>             this.sessionService.setActiveTopicOrSession(undefined);
+>         },
+>         onActiveSessionChange(session) {
+>             this.activeSession = session;
+>             this.pollForSessions();
+>         },
+>         openSessionSelector() {
+>             this.showSessionSelector = true;
+>         },
+>         closeSessionSelector() {
+>             this.showSessionSelector = false;
+>         },
+>     }
+> };
+> 
+> function plugin(vistaTime) {
+13c192
+<             let component  = new Vue ({
+---
+>             new Vue ({
+26a206
+> export { plugin as default };
+diff -r src/services/dataset/ChannelDictionary.js distjs1/services/dataset/ChannelDictionary.js
+76c76
+<     }
+---
+>     };
+diff -r src/services/dataset/DatasetCache.js distjs1/services/dataset/DatasetCache.js
+1d0
+< //import Dataset from './Dataset'
+2a2,3
+> 
+> //import Dataset from './Dataset'
+90c91
+< export default function(openmct) {
+---
+> function DatasetCache$1(openmct) {
+96a98,99
+> 
+> export { DatasetCache$1 as default };
+diff -r src/services/dataset/Dataset.js distjs1/services/dataset/Dataset.js
+74c74
+<             }
+---
+>             };
+79c79
+<             }
+---
+>             };
+84c84
+<             }
+---
+>             };
+diff -r src/services/dataset/EVRDictionary.js distjs1/services/dataset/EVRDictionary.js
+12,13c12
+<     const mcws = mcwsDefault.default;;
+< 
+---
+>     const mcws = mcwsDefault.default;
+78c77
+<     }
+---
+>     };
+diff -r src/services/identity/createMCWSUser.js distjs1/services/identity/createMCWSUser.js
+1,2c1
+< 
+< export default function createMCWSUser(UserClass) {
+---
+> function createMCWSUser(UserClass) {
+15a15,16
+> 
+> export { createMCWSUser as default };
+diff -r src/services/identity/MCWSIdentityProvider.js distjs1/services/identity/MCWSIdentityProvider.js
+2c2
+< import createMCWSUser from './createMCWSUser';
+---
+> import createMCWSUser from './createMCWSUser.js';
+4c4
+< export default class UserProvider {
+---
+> class UserProvider {
+44a45,46
+> 
+> export { UserProvider as default };
+diff -r src/services/identity/MCWSIdentityProviderSpec.js distjs1/services/identity/MCWSIdentityProviderSpec.js
+1c1
+< import MCWSIdentityProvider from './MCWSIdentityProvider';
+---
+> import UserProvider from './MCWSIdentityProvider.js';
+2a3
+> import './createMCWSUser.js';
+39c40
+<         }
+---
+>         };
+41c42
+<         identityProvider = new MCWSIdentityProvider(mockOpenmct);
+---
+>         identityProvider = new UserProvider(mockOpenmct);
+43c44
+<         mockNamespace = jasmine.createSpyObj('namespace', ['read'])
+---
+>         mockNamespace = jasmine.createSpyObj('namespace', ['read']);
+diff -r src/services/mcws/DataTableMIO.js distjs1/services/mcws/DataTableMIO.js
+1,2c1,4
+< import MIO from './MIO';
+<     
+---
+> import MIO from './MIO.js';
+> import './MCWSParameters.js';
+> import './MCWSClient.js';
+> 
+33c35
+< export default DataTableMIO;
+---
+> export { DataTableMIO as default };
+diff -r src/services/mcws/MCWSClient.js distjs1/services/mcws/MCWSClient.js
+123c123
+< export default client;
+---
+> export { client as default };
+diff -r src/services/mcws/mcws.js distjs1/services/mcws/mcws.js
+1,4c1,6
+< import NamespaceMIO from './NamespaceMIO';
+< import DataTableMIO from './DataTableMIO';
+< import OpaqueFileMIO from './OpaqueFileMIO';
+< import client from './MCWSClient';
+---
+> import NamespaceMIO from './NamespaceMIO.js';
+> import DataTableMIO from './DataTableMIO.js';
+> import OpaqueFileMIO from './OpaqueFileMIO.js';
+> import client from './MCWSClient.js';
+> import './MIO.js';
+> import './MCWSParameters.js';
+30c32
+< export default mcws;
+---
+> export { mcws as default };
+diff -r src/services/mcws/MCWSParameters.js distjs1/services/mcws/MCWSParameters.js
+36c36
+<         }).join(',')
+---
+>         }).join(',');
+109c109
+< export default function MCWSParameters(parameters = {}) {
+---
+> function MCWSParameters(parameters = {}) {
+120a121,122
+> 
+> export { MCWSParameters as default };
+diff -r src/services/mcws/MIO.js distjs1/services/mcws/MIO.js
+1,3c1,2
+< import MCWSParameters from './MCWSParameters';
+< import mcwsClient from './MCWSClient';
+< 
+---
+> import MCWSParameters from './MCWSParameters.js';
+> import client from './MCWSClient.js';
+16c15
+< export default class MIO {
+---
+> class MIO {
+77c76
+<         return mcwsClient.request(options);
+---
+>         return client.request(options);
+160a160,161
+> 
+> export { MIO as default };
+diff -r src/services/mcws/NamespaceMIO.js distjs1/services/mcws/NamespaceMIO.js
+1,3c1,5
+< import MIO from './MIO';
+< import OpaqueFileMIO from './OpaqueFileMIO';
+< import DataTableMIO from './DataTableMIO';
+---
+> import MIO from './MIO.js';
+> import OpaqueFileMIO from './OpaqueFileMIO.js';
+> import DataTableMIO from './DataTableMIO.js';
+> import './MCWSParameters.js';
+> import './MCWSClient.js';
+128c130
+< export default NamespaceMIO;
+\ No newline at end of file
+---
+> export { NamespaceMIO as default };
+diff -r src/services/mcws/OpaqueFileMIO.js distjs1/services/mcws/OpaqueFileMIO.js
+1c1,3
+< import MIO from './MIO';
+---
+> import MIO from './MIO.js';
+> import './MCWSParameters.js';
+> import './MCWSClient.js';
+76c78
+< export default OpaqueFileMIO;
+---
+> export { OpaqueFileMIO as default };
+diff -r src/services/mcws/StreamWorker.js distjs1/services/mcws/StreamWorker.js
+3d2
+<     "use strict";
+246d244
+< 
+diff -r src/services/session/SessionService.js distjs1/services/session/SessionService.js
+3c3,4
+< import SessionURLHandler from './SessionURLHandler';
+---
+> import SessionURLHandler from './SessionURLHandler.js';
+> 
+83d83
+<                 cb !== callback;
+103d102
+<                 cb !== callback;
+472c471
+< export default function(openmct, openmctMCWSConfig) {
+---
+> function SessionService$1(openmct, openmctMCWSConfig) {
+478a478,479
+> 
+> export { SessionService$1 as default };
+diff -r src/services/session/SessionURLHandler.js distjs1/services/session/SessionURLHandler.js
+1c1
+< export default class SessionURLHandler {
+---
+> class SessionURLHandler {
+117a118,119
+> 
+> export { SessionURLHandler as default };
+diff -r src/services/session/test/controllers/SessionIndicatorControllerSpec.js distjs1/services/session/test/controllers/SessionIndicatorControllerSpec.js
+9d8
+<     'use strict';
+17d15
+<             instantiate,
+37c35
+<             }
+---
+>             };
+diff -r src/services/session/test/controllers/SessionSelectorControllerSpec.js distjs1/services/session/test/controllers/SessionSelectorControllerSpec.js
+9d8
+<     'use strict';
+281d279
+< 
+diff -r src/services/session/test/service/SessionServiceSpec.js distjs1/services/session/test/service/SessionServiceSpec.js
+10d9
+<     'use strict';
+20c19
+<             sessionHistoricalTopic
+---
+>             sessionHistoricalTopic;
+130c129
+<             }
+---
+>             };
+319c318
+<                 const count = Object.keys(datasetCache.datasets).length
+---
+>                 const count = Object.keys(datasetCache.datasets).length;
+372d370
+<             let historicalSessions;
+405d402
+<                         historicalSessions = sessions;
+418c415
+<                 const count = Object.keys(datasetCache.datasets).length
+---
+>                 const count = Object.keys(datasetCache.datasets).length;
+diff -r src/services/time/vistaTime.js distjs1/services/time/vistaTime.js
+1c1
+< export default function getVistaTime(
+---
+> function getVistaTime(
+37a38,39
+> 
+> export { getVistaTime as default };
+diff -r src/tables/VistaTableConfigurationProvider.js distjs1/tables/VistaTableConfigurationProvider.js
+14c14
+<     }
+---
+>     };
+50c50
+< });
+\ No newline at end of file
+---
+> });
+diff -r src/taxonomy/DatasetCompositionProvider.js distjs1/taxonomy/DatasetCompositionProvider.js
+17,18c17
+<     };
+< 
+---
+>     }
+diff -r src/taxonomy/injectEVRStylesheet.js distjs1/taxonomy/injectEVRStylesheet.js
+53c53
+<                 })
+---
+>                 });
+67c67
+<                 })
+---
+>                 });
+80d79
+< 
+diff -r src/taxonomy/plugin.js distjs1/taxonomy/plugin.js
+47c47
+<             const utcTimeSystems = openmct.time.getAllTimeSystems().filter(ts => ts.key !== 'utc')
+---
+>             const utcTimeSystems = openmct.time.getAllTimeSystems().filter(ts => ts.key !== 'utc');
+Only in src: tree,txt
+diff -r src/types/AlarmMessageStreamType.js distjs1/types/AlarmMessageStreamType.js
+1d0
+< 
+diff -r src/types/ChannelSourceType.js distjs1/types/ChannelSourceType.js
+19c19
+<             var identifierParts = match[1].split(':');
+---
+>             match[1].split(':');
+diff -r src/types/DataProductsType.js distjs1/types/DataProductsType.js
+11c11
+<     }
+---
+>     };
+diff -r src/types/HeaderChannelSourceType.js distjs1/types/HeaderChannelSourceType.js
+3c3
+< export default new VISTAType({
+---
+> var HeaderChannelSourceType = new VISTAType({
+31c31,33
+< })
+---
+> });
+> 
+> export { HeaderChannelSourceType as default };
+diff -r src/types/HeaderChannelType.js distjs1/types/HeaderChannelType.js
+0a1,2
+> import HeaderChannelSourceType from './HeaderChannelSourceType.js';
+> 
+2d3
+< import HeaderChannelSourceType from './HeaderChannelSourceType'
+4c5
+< export default new VISTAType({
+---
+> var HeaderChannelType = new VISTAType({
+24c25
+<         const name = data.channelId || 'MISSING CHANNEL ID'
+---
+>         const name = data.channelId || 'MISSING CHANNEL ID';
+62c63,65
+< })
+---
+> });
+> 
+> export { HeaderChannelType as default };
+diff -r src/types/types.js distjs1/types/types.js
+105d104
+< 
+diff -r src/types/VISTAType.js distjs1/types/VISTAType.js
+88c88
+<     }
+---
+>     };
+diff -r src/utils/promises.js distjs1/utils/promises.js
+18,20c18
+< export {
+<     dynamicPromiseAll
+< };
+---
+> export { dynamicPromiseAll };
+diff -r src/venues/controllers/ActiveSessionSelectorController.js distjs1/venues/controllers/ActiveSessionSelectorController.js
+46c46
+<                 })
+---
+>                 });
+diff -r src/venues/controllers/HistoricalSessionSelectorController.js distjs1/venues/controllers/HistoricalSessionSelectorController.js
+8d7
+<     'use strict';
+Only in src/venues: templates
+diff -r src/venues/Venue.js distjs1/venues/Venue.js
+49c49
+<     }
+---
+>     };
+53c53
+<     }
+---
+>     };
+59c59
+<     }
+---
+>     };
+diff -r src/venues/VenueService.js distjs1/venues/VenueService.js
+46c46
+<     }
+---
+>     };
+105c105
+<             findVenue = this.findSelectedVenue(config.session)
+---
+>             findVenue = this.findSelectedVenue(config.session);
+Only in distjs1: vue.runtime.esm-15b08281.js

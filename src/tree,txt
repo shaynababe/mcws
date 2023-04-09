@@ -1,0 +1,376 @@
+[4.0K Apr  8 17:29]  .
+├── [4.0K Apr  8 14:57]  actionModifiers
+│   ├── [4.0K Apr  8 14:57]  ImportExportWithDatasets
+│   │   ├── [4.8K Apr  8 14:57]  ImportWithDatasetsFormComponent.vue
+│   │   └── [6.4K Apr  8 14:57]  importWithDatasetsModifier.js
+│   ├── [ 471 Apr  8 14:57]  plugin.js
+│   └── [ 747 Apr  8 14:57]  preventImportIntoDatasetModifier.js
+├── [4.5K Apr  8 14:57]  AMMOSPlugins.js
+├── [4.0K Apr  8 14:57]  channelLimits
+│   ├── [1.6K Apr  8 14:57]  ChannelLimitsProvider.js
+│   ├── [ 226 Apr  8 14:57]  plugin.js
+│   └── [3.9K Apr  8 14:57]  pluginSpec.js
+├── [4.0K Apr  8 14:57]  channelTable
+│   ├── [4.0K Apr  8 14:57]  channelTableSetPlugin
+│   │   ├── [6.0K Apr  8 14:57]  ChannelRow.vue
+│   │   ├── [ 327 Apr  8 14:57]  ChannelTableSetCompositionPolicy.js
+│   │   ├── [1.1K Apr  8 14:57]  ChannelTableSetView.js
+│   │   ├── [ 842 Apr  8 14:57]  ChannelTableSetViewProvider.js
+│   │   ├── [5.1K Apr  8 14:57]  ChannelTableSet.vue
+│   │   └── [ 969 Apr  8 14:57]  plugin.js
+│   ├── [ 447 Apr  8 14:57]  constants.js
+│   └── [4.0K Apr  8 17:02]  channelTablePlugin
+│       ├── [1.6K Apr  8 14:57]  CellFormatConfigurationComponent.js
+│       ├── [ 486 Apr  8 14:57]  cell-format-configuration.html
+│       ├── [2.1K Apr  8 14:57]  ChannelTableFormatViewProvider.js
+│       ├── [5.8K Apr  8 14:57]  ChannelTable.js
+│       ├── [3.5K Apr  8 14:57]  ChannelTableRowCollection.js
+│       ├── [1019 Apr  8 14:57]  ChannelTableRow.js
+│       ├── [1.3K Apr  8 14:57]  EmptyChannelTableRow.js
+│       ├── [ 577 Apr  8 14:57]  ObjectNameColumn.js
+│       ├── [2.6K Apr  8 15:58]  ChannelTableViewProvider.js
+│       └── [1.6K Apr  8 16:01]  plugin.js
+├── [4.0K Apr  8 14:57]  clearDataIndicator
+│   ├── [4.0K Apr  8 14:57]  indicator
+│   │   └── [1.7K Apr  8 14:57]  clearDataIndicator.vue
+│   └── [ 720 Apr  8 14:57]  plugin.js
+├── [5.6K Apr  8 14:57]  constants.js
+├── [4.0K Apr  8 14:57]  containerView
+│   ├── [ 664 Apr  8 14:57]  BlankViewProvider.js
+│   ├── [1.2K Apr  8 14:57]  FolderGridViewProvider.js
+│   ├── [1.2K Apr  8 14:57]  FolderListViewProvider.js
+│   └── [ 902 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  customFormatter
+│   └── [ 413 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  dictionaryView
+│   ├── [4.0K Apr  8 14:57]  components
+│   │   └── [2.8K Apr  8 14:57]  dictionaryView.vue
+│   ├── [2.4K Apr  8 14:57]  dictionaryViewProvider.js
+│   ├── [4.5K Apr  8 14:57]  dictionaryViewTable.js
+│   └── [ 224 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  formats
+│   ├── [ 894 Apr  8 14:57]  JSONStringFormat.js
+│   ├── [4.0K Apr  8 14:57]  LMSTFormat.js
+│   ├── [2.8K Apr  8 14:57]  LMSTFormatSpec.js
+│   ├── [3.9K Apr  8 14:57]  MSLSOLFormat.js
+│   ├── [2.8K Apr  8 14:57]  MSLSOLFormatSpec.js
+│   ├── [ 804 Apr  8 14:57]  plugin.js
+│   ├── [ 683 Apr  8 14:57]  SCLKFloat64Format.js
+│   ├── [1.2K Apr  8 14:57]  SCLKFloat64FormatSpec.js
+│   ├── [2.1K Apr  8 14:57]  UTCDayOfYearFormat.js
+│   ├── [3.8K Apr  8 14:57]  UTCDayOfYearFormatSpec.js
+│   ├── [1.9K Apr  8 14:57]  UTCFormat.js
+│   ├── [3.1K Apr  8 14:57]  UTCFormatSpec.js
+│   └── [4.0K Apr  8 14:57]  utils
+│       └── [1.4K Apr  8 14:57]  DOY.js
+├── [4.0K Apr  8 14:57]  frameEventFilterView
+│   ├── [ 281 Apr  8 14:57]  FrameEventFilterTable.js
+│   ├── [2.7K Apr  8 14:57]  FrameEventFilterViewProvider.js
+│   └── [ 266 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  globalStaleness
+│   ├── [ 635 Apr  8 14:57]  globalStaleness.js
+│   └── [ 876 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  historical
+│   ├── [ 22K Apr  8 14:57]  HistoricalProvider.js
+│   ├── [4.4K Apr  8 14:57]  HistoricalProviderSpec.js
+│   └── [ 790 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  identity
+│   ├── [ 382 Apr  8 14:57]  close.html
+│   ├── [  42 Apr  8 14:57]  login.html
+│   ├── [2.6K Apr  8 14:57]  LoginService.js
+│   └── [ 448 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  images
+│   └── [4.0K Apr  8 14:57]  favicons
+│       ├── [ 331 Apr  8 14:57]  favicon-vista-16x16.png
+│       ├── [ 534 Apr  8 14:57]  favicon-vista-32x32.png
+│       └── [1.4K Apr  8 14:57]  favicon-vista-96x96.png
+├── [4.0K Apr  8 14:57]  legacy
+│   ├── [4.0K Apr  8 14:57]  ampcs-view-importer
+│   │   └── [8.9K Apr  8 14:57]  ViewImport.js
+│   ├── [4.0K Apr  8 14:57]  export
+│   │   ├── [ 856 Apr  8 14:57]  bundle.js
+│   │   ├── [4.0K Apr  8 14:57]  src
+│   │   │   ├── [2.6K Apr  8 14:57]  ExportDataAction.js
+│   │   │   └── [2.3K Apr  8 14:57]  ExportDataTask.js
+│   │   └── [4.0K Apr  8 14:57]  test
+│   │       ├── [8.3K Apr  8 14:57]  ExportDataActionSpec.js
+│   │       └── [5.2K Apr  8 14:57]  ExportDataTaskSpec.js
+│   ├── [4.0K Apr  8 14:57]  general
+│   │   └── [4.0K Apr  8 14:57]  res
+│   │       ├── [4.0K Apr  8 14:57]  images
+│   │       │   ├── [ 87K Apr  8 14:57]  bg-splash.jpg
+│   │       │   ├── [1.2K Apr  8 14:57]  logo-app-shdw.svg
+│   │       │   └── [762K Apr  8 14:57]  logo-app.svg
+│   │       └── [4.0K Apr  8 14:57]  sass
+│   │           ├── [  86 Apr  8 14:57]  _constants.scss
+│   │           └── [6.4K Apr  8 14:57]  vista.scss
+│   ├── [4.0K Apr  8 14:57]  products
+│   │   ├── [1.6K Apr  8 14:57]  bundle.js
+│   │   ├── [4.0K Apr  8 14:57]  res
+│   │   │   ├── [ 483 Apr  8 14:57]  packet-query.html
+│   │   │   └── [ 168 Apr  8 14:57]  product-dialog.html
+│   │   └── [4.0K Apr  8 14:57]  src
+│   │       ├── [2.6K Apr  8 14:57]  DataProductViewAggregator.js
+│   │       ├── [1.7K Apr  8 14:57]  EMDViewProvider.js
+│   │       ├── [1.9K Apr  8 14:57]  MCWSURLBuilder.js
+│   │       ├── [4.6K Apr  8 14:57]  PacketQueryController.js
+│   │       └── [ 432 Apr  8 14:57]  VistaProductView.js
+│   ├── [ 170 Apr  8 14:57]  README.md
+│   ├── [4.0K Apr  8 14:57]  table
+│   │   ├── [ 287 Apr  8 14:57]  bundle.js
+│   │   ├── [4.0K Apr  8 14:57]  res
+│   │   │   └── [4.0K Apr  8 14:57]  templates
+│   │   │       └── [3.8K Apr  8 14:57]  mct-table.html
+│   │   └── [4.0K Apr  8 14:57]  src
+│   │       ├── [4.0K Apr  8 14:57]  controllers
+│   │       │   └── [ 30K Apr  8 14:57]  MCTTableController.js
+│   │       └── [4.0K Apr  8 14:57]  directives
+│   │           └── [3.8K Apr  8 14:57]  MCTTable.js
+│   └── [4.0K Apr  8 14:57]  test
+│       ├── [1.4K Apr  8 14:57]  ControlledPromise.js
+│       └── [ 406 Apr  8 14:57]  go.js
+├── [4.0K Apr  8 14:57]  lib
+│   ├── [2.4K Apr  8 14:57]  eventHelpers.js
+│   ├── [ 995 Apr  8 14:57]  extend.js
+│   └── [ 431 Apr  8 14:57]  HistoricalContextTableRow.js
+├── [4.0K Apr  8 14:57]  link
+│   └── [1.3K Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  mcwsIndicator
+│   ├── [3.3K Apr  8 14:57]  MCWSIndicatorSpec.js
+│   ├── [1.8K Apr  8 14:57]  MCWSIndicator.vue
+│   └── [ 561 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  metadataAction
+│   ├── [4.0K Apr  8 14:57]  components
+│   │   └── [1.4K Apr  8 14:57]  metadataList.vue
+│   ├── [1.3K Apr  8 14:57]  metadataAction.js
+│   └── [ 194 Apr  8 14:57]  plugin.js
+├── [ 157 Apr  8 14:57]  Migrations.md
+├── [4.0K Apr  8 14:57]  multipleHistoricalSessions
+│   ├── [1.0K Apr  8 14:57]  HistoricalSessionMetadata.js
+│   ├── [4.0K Apr  8 14:57]  indicator
+│   │   └── [4.5K Apr  8 14:57]  historicalSessionIndicator.vue
+│   ├── [1.6K Apr  8 14:57]  plugin.js
+│   ├── [4.0K Apr  8 14:57]  sessionSelector
+│   │   └── [8.9K Apr  8 14:57]  historicalSessionSelector.vue
+│   └── [4.0K Apr  8 14:57]  sessionTable
+│       └── [4.0K Apr  8 14:57]  SessionTable.js
+├── [ 860 Apr  8 14:57]  notes.md
+├── [4.0K Apr  8 14:57]  packetQuery
+│   ├── [1.9K Apr  8 14:57]  MCWSURLBuilder.js
+│   ├── [1.5K Apr  8 14:57]  PacketQueryViewProvider.js
+│   ├── [ 241 Apr  8 14:57]  plugin.js
+│   └── [4.0K Apr  8 17:06]  components
+│       └── [6.6K Apr  8 15:47]  PacketQueryView.vue
+├── [4.0K Apr  8 14:57]  persistence
+│   ├── [ 15K Apr  8 14:57]  MCWSPersistenceProvider.js
+│   ├── [1.1K Apr  8 14:57]  plugin.js
+│   ├── [4.0K Apr  8 14:57]  test
+│   │   ├── [4.9K Apr  8 14:57]  MCWSNamespaceModelProviderSpec.js
+│   │   ├── [ 14K Apr  8 14:57]  MCWSNamespaceServiceSpec.js
+│   │   ├── [6.5K Apr  8 14:57]  MCWSPersistenceProviderSpec.js
+│   │   └── [ 126 Apr  8 14:57]  suite.json
+│   └── [1.5K Apr  8 14:57]  utils.js
+├── [4.0K Apr  8 14:57]  realtime
+│   ├── [2.6K Apr  8 14:57]  MCWSAlarmMessageStreamProvider.js
+│   ├── [ 787 Apr  8 14:57]  MCWSChannelStreamProvider.js
+│   ├── [ 968 Apr  8 14:57]  MCWSCommandStreamProvider.js
+│   ├── [2.5K Apr  8 14:57]  MCWSDataProductStreamProvider.js
+│   ├── [ 874 Apr  8 14:57]  MCWSEVRLevelStreamProvider.js
+│   ├── [2.9K Apr  8 14:57]  MCWSEVRStreamProvider.js
+│   ├── [1.4K Apr  8 14:57]  MCWSFrameEventStreamProvider.js
+│   ├── [1.3K Apr  8 14:57]  MCWSFrameSummaryStreamProvider.js
+│   ├── [2.1K Apr  8 14:57]  MCWSMessageStreamProvider.js
+│   ├── [1005 Apr  8 14:57]  MCWSPacketSummaryEventProvider.js
+│   ├── [ 11K Apr  8 14:57]  MCWSStreamProvider.js
+│   ├── [ 286 Apr  8 14:57]  MCWSStreamWorker.js
+│   ├── [8.9K Apr  8 14:57]  MCWSStreamWorkerScript.js
+│   └── [1.9K Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  realtimeIndicator
+│   ├── [ 717 Apr  8 14:57]  plugin.js
+│   └── [2.3K Apr  8 14:57]  RealtimeIndicator.vue
+├── [4.0K Apr  8 14:57]  realtimeSessions
+│   ├── [4.0K Apr  8 14:57]  components
+│   │   ├── [3.3K Apr  8 14:57]  RealtimeSessionIndicator.vue
+│   │   └── [6.7K Apr  8 14:57]  RealtimeSessionSelector.vue
+│   └── [ 725 Apr  8 14:57]  plugin.js
+├── [4.0K Apr  8 14:57]  services
+│   ├── [4.0K Apr  8 14:57]  identity
+│   │   ├── [ 371 Apr  8 14:57]  createMCWSUser.js
+│   │   ├── [1.1K Apr  8 14:57]  MCWSIdentityProvider.js
+│   │   └── [2.2K Apr  8 14:57]  MCWSIdentityProviderSpec.js
+│   ├── [4.0K Apr  8 14:57]  mcws
+│   │   ├── [ 838 Apr  8 14:57]  DataTableMIO.js
+│   │   ├── [3.0K Apr  8 14:57]  MCWSClient.js
+│   │   ├── [ 555 Apr  8 14:57]  mcws.js
+│   │   ├── [3.6K Apr  8 14:57]  MCWSParameters.js
+│   │   ├── [4.6K Apr  8 14:57]  MIO.js
+│   │   ├── [3.9K Apr  8 14:57]  NamespaceMIO.js
+│   │   ├── [2.3K Apr  8 14:57]  OpaqueFileMIO.js
+│   │   └── [7.3K Apr  8 14:57]  StreamWorker.js
+│   ├── [4.0K Apr  8 14:57]  time
+│   │   └── [1.3K Apr  8 14:57]  vistaTime.js
+│   ├── [4.0K Apr  8 15:41]  session
+│   │   ├── [3.5K Apr  8 14:57]  SessionLocalStorageHandler.js
+│   │   ├── [4.2K Apr  8 14:57]  SessionURLHandler.js
+│   │   ├── [4.0K Apr  8 14:57]  test
+│   │   │   ├── [4.0K Apr  8 14:57]  controllers
+│   │   │   │   ├── [6.8K Apr  8 14:57]  SessionIndicatorControllerSpec.js
+│   │   │   │   └── [ 10K Apr  8 14:57]  SessionSelectorControllerSpec.js
+│   │   │   └── [4.0K Apr  8 14:57]  service
+│   │   │       └── [ 16K Apr  8 14:57]  SessionServiceSpec.js
+│   │   └── [ 15K Apr  8 15:41]  SessionService.js
+│   └── [4.0K Apr  8 17:07]  dataset
+│       ├── [6.0K Apr  8 14:57]  ChannelDictionary.js
+│       ├── [8.7K Apr  8 14:57]  Dataset.js
+│       ├── [2.4K Apr  8 14:57]  EVRDictionary.js
+│       └── [2.8K Apr  8 15:43]  DatasetCache.js
+├── [4.0K Apr  8 14:57]  tables
+│   └── [1.6K Apr  8 14:57]  VistaTableConfigurationProvider.js
+├── [4.0K Apr  8 14:57]  taxonomy
+│   ├── [6.9K Apr  8 14:57]  ChannelAlarmPlugin.js
+│   ├── [3.0K Apr  8 14:57]  DatasetCompositionProvider.js
+│   ├── [3.0K Apr  8 14:57]  EVRHighlightProvider.js
+│   ├── [2.3K Apr  8 14:57]  FrameEventFilterObjectProvider.js
+│   ├── [2.4K Apr  8 14:57]  injectEVRStylesheet.js
+│   ├── [2.8K Apr  8 14:57]  plugin.js
+│   ├── [ 908 Apr  8 14:57]  TaxonomyCompositionProvider.js
+│   └── [1.8K Apr  8 14:57]  TaxonomyObjectProvider.js
+├── [4.0K Apr  8 14:57]  time
+│   ├── [ 674 Apr  8 14:57]  Clock.js
+│   ├── [ 325 Apr  8 14:57]  ERTTimeSystem.js
+│   ├── [ 377 Apr  8 14:57]  LADClock.js
+│   ├── [1.0K Apr  8 14:57]  LMSTTimeSystem.js
+│   ├── [1.0K Apr  8 14:57]  MSLSolTimeSystem.js
+│   ├── [4.9K Apr  8 14:57]  plugin.js
+│   ├── [ 328 Apr  8 14:57]  SCETTimeSystem.js
+│   ├── [ 328 Apr  8 14:57]  SCLKTimeSystem.js
+│   └── [ 512 Apr  8 14:57]  UTCClock.js
+├── [4.0K Apr  8 14:57]  utils
+│   └── [ 515 Apr  8 14:57]  promises.js
+├── [4.0K Apr  8 14:57]  venues
+│   ├── [4.0K Apr  8 14:57]  controllers
+│   │   ├── [1.8K Apr  8 14:57]  ActiveSessionSelectorController.js
+│   │   ├── [ 655 Apr  8 14:57]  ActiveVenueSelectorController.js
+│   │   ├── [3.7K Apr  8 14:57]  HistoricalSessionSelectorController.js
+│   │   ├── [ 989 Apr  8 14:57]  VenueController.js
+│   │   └── [1.8K Apr  8 14:57]  VenueDialogController.js
+│   ├── [4.7K Apr  8 14:57]  plugin.js
+│   ├── [4.0K Apr  8 14:57]  templates
+│   │   ├── [2.8K Apr  8 14:57]  active-session-selector.html
+│   │   ├── [ 395 Apr  8 14:57]  active-venue-selector.html
+│   │   ├── [2.1K Apr  8 14:57]  historical-session-selector.html
+│   │   ├── [3.9K Apr  8 14:57]  venue-dialog.html
+│   │   └── [ 329 Apr  8 14:57]  venue.html
+│   ├── [1.7K Apr  8 14:57]  Venue.js
+│   ├── [3.9K Apr  8 14:57]  VenueService.js
+│   └── [4.3K Apr  8 14:57]  VenueSpec.js
+├── [4.0K Apr  8 16:59]  evrView
+│   ├── [ 645 Apr  8 14:57]  EVRLevelIndicatorTableRow.js
+│   ├── [2.2K Apr  8 14:57]  EVRTable.js
+│   ├── [1.8K Apr  8 14:57]  EVRViewLevelsConfigurationViewProvider.js
+│   ├── [3.6K Apr  8 14:57]  EVRViewLevelsConfigurationView.vue
+│   ├── [3.2K Apr  8 14:57]  EVRViewProvider.js
+│   └── [1.5K Apr  8 15:55]  plugin.js
+├── [4.0K Apr  8 16:59]  frameaccountability
+│   ├── [2.0K Apr  8 14:57]  BadFramesTelemetryTable.js
+│   ├── [4.0K Apr  8 14:57]  components
+│   │   ├── [2.1K Apr  8 14:57]  frameAccountabilityBadFrames.vue
+│   │   ├── [9.0K Apr  8 14:57]  frameAccountability.js
+│   │   ├── [1.5K Apr  8 14:57]  frameAccountabilityNode.js
+│   │   └── [4.0K Apr  8 14:57]  res
+│   │       ├── [1.3K Apr  8 14:57]  frameAccountability.html
+│   │       └── [2.9K Apr  8 14:57]  frameAccountabilityNode.html
+│   ├── [ 396 Apr  8 14:57]  frameAccountabilityCompositionPolicy.js
+│   ├── [1.5K Apr  8 14:57]  plugin.js
+│   ├── [ 381 Apr  8 14:57]  sortedEventsCollection.js
+│   └── [1.7K Apr  8 15:54]  frameAccountabilityViewProvider.js
+├── [4.0K Apr  8 17:01]  framesummary
+│   ├── [4.0K Apr  8 14:57]  components
+│   │   └── [2.2K Apr  8 14:57]  FrameWatchViewComponent.vue
+│   ├── [2.0K Apr  8 14:57]  config.js
+│   ├── [4.0K Apr  8 14:57]  encodingwatch
+│   │   └── [1.1K Apr  8 14:57]  EncodingWatchRow.js
+│   ├── [ 769 Apr  8 14:57]  FrameWatchColumn.js
+│   ├── [1.4K Apr  8 14:57]  FrameWatchConfigurationViewProvider.js
+│   ├── [ 691 Apr  8 14:57]  FrameWatchRowCollection.js
+│   ├── [ 499 Apr  8 14:57]  FrameWatchRow.js
+│   ├── [2.4K Apr  8 14:57]  FrameWatchViewProvider.js
+│   ├── [2.9K Apr  8 14:57]  plugin.js
+│   ├── [3.6K Apr  8 15:52]  FrameWatchTable.js
+│   └── [ 721 Apr  8 15:53]  FrameWatchTableConfiguration.js
+├── [4.0K Apr  8 17:02]  alarmsView
+│   ├── [ 766 Apr  8 14:57]  AlarmsViewActions.js
+│   ├── [1.1K Apr  8 14:57]  AlarmsViewHistoricalContextTableRow.js
+│   ├── [2.8K Apr  8 14:57]  AlarmsViewProvider.js
+│   ├── [4.8K Apr  8 14:57]  AlarmsViewRowCollection.js
+│   ├── [1.6K Apr  8 14:57]  alarms-view-timeout.vue
+│   ├── [2.7K Apr  8 16:02]  AlarmsTable.js
+│   └── [3.0K Apr  8 16:02]  plugin.js
+├── [4.0K Apr  8 17:03]  commandEventsView
+│   ├── [ 613 Apr  8 14:57]  CommandEventsTable.js
+│   ├── [2.7K Apr  8 15:56]  CommandEventsViewProvider.js
+│   └── [1.7K Apr  8 16:59]  plugin.js
+├── [4.0K Apr  8 17:04]  messageStreamProcessor
+│   ├── [ 457 Apr  8 14:57]  plugin.js
+│   └── [5.9K Apr  8 15:48]  MessageStreamProcessor.js
+├── [4.0K Apr  8 17:05]  messagesView
+│   ├── [ 532 Apr  8 14:57]  MessagesTable.js
+│   ├── [2.6K Apr  8 14:57]  MessagesViewProvider.js
+│   └── [1.3K Apr  8 15:47]  plugin.js
+├── [4.0K Apr  8 17:06]  packetSummary
+│   ├── [1.6K Apr  8 14:57]  PacketSummaryRowCollection.js
+│   ├── [ 379 Apr  8 14:57]  PacketSummaryRow.js
+│   ├── [2.2K Apr  8 14:57]  PacketSummaryTable.js
+│   ├── [2.4K Apr  8 14:57]  PacketSummaryViewProvider.js
+│   ├── [1.5K Apr  8 15:45]  plugin.js
+│   └── [4.0K Apr  8 17:09]  components
+│       └── [2.2K Apr  8 14:57]  PacketSummaryViewComponent.vue
+├── [4.0K Apr  8 17:07]  product-status
+│   ├── [1.7K Apr  8 14:57]  data-product-autoclear.vue
+│   ├── [ 772 Apr  8 14:57]  DataProductCell.js
+│   ├── [1.8K Apr  8 14:57]  DataProductRowCollection.js
+│   ├── [4.7K Apr  8 14:57]  DataProductRow.js
+│   ├── [8.9K Apr  8 14:57]  DataProductRowSpec.js
+│   ├── [6.7K Apr  8 14:57]  DataProductTable.js
+│   ├── [1.1K Apr  8 14:57]  DataProductViewActions.js
+│   ├── [ 241 Apr  8 14:57]  DATColumn.js
+│   ├── [ 523 Apr  8 14:57]  DATDownloadCell.js
+│   ├── [ 241 Apr  8 14:57]  EMDColumn.js
+│   ├── [ 523 Apr  8 14:57]  EMDDownloadCell.js
+│   ├── [ 480 Apr  8 14:57]  EMDPreviewCell.js
+│   ├── [ 256 Apr  8 14:57]  EMDPreviewColumn.js
+│   ├── [ 243 Apr  8 14:57]  TXTColumn.js
+│   ├── [ 523 Apr  8 14:57]  TXTDownloadCell.js
+│   ├── [3.4K Apr  8 15:44]  DataProductViewProvider.js
+│   ├── [3.6K Apr  8 15:45]  plugin.js
+│   └── [3.6K Apr  8 17:06]  4plugin.js
+├── [4.0K Apr  8 17:09]  types
+│   ├── [ 10K Apr  8 14:57]  AlarmMessageStreamType.js
+│   ├── [1.2K Apr  8 14:57]  ChannelAlarmsType.js
+│   ├── [1.5K Apr  8 14:57]  ChannelGroupType.js
+│   ├── [1.3K Apr  8 14:57]  ChannelSourceType.js
+│   ├── [6.4K Apr  8 14:57]  ChannelType.js
+│   ├── [6.7K Apr  8 14:57]  CommandEventsType.js
+│   ├── [4.4K Apr  8 14:57]  DataProductsType.js
+│   ├── [6.0K Apr  8 14:57]  DatasetType.js
+│   ├── [1.3K Apr  8 14:57]  DictionarySourceType.js
+│   ├── [1.6K Apr  8 14:57]  DictionaryType.js
+│   ├── [3.5K Apr  8 14:57]  EVRModuleType.js
+│   ├── [2.7K Apr  8 14:57]  EVRSourceType.js
+│   ├── [2.4K Apr  8 14:57]  EVRType.js
+│   ├── [ 616 Apr  8 14:57]  FrameEventFilterType.js
+│   ├── [3.3K Apr  8 14:57]  FrameEventType.js
+│   ├── [3.3K Apr  8 14:57]  FrameSummaryType.js
+│   ├── [2.9K Apr  8 14:57]  MessageType.js
+│   ├── [2.2K Apr  8 14:57]  PacketsType.js
+│   ├── [4.0K Apr  8 14:57]  PacketSummaryEventsType.js
+│   ├── [1.7K Apr  8 14:57]  plugin.js
+│   ├── [1.3K Apr  8 14:57]  TypeCompositionPolicy.js
+│   ├── [2.0K Apr  8 14:57]  TypeCompositionPolicySpec.js
+│   ├── [2.7K Apr  8 14:57]  types.js
+│   ├── [3.4K Apr  8 14:57]  VISTAType.js
+│   ├── [1.2K Apr  8 15:39]  HeaderChannelSourceType.js
+│   └── [2.0K Apr  8 15:40]  HeaderChannelType.js
+└── [   0 Apr  8 17:29]  tree,txt
+
+88 directories, 286 files
